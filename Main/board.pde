@@ -1,11 +1,8 @@
+class Board{
+
 int w=15, h=15, s=30;
 
-void setup(){
-  size(450,450);
-}
-
-
-void draw(){
+void ddraw(){
   int[][][]colors=new int[8][8][3];
   for(int i=0;i<8;i++){
     for(int j=0;j<8;j++){
@@ -63,6 +60,7 @@ void draw(){
     }
   }  
   
+}
 }
         
         
