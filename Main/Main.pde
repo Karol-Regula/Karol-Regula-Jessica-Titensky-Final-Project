@@ -17,12 +17,11 @@ void draw() {
       rect(100, 150, 200, 250);
   }
   if (mode == "gameScreen"){//would print the board and tiles and run the game code
-        Board b1=new Board();
-        b1.ddraw();
-  }
-  if (mousePressed){//detecting mousepresses, I made this ony to check if we can change the mode, a menu variable should change this in the future
-      mode = "gameScreen";//changes mode to the gameScreen
-  }
-  
 
+  }
+  if (mousePressed){//assume this is what mainmenu exits to
+      mode = "gameScreen";//changes mode to the gameScreen
+      GameScreen g1 = new GameScreen();//just creates gamescreen, the gamescreen class then takes over the setup
+      g1.boardSetup();//runs only once, sets up board
+  }
 }

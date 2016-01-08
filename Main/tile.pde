@@ -1,8 +1,8 @@
-class tile{
+class Tile{
     color bodyColor;//creates the color variable, think of "color" as you would think of an "int"
     
-    public tile(){
-        bodyColor = color(0, 255, 255);
+    public Tile(){
+        bodyColor = color(0, 55, 255);
     }
   
    public void print(){
