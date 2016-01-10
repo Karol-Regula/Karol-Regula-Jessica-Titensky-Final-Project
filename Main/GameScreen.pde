@@ -10,6 +10,27 @@ class GameScreen {
       tileDescription.add(t1);//adds new tile into Arraylist
       t1.print();//not updated to print everything
     }
-         System.out.println(tileDescription.get(3).xpos);
+    //System.out.println(tileDescription.get(3).xpos + " " + tileDescription.get(3).ypos);
+  }
+
+  public void detect() {
+    if (mousePressed) {//will check if mouse was pressed on a tile, tile will follow mouse
+      for (int x = 0; x < tileDescription.size(); x++) {
+        if (mouseX > tileDescription.get(x).xpos && mouseX < tileDescription.get(x).xpos + 30 &&
+          mouseY > tileDescription.get(x).ypos && mouseY < tileDescription.get(x).ypos + 30) {
+          System.out.println("got here");
+          /*
+          ===========================//this commented code is supposed to make the tile follow the mouse, it does not fully work as of now, mouse detection still works
+          while (! mousePressed) {//follows until next mouse press
+            System.out.println("and here");
+            Tile tc = tileDescription.get(x);
+            tc.xpos = mouseX;
+            tc.ypos = mouseY;
+            tc.print();
+            */
+          }
+        }
+      }
+    }
   }
 }
