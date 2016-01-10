@@ -18,9 +18,10 @@ void draw() {
     m1.detect();//detects mouse presses and where the mouse it
   }
   if (mode == "gameScreen") {//would print the board and tiles and run the game code
+    
   }
   if (mousePressed){//testing purposes
-      System.out.println(mouseX + " " + mouseY);
+     // System.out.println(mouseX + " " + mouseY); prints mouse position into console
   }
   //mouse pressed moved to MainMenu class
 }
