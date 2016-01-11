@@ -1,6 +1,6 @@
 class Board {
 
-  int w=15, h=15, s=30;
+  int w=17, h=17, s=30;
 
   void ddraw() {
     int[][][]colors=new int[8][8][3];
@@ -59,5 +59,10 @@ class Board {
         rect(i*s, j*s, s, s);
       }
     }
+
+    fill(0, 0, 0);
+    rect(480, 480, 30, 30); //finalize tiles changes on board
+    fill(126, 126, 126);
+    rect(480, 450, 30, 30); //put unfinalized tiles back on rack
   }
 }
