@@ -32,3 +32,11 @@ void draw() {
   }
   //mouse pressed moved to MainMenu class
 }
+
+//make boards and stuff into gloabl variables to avoid making new ones
+//clicking and dragging, redraw board and tiles
+//work out percentages for tiles
+//news gothic standard font
+//if time, computer predicts moves of player and adjusts accordinglly
+//overhaul coordinate system
+//read rules
