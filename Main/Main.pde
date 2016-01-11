@@ -4,7 +4,7 @@ GameScreen g1 = new GameScreen();//made these into global(ish) variables so that
 MainMenu m1 = new MainMenu();
 
 void setup() {
-  frameRate(5);
+  frameRate(60);
   //runs only at the beginning and does the initializing stuff
   size(450, 510);//window size
   background(255, 255, 0);//background color
@@ -15,12 +15,19 @@ void setup() {
   m1.setupMenu();//creates all the menus
 }
 
+void mouseClicked(){
+  g1.mouseClicked();
+}
+
 void draw() {
   if (mode == "mainMenu") {// all the menu buttons would exist here
     m1.detect();//detects mouse presses and where the mouse it
   }
   if (mode == "gameScreen") {//would print the board and tiles and run the game code
-    g1.detect();
+    //g1.detect();
+    //g1.mouseClicked();
+
+    
   }
   if (mousePressed){//testing purposes
      // System.out.println(mouseX + " " + mouseY); prints mouse position into console

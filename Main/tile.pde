@@ -1,17 +1,17 @@
 import java.util.Random;
 class Tile {
-  color bodyColor;//creates the color variable, think of "color" as you would think of an "int"
-  char letter;
-  boolean placed;
+  public color bodyColor;//creates the color variable, think of "color" as you would think of an "int"
+  public char letter;
+  public boolean placed;
   public int xpos;
-  int ypos;
+  public int ypos;
 
-  public Tile() {
+  public Tile(int xplace) {
     placed = false;
     bodyColor = color(180, 102, 5);
     letter = (char)('A' + Math.random() * 26);
     Random rand = new Random();
-    xpos = rand.nextInt(15) * 30;//top left vertex xpos, randomly scattered for now, still need to be acessed but we still don't have a nice permanenet place for them
+    xpos = xplace * 30;//top left vertex xpos, randomly scattered for now, still need to be acessed but we still don't have a nice permanenet place for them
     ypos = 480;//top left vertex ypos
   }
 
