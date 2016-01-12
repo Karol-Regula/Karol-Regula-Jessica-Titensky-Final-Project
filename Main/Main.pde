@@ -2,11 +2,14 @@ String mode;// literally determines what mode game is in
 
 GameScreen g1 = new GameScreen();//made these into global(ish) variables so that they do not have to re-initialized in every method that uses their methods
 MainMenu m1 = new MainMenu();
+public int size;
 
 void setup() {
+  size = 40;
   frameRate(60);
   //runs only at the beginning and does the initializing stuff
-  size(510, 510);//window size
+  //size(17 * size, 17 * size);//does not work, will not accept variables
+  size(680,680);//window size
   background(255, 255, 0);//background color
   //noStroke();//disables border
   //fill(0, 102);//sets color used for filling
@@ -33,10 +36,16 @@ void draw() {
   //mouse pressed moved to MainMenu class
 }
 
+//To do list
 //make boards and stuff into gloabl variables to avoid making new ones
 //clicking and dragging, redraw board and tiles
 //work out percentages for tiles
 //news gothic standard font
 //if time, computer predicts moves of player and adjusts accordinglly
 //overhaul coordinate system
+  //size command that makes window will not accept variables
 //read rules
+
+//bugs
+//Tiles stack on top of each other and then move as one big pile
+//Clicking outiside of button on main menu causes the entirety of processing to hang

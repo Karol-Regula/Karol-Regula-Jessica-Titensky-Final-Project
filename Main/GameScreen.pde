@@ -20,14 +20,14 @@ class GameScreen {
     Tile t=tileDescription.get(0);
     //if (mousePressed) {//will check if mouse was pressed on a tile, tile will follow mouse
     for (int x = 0; x < tileDescription.size(); x++) {
-      if (mouseX > tileDescription.get(x).xpos && mouseX < tileDescription.get(x).xpos + 30 &&
-        mouseY > tileDescription.get(x).ypos && mouseY < tileDescription.get(x).ypos + 30) {
-        if (mouseY>480) {
+      if (mouseX > tileDescription.get(x).xpos && mouseX < tileDescription.get(x).xpos + size &&
+        mouseY > tileDescription.get(x).ypos && mouseY < tileDescription.get(x).ypos + size) {
+        if (mouseY>16 * size) {
           System.out.println("got here");
           t=tileDescription.get(x);
           t.bodyColor=color(204, 159, 102);
           fill(t.bodyColor);
-          rect(t.xpos, t.ypos, 30, 30);
+          rect(t.xpos, t.ypos, size, size);
           return true;
           /*
           ===========================//this commented code is supposed to make the tile follow the mouse, it does not fully work as of now, mouse detection still works
@@ -54,26 +54,26 @@ class GameScreen {
     }
     System.out.println("pressed");
     fill(255, 255, 255);
-    rect(t.xpos, t.ypos, 30, 30);
+    rect(t.xpos, t.ypos, size, size);
     selected=false;
-    t.xpos=mouseX-mouseX%30;
-    t.ypos=mouseY-mouseY%30;
+    t.xpos=mouseX-mouseX%size;
+    t.ypos=mouseY-mouseY%size;//not sure about these
     t.bodyColor = color(180, 102, 5);
     t.print();
   }
 
   public void mouseClicked() {
-    if (480<mouseX && 510>mouseX && 450<mouseY && 480>mouseY) {
+    if (16 * size <mouseX && 17 * size >mouseX && 15 * size <mouseY && 16 * size >mouseY) {
       Board b1=new Board();
       b1.ddraw();
       for (int i=0; i<tileDescription.size(); i++) {
         fill(180, 102, 5);
-        rect(tileDescription.get(i).origx, tileDescription.get(i).origy, 30, 30);
+        rect(tileDescription.get(i).origx, tileDescription.get(i).origy, size, size);
         tileDescription.get(i).xpos=tileDescription.get(i).origx;
         tileDescription.get(i).ypos=tileDescription.get(i).origy;
       }
     } 
-    if (480<mouseX && 510>mouseX && 480<mouseY && 510>mouseY) {
+    if (16 * size <mouseX && 17 * size >mouseX && 16 * size <mouseY && 17 * size >mouseY) {
       System.out.println("MUAHAHA");
       for (int i=0; i<tileDescription.size(); i++) {
         Tile t =tileDescription.get(i);
