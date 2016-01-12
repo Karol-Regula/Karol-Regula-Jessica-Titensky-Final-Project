@@ -53,9 +53,7 @@ public void printTileDescription(){
         if (mouseY>16 * size) {
           System.out.println("got here");
           t=tileDescription.get(x);
-          t.bodyColor=color(204, 159, 102);
-          fill(t.bodyColor);
-          rect(t.xpos, t.ypos, size, size);
+          t.select();
           return true;
           /*
           ===========================//this commented code is supposed to make the tile follow the mouse, it does not fully work as of now, mouse detection still works

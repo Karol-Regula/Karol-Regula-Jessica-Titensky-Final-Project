@@ -29,6 +29,18 @@ class Tile {
     //testing
     //rect(90,90,30,30);//for now just a rectangle, tiles obviously have more variables
   }
+  
+  public void select(){
+    PFont f = createFont("Arial", 16, true);
+    bodyColor=color(204, 159, 102);
+    fill(bodyColor);  
+    rect(xpos, ypos, size, size);
+    textFont(f, 25);
+    fill(0, 0, 0);
+    text(letter, xpos + (size/2) - 7, ypos + (size/2) + 7);
+  }
+  
+  
 
   public int getxpos() {
     return xpos;
