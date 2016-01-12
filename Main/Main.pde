@@ -19,7 +19,9 @@ void setup() {
 }
 
 void mouseClicked() {
-  g1.mouseClicked();
+  if(mode=="gameScreen"){
+      g1.mouseClicked();
+  }
 }
 
 void draw() {
@@ -51,3 +53,9 @@ void draw() {
 //Tiles stack on top of each other and then move as one big pile
 //Clicking outiside of button on main menu causes the entirety of processing to hang
 //letter on tile changes with movement //FIXED
+
+//http://www.mieliestronk.com/corncob_caps.txt
+//make scores
+//player class
+//timer/padding
+//on main menu--size

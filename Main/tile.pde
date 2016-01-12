@@ -25,7 +25,7 @@ class Tile {
     rect(xpos, ypos, size, size);
     textFont(f, 25);
     fill(0, 0, 0);//this means that all of the shapes that are made will be filled until noFill() is run
-    text(letter, xpos + (size/2) - 7, ypos + (size/2) + 7);//has some manual adjustments made for now //===================================need to manually adjust
+    text(letter, xpos + (size/2) -size/5 , ypos + (size/2) +size/5);//has some manual adjustments made for now //===================================need to manually adjust
     //testing
     //rect(90,90,30,30);//for now just a rectangle, tiles obviously have more variables
   }
