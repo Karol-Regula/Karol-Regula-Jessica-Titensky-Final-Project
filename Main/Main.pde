@@ -49,3 +49,4 @@ void draw() {
 //bugs
 //Tiles stack on top of each other and then move as one big pile
 //Clicking outiside of button on main menu causes the entirety of processing to hang
+//letter on tile changes with movement //FIXED
