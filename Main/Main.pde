@@ -45,6 +45,7 @@ void draw() {
 //overhaul coordinate system
   //size command that makes window will not accept variables
 //read rules
+//some letters look off center, might need to add special adjustments for those
 
 //bugs
 //Tiles stack on top of each other and then move as one big pile

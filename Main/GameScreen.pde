@@ -1,21 +1,48 @@
+import java.util.*;
 class GameScreen {
 
   boolean selected=false;
 
-  ArrayList<Tile> tileDescription = new ArrayList<Tile>(1);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
+  ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
   //methods that need to run while game is in gamemode
-  int[] tileFrequency = new int[27];
+
+public void printTileDescription(){
+  Tile t = tileDescription.get(0);
+   for (int x = 0; x < tileDescription.size(); x++){
+     System.out.println(tileDescription.get(x).letter);
+   }
+}
 
   public void boardSetup() {
     Board b1 = new Board();
     b1.ddraw();
-    for (int x = 0; x < 100; x ++) {
-      Tile t1 = new Tile(x);
-      tileDescription.add(t1);//adds new tile into Arraylist
-      t1.print();//not updated to print everything
-    }
-    //System.out.println(tileDescription.get(3).xpos + " " + tileDescription.get(3).ypos);
+    createTiles();//creates tiles and places them in arrayList
+    printTileDescription();//could not make this into generic print array due to things not being global variables
+    placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
   }
+  //System.out.println(tileDescription.get(3).xpos + " " + tileDescription.get(3).ypos);
+
+  public void createTiles() {
+    int[] tileFrequency = new int[]{9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1};//contains the frequencies of all the letters, SPACES NOT YET INCLUDED
+    for (int i = 0; i < tileFrequency.length; i ++) {
+      for (int j = 0; j < tileFrequency[i]; j++) {
+        Tile t1 = new Tile(i, (char)('A' + i));
+        tileDescription.add(t1);//adds new tile into Arraylist
+    }
+  }
+  }
+  
+  public void placeTiles() {
+    Collections.shuffle(tileDescription);//shuffles Arraylist so that we do not have to choose elements randomly
+    for (int x = 0; x < 15; x++){
+      tileDescription.get(x).xpos = x * size;
+      tileDescription.get(x).ypos = 16 * size;
+      tileDescription.get(x).origx = x * size;
+      tileDescription.get(x).origy = 16 *size;
+      tileDescription.get(x).print();
+    }
+  }
+  
 
   public boolean detect() {
     Tile t=tileDescription.get(0);
@@ -62,16 +89,20 @@ class GameScreen {
     t.bodyColor = color(180, 102, 5);
     t.print();
   }
+  
+  
 
   public void mouseClicked() {
     if (16 * size <mouseX && 17 * size >mouseX && 15 * size <mouseY && 16 * size >mouseY) {
       Board b1=new Board();
       b1.ddraw();
-      for (int i=0; i<tileDescription.size(); i++) {
+      for (int i=0; i < tileDescription.size(); i++) {//temporary fix to all tiles printing in top left corner, but for now the game effectively has 15 tiles in play
+      //======================================================need to fix above line when implementing adding new tiles as the game is played by the players
         fill(180, 102, 5);
         rect(tileDescription.get(i).origx, tileDescription.get(i).origy, size, size);
         tileDescription.get(i).xpos=tileDescription.get(i).origx;
         tileDescription.get(i).ypos=tileDescription.get(i).origy;
+        tileDescription.get(i).print();
       }
     } 
     if (16 * size <mouseX && 17 * size >mouseX && 16 * size <mouseY && 17 * size >mouseY) {

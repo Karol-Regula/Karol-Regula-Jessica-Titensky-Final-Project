@@ -8,12 +8,14 @@ class Tile {
   public int origx;
   public int origy;
 
-  public Tile(int xplace) {
+  public Tile(int xplace, char whatLetter) {//have to rework xplace, might be redundant
     placed = false;
     bodyColor = color(180, 102, 5);
-    letter = (char)('A' + Math.random() * 26);
-    origx= xpos = xplace * size;//top left vertex xpos, randomly scattered for now, still need to be acessed but we still don't have a nice permanenet place for them
-    origy= ypos = size * 16;//top left vertex ypos
+    letter = whatLetter;
+    xpos = 10000;
+    ypos = 10000;//offsceen so that the method that reverts a placed tile does not print all unused tiles in top left corner.
+    origx= 10000;//top left vertex xpos, randomly scattered for now, still need to be acessed but we still don't have a nice permanenet place for them
+    origy= 10000;//top left vertex ypos
   }
 
   public void print() {
@@ -23,7 +25,7 @@ class Tile {
     rect(xpos, ypos, size, size);
     textFont(f, 25);
     fill(0, 0, 0);//this means that all of the shapes that are made will be filled until noFill() is run
-    text(letter, xpos + (size/2), ypos + (size/2));
+    text(letter, xpos + (size/2) - 7, ypos + (size/2) + 7);//has some manual adjustments made for now //===================================need to manually adjust
     //testing
     //rect(90,90,30,30);//for now just a rectangle, tiles obviously have more variables
   }
