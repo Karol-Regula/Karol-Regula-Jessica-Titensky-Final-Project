@@ -6,12 +6,12 @@ class GameScreen {
   ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
   //methods that need to run while game is in gamemode
 
-public void printTileDescription(){
-  Tile t = tileDescription.get(0);
-   for (int x = 0; x < tileDescription.size(); x++){
-     System.out.println(tileDescription.get(x).letter);
-   }
-}
+  public void printTileDescription() {
+    Tile t = tileDescription.get(0);
+    for (int x = 0; x < tileDescription.size(); x++) {
+      System.out.println(tileDescription.get(x).letter);
+    }
+  }
 
   public void boardSetup() {
     Board b1 = new Board();
@@ -28,13 +28,13 @@ public void printTileDescription(){
       for (int j = 0; j < tileFrequency[i]; j++) {
         Tile t1 = new Tile(i, (char)('A' + i));
         tileDescription.add(t1);//adds new tile into Arraylist
+      }
     }
   }
-  }
-  
+
   public void placeTiles() {
     Collections.shuffle(tileDescription);//shuffles Arraylist so that we do not have to choose elements randomly
-    for (int x = 0; x < 15; x++){
+    for (int x = 0; x < 15; x++) {
       tileDescription.get(x).xpos = x * size;
       tileDescription.get(x).ypos = 16 * size;
       tileDescription.get(x).origx = x * size;
@@ -42,7 +42,7 @@ public void printTileDescription(){
       tileDescription.get(x).print();
     }
   }
-  
+
 
   public boolean detect() {
     Tile t=tileDescription.get(0);
@@ -87,15 +87,63 @@ public void printTileDescription(){
     t.bodyColor = color(180, 102, 5);
     t.print();
   }
-  
-  
+
+  public boolean legit() {
+    for (int i=0; i<15*size; i+=size) {
+      String s="";
+      for (int j=0; j<15*size; j+=size) {
+        boolean b=false;
+        for (int k=0; k<tileDescription.size(); k++) {
+          Tile t=tileDescription.get(k);
+          if (t.xpos==i && t.ypos==j) {
+            s+=t.letter;
+            b=true;
+          }
+        }
+        if (!b) {
+          s+=" ";
+        }
+      }
+      String[] list=split(s, ' ');
+      for (int m=0; m<list.length; m++) {
+        //if list[m] isnt a word{
+        //return false;
+        //}
+      }
+    }
+    for (int i=0; i<15*size; i+=size) {
+      String s="";
+      for (int j=0; j<15*size; j+=size) {
+        boolean b=false;
+        for (int k=0; k<tileDescription.size(); k++) {
+          Tile t=tileDescription.get(k);
+          if (t.xpos==j && t.ypos==i) {
+            s+=t.letter;
+            b=true;
+          }
+        }
+        if (!b) {
+          s+=" ";
+        }
+      }
+      String[] list=split(s, ' ');
+      for (int m=0; m<list.length; m++) {
+        //if list[m] isnt a word{
+        //return false;
+        //}
+      }
+    }
+    return true;
+  }
+
+
 
   public void mouseClicked() {
     if (16 * size <mouseX && 17 * size >mouseX && 15 * size <mouseY && 16 * size >mouseY) {
       Board b1=new Board();
       b1.ddraw();
       for (int i=0; i < tileDescription.size(); i++) {//temporary fix to all tiles printing in top left corner, but for now the game effectively has 15 tiles in play
-      //======================================================need to fix above line when implementing adding new tiles as the game is played by the players
+        //======================================================need to fix above line when implementing adding new tiles as the game is played by the players
         fill(180, 102, 5);
         rect(tileDescription.get(i).origx, tileDescription.get(i).origy, size, size);
         tileDescription.get(i).xpos=tileDescription.get(i).origx;
@@ -104,14 +152,16 @@ public void printTileDescription(){
       }
     } 
     if (16 * size <mouseX && 17 * size >mouseX && 16 * size <mouseY && 17 * size >mouseY) {
-      System.out.println("MUAHAHA");
-      for (int i=0; i<tileDescription.size(); i++) {
-        Tile t =tileDescription.get(i);
-        if (t.origy!=t.ypos) {
-          t.placed=true;
+      if (legit()) {
+        System.out.println("MUAHAHA");
+        for (int i=0; i<tileDescription.size(); i++) {
+          Tile t =tileDescription.get(i);
+          if (t.origy!=t.ypos) {
+            t.placed=true;
+          }
+          t.origx=t.xpos;
+          t.origy=t.ypos;
         }
-        t.origx=t.xpos;
-        t.origy=t.ypos;
       }
     }
     if (selected) {
