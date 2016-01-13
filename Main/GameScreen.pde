@@ -99,71 +99,152 @@ class GameScreen {
     t.print();//why does this not print the score.
   }
 
-  public boolean legit() {
-    for (int i=0; i<15*size; i+=size) {
-      String s="";
-      for (int j=0; j<15*size; j+=size) {
-        boolean b=false;
-        for (int k=0; k<tileDescription.size(); k++) {
-          Tile t=tileDescription.get(k);
-          if (t.xpos==i && t.ypos==j) {
-            s+=t.letter;
-            b=true;
-          }
-        }
-        if (!b) {
-          s+=" ";
-        }
-      }
-      String[] list=split(s, ' ');
-      for (int m=0; m<list.length; m++) {
-        try {
-          File words = new File("words1.txt");//this won't work on the school computers, I hevn't figured out where processing looks for files, but it's not in any of the directories in the git folder
-          Scanner s1 = new Scanner(words);
-          while (s1.hasNext()) {//this thing takes forever to run
-            if (list[m].equals(s1.next())) {
-              return true;
-            }
-          }
-        }
-        catch (FileNotFoundException e) {
-          System.out.println("Put the file in the right place...");
+  public boolean ainb(String a, String[] b) {
+    for (int i=0; i<b.length; i++) {
+      if (a.equals("")) {
+      } else {
+        if (a.equals(b[i])) {
+          return true;
         }
       }
     }
-    for (int i=0; i<15*size; i+=size) {
-      String s="";
-      for (int j=0; j<15*size; j+=size) {
-        boolean b=false;
-        for (int k=0; k<tileDescription.size(); k++) {
-          Tile t=tileDescription.get(k);
-          if (t.xpos==j && t.ypos==i) {
-            s+=t.letter;
-            b=true;
-          }
-        }
-        if (!b) {
-          s+=" ";
-        }
-      }
-      String[] list=split(s, ' ');
-      for (int m=0; m<list.length; m++) {
-        try {
-          File words = new File("words1.txt");
-          Scanner s1 = new Scanner(words);
-          while (s1.hasNext()) {//this thing takes forever to run
-            if (list[m].equals(s1.next())) {
-              return true;
-            }
-          }
-        }
-        catch (FileNotFoundException e) {
-          System.out.println("Put the file in the right place...");
-        }
-      }
-    }
-
     return false;
+  }
+
+  public boolean asinb(ArrayList<String> a, String[] b) {
+    for (int i=0; i<a.size(); i++) {
+      if (!(ainb(a.get(i), b))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public String toString(String[] s) {
+    String ss="";
+    for (int i=0; i<s.length; i++) {
+      ss+=s+",";
+    }
+    return ss;
+  }
+
+  public ArrayList<String> sep(String letters) {
+    ArrayList<String> s=new ArrayList<String>();
+    String st="";
+    while (letters.length()>0) {
+      System.out.println(s);
+      if (letters.charAt(0)==' ') {
+        if (st.length()>0) {
+          s.add(st);
+          st="";
+        }
+        letters=letters.substring(1);
+      } else {
+        st+=letters.charAt(0);
+        letters=letters.substring(1);
+      }
+    }
+    return s;
+  }
+
+  public boolean legit() {
+    String[] words=loadStrings("words1.txt");
+    System.out.println(words[0]);
+    for (int i=0; i<15*size; i+=size) {
+      String s="";
+      for (int j=0; j<15*size; j+=size) {
+        boolean b=false;
+        for (int k=0; k<tileDescription.size(); k++) {
+          Tile t=tileDescription.get(k);
+          //System.out.println(i+"jjjj"+j+"kkkkk"+t.xpos+"llll"+t.ypos);
+          if (t.xpos==i && t.ypos==j) {
+            //System.out.println("LETTER"+t.letter+t.xpos+"  "+t.ypos);
+            s+=t.letter;
+            b=true;
+            //System.out.println("s "+s+b);
+          }
+        }
+        if (!b) {
+          //System.out.println("+");
+          s+=" ";
+        }
+        ArrayList<String> list=sep(s);
+        if (asinb(list, words)==false) {
+          System.out.println("NOTHERE");
+          return false;
+        }
+      }
+      //System.out.println(s+"SSS");
+      //String[] list0=split("a,,,b,c",',');
+      //System.out.println(list0[1]);
+      //System.out.println("SIZE"+list.size());
+      //System.out.println("word"+list[0]+"...");
+      //System.out.println(toString(list));
+      /*for (int m=0; m<list.length; m++) {
+       try {
+       File words = new File("words1.txt");//this won't work on the school computers, I hevn't figured out where processing looks for files, but it's not in any of the directories in the git folder
+       Scanner s1 = new Scanner(words);
+       while (s1.hasNext()) {//this thing takes forever to run
+       if (list[m].equals(s1.next())) {
+       return true;
+       }
+       }
+       }
+       catch (FileNotFoundException e) {
+       System.out.println("Put the file in the right place...");
+       }
+       }
+       */
+    }
+    ////////////////////////////////////////////////////
+    for (int i=0; i<15*size; i+=size) {
+      String s="";
+      for (int j=0; j<15*size; j+=size) {
+        boolean b=false;
+        for (int k=0; k<tileDescription.size(); k++) {
+          Tile t=tileDescription.get(k);
+          //System.out.println(i+"jjjj"+j+"kkkkk"+t.xpos+"llll"+t.ypos);
+          if (t.xpos==i && t.ypos==j) {
+            //System.out.println("LETTER"+t.letter+t.xpos+"  "+t.ypos);
+            s+=t.letter;
+            b=true;
+            //System.out.println("s "+s+b);
+          }
+        }
+        if (!b) {
+          //System.out.println("+");
+          s+=" ";
+        }
+        ArrayList<String> list=sep(s);
+        if (asinb(list, words)==false) {
+          System.out.println("NOTHERE");
+          return false;
+        }
+      }
+      //System.out.println(s+"SSS");
+      //String[] list0=split("a,,,b,c",',');
+      //System.out.println(list0[1]);
+      //System.out.println("SIZE"+list.size());
+      //System.out.println("word"+list[0]+"...");
+      //System.out.println(toString(list));
+      /*for (int m=0; m<list.length; m++) {
+       try {
+       File words = new File("words1.txt");//this won't work on the school computers, I hevn't figured out where processing looks for files, but it's not in any of the directories in the git folder
+       Scanner s1 = new Scanner(words);
+       while (s1.hasNext()) {//this thing takes forever to run
+       if (list[m].equals(s1.next())) {
+       return true;
+       }
+       }
+       }
+       catch (FileNotFoundException e) {
+       System.out.println("Put the file in the right place...");
+       }
+       }
+       */
+    }
+    System.out.println("HERE");
+    return true;
   }
 
 
@@ -183,7 +264,7 @@ class GameScreen {
     } 
     if (16 * size <mouseX && 17 * size >mouseX && 16 * size <mouseY && 17 * size >mouseY) {
       System.out.println(legit() == true);
-        if (legit()) {
+      if (legit()) {
         System.out.println("MUAHAHA");
         for (int i=0; i<tileDescription.size(); i++) {
           Tile t =tileDescription.get(i);

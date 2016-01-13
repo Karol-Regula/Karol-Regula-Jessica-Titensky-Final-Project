@@ -9,7 +9,7 @@ void setup() {
   frameRate(10);
   //runs only at the beginning and does the initializing stuff
   //size(17 * size, 17 * size);//does not work, will not accept variables
-  size(680,680);//window size
+  size(680, 680);//window size
   background(255, 255, 0);//background color
   //noStroke();//disables border
   //fill(0, 102);//sets color used for filling
@@ -19,8 +19,8 @@ void setup() {
 }
 
 void mouseClicked() {
-  if(mode=="gameScreen"){
-      g1.mouseClicked();
+  if (mode=="gameScreen") {
+    g1.mouseClicked();
   }
 }
 
@@ -45,7 +45,7 @@ void draw() {
 //news gothic standard font
 //if time, computer predicts moves of player and adjusts accordinglly
 //overhaul coordinate system
-  //size command that makes window will not accept variables
+//size command that makes window will not accept variables
 //read rules
 //some letters look off center, might need to add special adjustments for those
 
