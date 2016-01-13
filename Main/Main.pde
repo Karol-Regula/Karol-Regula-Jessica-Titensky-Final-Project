@@ -51,8 +51,9 @@ void draw() {
 
 //bugs
 //Tiles stack on top of each other and then move as one big pile
-//Clicking outiside of button on main menu causes the entirety of processing to hang
+//Clicking outiside of button on main menu causes the entirety of processing to hang//FIXED
 //letter on tile changes with movement //FIXED
+//letters on tiles shift slightly when highlighted, should make the print method the only thing that displays tiles.
 
 //http://www.mieliestronk.com/corncob_caps.txt
 //make scores
