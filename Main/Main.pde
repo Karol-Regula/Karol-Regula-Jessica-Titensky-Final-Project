@@ -6,7 +6,7 @@ public int size;
 
 void setup() {
   size = 40;
-  frameRate(60);
+  frameRate(10);
   //runs only at the beginning and does the initializing stuff
   //size(17 * size, 17 * size);//does not work, will not accept variables
   size(680,680);//window size
@@ -54,6 +54,7 @@ void draw() {
 //Clicking outiside of button on main menu causes the entirety of processing to hang//FIXED
 //letter on tile changes with movement //FIXED
 //letters on tiles shift slightly when highlighted, should make the print method the only thing that displays tiles.
+//legit() seems to try to access the file waay too many times(>100).
 
 //http://www.mieliestronk.com/corncob_caps.txt
 //make scores

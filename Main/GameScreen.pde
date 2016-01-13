@@ -1,13 +1,15 @@
 import java.util.*;
+import java.io.FileNotFoundException;
 class GameScreen {
 
   boolean selected=false;
 
   ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
+  ArrayList<Player> players = new ArrayList<Player>(0);
   //methods that need to run while game is in gamemode
 
   public void printTileDescription() {
-    Tile t = tileDescription.get(0);
+    //Tile t = tileDescription.get(0);
     for (int x = 0; x < tileDescription.size(); x++) {
       System.out.println(tileDescription.get(x).letter);
     }
@@ -19,12 +21,13 @@ class GameScreen {
     createTiles();//creates tiles and places them in arrayList
     printTileDescription();//could not make this into generic print array due to things not being global variables
     placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
+    createPlayers(1);//can later change arguement when Main Menu works
   }
   //System.out.println(tileDescription.get(3).xpos + " " + tileDescription.get(3).ypos);
 
   public void createTiles() {
     int[] tileFrequency = new int[]{9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1};//contains the frequencies of all the letters, SPACES NOT YET INCLUDED
-    int[] tileScores = new int[]{1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10};
+    int[] tileScores = new int[]{1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
     for (int i = 0; i < tileFrequency.length; i ++) {
       for (int j = 0; j < tileFrequency[i]; j++) {
         Tile t1 = new Tile((char)('A' + i), tileScores[i]);
@@ -44,6 +47,12 @@ class GameScreen {
     }
   }
 
+  public void createPlayers(int n) {
+    for (int x = 0; x < n; x++) {
+      Player p1 = new Player();
+      players.add(p1);
+    }
+  }
 
   public boolean detect() {
     Tile t=tileDescription.get(0);
@@ -86,7 +95,8 @@ class GameScreen {
     t.xpos=mouseX-mouseX%size;
     t.ypos=mouseY-mouseY%size;//not sure about these
     t.bodyColor = color(180, 102, 5);
-    t.print();
+    System.out.println(t.score);
+    t.print();//why does this not print the score.
   }
 
   public boolean legit() {
@@ -107,9 +117,18 @@ class GameScreen {
       }
       String[] list=split(s, ' ');
       for (int m=0; m<list.length; m++) {
-        //if list[m] isnt a word{
-        //return false;
-        //}
+        try {
+          File words = new File("words1.txt");//this won't work on the school computers, I hevn't figured out where processing looks for files, but it's not in any of the directories in the git folder
+          Scanner s1 = new Scanner(words);
+          while (s1.hasNext()) {//this thing takes forever to run
+            if (list[m].equals(s1.next())) {
+              return true;
+            }
+          }
+        }
+        catch (FileNotFoundException e) {
+          System.out.println("Put the file in the right place...");
+        }
       }
     }
     for (int i=0; i<15*size; i+=size) {
@@ -129,12 +148,22 @@ class GameScreen {
       }
       String[] list=split(s, ' ');
       for (int m=0; m<list.length; m++) {
-        //if list[m] isnt a word{
-        //return false;
-        //}
+        try {
+          File words = new File("words1.txt");
+          Scanner s1 = new Scanner(words);
+          while (s1.hasNext()) {//this thing takes forever to run
+            if (list[m].equals(s1.next())) {
+              return true;
+            }
+          }
+        }
+        catch (FileNotFoundException e) {
+          System.out.println("Put the file in the right place...");
+        }
       }
     }
-    return true;
+
+    return false;
   }
 
 
@@ -153,7 +182,8 @@ class GameScreen {
       }
     } 
     if (16 * size <mouseX && 17 * size >mouseX && 16 * size <mouseY && 17 * size >mouseY) {
-      if (legit()) {
+      System.out.println(legit() == true);
+        if (legit()) {
         System.out.println("MUAHAHA");
         for (int i=0; i<tileDescription.size(); i++) {
           Tile t =tileDescription.get(i);
