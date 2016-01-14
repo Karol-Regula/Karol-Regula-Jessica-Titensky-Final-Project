@@ -34,19 +34,6 @@ class Tile {
     //rect(90,90,30,30);//for now just a rectangle, tiles obviously have more variables
   }
   
-  public void print() {
-    PFont f = createFont("Arial", 16, true);
-    fill(bodyColor);  
-    rect(xpos, ypos, size, size);
-    textFont(f, 25);
-    fill(0, 0, 0);//this means that all of the shapes that are made will be filled until noFill() is run
-    text(letter, xpos + (size/2) -size/5, ypos + (size/2) +size/5);//has some manual adjustments made for now //===================================need to manually adjust
-    textFont(f, 10);
-    text(score, xpos + (size/2) + 12, ypos + (size/2) + 15);
-    //testing
-    //rect(90,90,30,30);//for now just a rectangle, tiles obviously have more variables
-  }
-
   public int getxpos() {
     return xpos;
   }

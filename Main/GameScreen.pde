@@ -42,7 +42,7 @@ class GameScreen {
       tileDescription.get(x).ypos = 16 * size;
       tileDescription.get(x).origx = x * size;
       tileDescription.get(x).origy = 16 *size;
-      tileDescription.get(x).print();
+      tileDescription.get(x).print(tileDescription.get(x).bodyColor);
     }
   }
 
@@ -93,7 +93,7 @@ class GameScreen {
     t.ypos=mouseY-mouseY%size;//not sure about these
     t.bodyColor = color(180, 102, 5);
     System.out.println(t.score);
-    t.print();
+    t.print(t.bodyColor);
   }
 
   public boolean ainb(String a, String[] b) {
@@ -256,7 +256,7 @@ class GameScreen {
         rect(tileDescription.get(i).origx, tileDescription.get(i).origy, size, size);
         tileDescription.get(i).xpos=tileDescription.get(i).origx;
         tileDescription.get(i).ypos=tileDescription.get(i).origy;
-        tileDescription.get(i).print();
+        tileDescription.get(i).print(tileDescription.get(i).bodyColor);
       }
     } 
     if (16 * size <mouseX && 17 * size >mouseX && 16 * size <mouseY && 17 * size >mouseY) {
