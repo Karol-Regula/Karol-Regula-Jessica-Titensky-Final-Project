@@ -1,6 +1,6 @@
 class MainMenu {
   public void setupMenu() {
-    rect(75, 100, 300, 100);
+    rect(75+xd, 100+yd, 300, 100);
   }
 
   public void detect() {

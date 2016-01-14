@@ -46,36 +46,36 @@ class Board {
     for (int i=0; i<8; i++) {
       for (int j=0; j<8; j++) {
         fill(colors[i][j][0], colors[i][j][1], colors[i][j][2]);
-        rect(i*s, j*s, s, s);
+        rect(i*s+xd, j*s+yd, s, s);
       }
     }
     for (int i=8; i<15; i++) {
       for (int j=0; j<8; j++) {
         fill(colors[14-i][j][0], colors[14-i][j][1], colors[14-i][j][2]);
-        rect(i*s, j*s, s, s);
+        rect(i*s+xd, j*s+yd, s, s);
         mult[i][j]=mult[14-i][j];
       }
     }  
     for (int i=0; i<8; i++) {
       for (int j=8; j<15; j++) {
         fill(colors[i][14-j][0], colors[i][14-j][1], colors[i][14-j][2]);
-        rect(i*s, j*s, s, s);
+        rect(i*s+xd, j*s+yd, s, s);
         mult[i][j]=mult[i][14-j];
       }
     }  
     for (int i=8; i<15; i++) {
       for (int j=8; j<15; j++) {
         fill(colors[14-i][14-j][0], colors[14-i][14-j][1], colors[14-i][14-j][2]);
-        rect(i*s, j*s, s, s);
+        rect(i*s+xd, j*s+yd, s, s);
         mult[i][j]=mult[14-i][14-j];
       }
     }
 
 
     fill(0, 0, 0);
-    rect(16*size, 16*size, size, size); //finalize tiles changes on board
+    rect(16*size+xd, 16*size+yd, size, size); //finalize tiles changes on board
     fill(126, 126, 126);
-    rect(16*size, 15*size, size, size); //put unfinalized tiles back on rack
+    rect(16*size+xd, 15*size+yd, size, size); //put unfinalized tiles back on rack
   }
 
 }

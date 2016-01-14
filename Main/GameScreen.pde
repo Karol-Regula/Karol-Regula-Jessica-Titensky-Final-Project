@@ -92,7 +92,7 @@ class GameScreen {
     }
     //System.out.println("pressed");
     fill(255, 255, 255);
-    rect(t.xpos, t.ypos, size, size);
+    rect(t.xpos+xd, t.ypos+yd, size, size);
     selected=false;
     t.xpos=mouseX-mouseX%size;
     t.ypos=mouseY-mouseY%size;//not sure about these
@@ -310,7 +310,7 @@ class GameScreen {
     for (int i=0; i < tileDescription.size(); i++) {//temporary fix to all tiles printing in top left corner, but for now the game effectively has 15 tiles in play
       //======================================================need to fix above line when implementing adding new tiles as the game is played by the players
       fill(180, 102, 5);
-      rect(tileDescription.get(i).origx, tileDescription.get(i).origy, size, size);
+      rect(tileDescription.get(i).origx+xd, tileDescription.get(i).origy+yd, size, size);
       tileDescription.get(i).xpos=tileDescription.get(i).origx;
       tileDescription.get(i).ypos=tileDescription.get(i).origy;
       tileDescription.get(i).print(tileDescription.get(i).bodyColor);
