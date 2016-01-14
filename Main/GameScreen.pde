@@ -198,7 +198,7 @@ class GameScreen {
             for (int m=0; m<tileDescription.size(); m++) {//checks if there are more letters
               Tile t2=tileDescription.get(m);
               //System.out.println("here5");
-              if (t2.xpos==i + size && t2.ypos==j + size) {
+              if (t2.xpos==i && t2.ypos==j + size) {
                 System.out.println("foundnextLetterPossibilityY");
                 moreLetters = true;
               }
