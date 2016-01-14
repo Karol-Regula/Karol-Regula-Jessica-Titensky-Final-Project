@@ -60,7 +60,7 @@ class GameScreen {
         mouseY > tileDescription.get(x).ypos && mouseY < tileDescription.get(x).ypos + size) {
         if (mouseY>16 * size) {
           t=tileDescription.get(x);
-          t.print(color(204, 159, 102));//color(204, 159, 102));
+          t.print(color(204, 159, 102));
           return true;
           /*
           ===========================//this commented code is supposed to make the tile follow the mouse, it does not fully work as of now, mouse detection still works
@@ -95,153 +95,198 @@ class GameScreen {
     System.out.println(t.score);
     t.print(t.bodyColor);
   }
-
+  /*
   public boolean ainb(String a, String[] b) {
-    for (int i=0; i<b.length; i++) {
-      if (a.equals("")) {
-      } else {
-        if (a.equals(b[i])) {
-          return true;
+   for (int i=0; i<b.length; i++) {
+   if (a.equals("")) {
+   } else {
+   if (a.equals(b[i])) {
+   return true;
+   }
+   }
+   }
+   return false;
+   }
+   
+   public boolean asinb(ArrayList<String> a, String[] b) {
+   for (int i=0; i<a.size(); i++) {
+   if (!(ainb(a.get(i), b))) {
+   return false;
+   }
+   }
+   return true;
+   }
+   
+   public String toString(String[] s) {
+   String ss="";
+   for (int i=0; i<s.length; i++) {
+   ss+=s+",";
+   }
+   return ss;
+   }
+   
+   public ArrayList<String> sep(String letters) {
+   ArrayList<String> s=new ArrayList<String>();
+   String st="";
+   while (letters.length()>0) {
+   System.out.println(s);
+   if (letters.charAt(0)==' ') {
+   if (st.length()>0) {
+   s.add(st);
+   st="";
+   }
+   letters=letters.substring(1);
+   } else {
+   st+=letters.charAt(0);
+   letters=letters.substring(1);
+   }
+   }
+   return s;
+   }
+   */
+
+  public ArrayList<ArrayList<Tile>> readBoard() {
+    boolean moreLetters = false;
+    ArrayList<ArrayList<Tile>> allWords = new ArrayList<ArrayList<Tile>>();
+    ArrayList<Tile> word = new ArrayList<Tile>();//have to make this here, if it is made in an if statement is is not recognized anywhere else
+    //horizontal
+    for (int j=0; j<15*size; j+=size) {//goes through y-axis
+      for (int i=0; i<15*size; i+=size) {//goes through x-axis
+        moreLetters = false;
+        for (int k=0; k<tileDescription.size(); k++) {//compares coordinates of all tiles to the ones currently in the first two loops
+          Tile t1=tileDescription.get(k);
+          if (t1.xpos==i && t1.ypos==j) {
+            System.out.println("foundmatchX");
+            if (moreLetters == false) {//what happens when a NEW word is found (first letter added)
+              word.add(t1);
+              moreLetters = false;
+            }
+            for (int m=0; m<tileDescription.size(); m++) {//checks if there are more letters
+              Tile t2=tileDescription.get(m);
+              //System.out.println("here5");
+              if (t2.xpos==i + size && t2.ypos==j) {
+                System.out.println("foundnextLetterPossibilityX");
+                moreLetters = true;
+              }
+            }
+            if (moreLetters == false) {//if there are no more letters that follow, adds word to ArrayList
+              System.out.println("addingwordX");
+              ArrayList<Tile> wordCopy = new ArrayList<Tile>();
+              for (int b = 0; b < word.size(); b++) {//to get around memory address pointers
+                wordCopy.add(word.get(b));
+              }
+              allWords.add(wordCopy);
+              while (word.size() > 0){
+                word.remove(0);
+              }
+            }
+          }
         }
       }
     }
-    return false;
-  }
-
-  public boolean asinb(ArrayList<String> a, String[] b) {
-    for (int i=0; i<a.size(); i++) {
-      if (!(ainb(a.get(i), b))) {
-        return false;
+    for (int i=0; i<15*size; i+=size) {//goes through y-axis
+      for (int j=0; j<15*size; j+=size) {//goes through x-axis
+        moreLetters = false;
+        for (int k=0; k<tileDescription.size(); k++) {//compares coordinates of all tiles to the ones currently in the first two loops
+          Tile t1=tileDescription.get(k);
+          if (t1.xpos==i && t1.ypos==j) {
+            System.out.println("foundmatchY");
+            if (moreLetters == false) {//what happens when a NEW word is found (first letter added)
+              word.add(t1);
+              moreLetters = false;
+            }
+            for (int m=0; m<tileDescription.size(); m++) {//checks if there are more letters
+              Tile t2=tileDescription.get(m);
+              //System.out.println("here5");
+              if (t2.xpos==i + size && t2.ypos==j + size) {
+                System.out.println("foundnextLetterPossibilityY");
+                moreLetters = true;
+              }
+            }
+            if (moreLetters == false) {//if there are no more letters that follow, adds word to ArrayList
+              System.out.println("addingwordY");
+              ArrayList<Tile> wordCopy = new ArrayList<Tile>();
+              for (int b = 0; b < word.size(); b++) {//to get around memory address pointers
+                wordCopy.add(word.get(b));
+              }
+              allWords.add(wordCopy);
+              while (word.size() > 0){
+                word.remove(0);
+              }
+            }
+          }
+        }
       }
     }
-    return true;
-  }
-
-  public String toString(String[] s) {
-    String ss="";
-    for (int i=0; i<s.length; i++) {
-      ss+=s+",";
-    }
-    return ss;
-  }
-
-  public ArrayList<String> sep(String letters) {
-    ArrayList<String> s=new ArrayList<String>();
-    String st="";
-    while (letters.length()>0) {
+    for (int i = 0; i < allWords.size(); i++) {
+      String s = "";
+      System.out.println(allWords.get(i).size());
+      for (int j = 0; j < allWords.get(i).size(); j ++) {
+        s+= allWords.get(i).get(j).letter;
+      }
       System.out.println(s);
-      if (letters.charAt(0)==' ') {
-        if (st.length()>0) {
-          s.add(st);
-          st="";
-        }
-        letters=letters.substring(1);
-      } else {
-        st+=letters.charAt(0);
-        letters=letters.substring(1);
-      }
     }
-    return s;
+    return allWords;
   }
 
   public boolean legit() {
-    String[] words=loadStrings("words1.txt");
-    System.out.println(words[0]);
-    for (int i=0; i<15*size; i+=size) {
-      String s="";
-      for (int j=0; j<15*size; j+=size) {
-        boolean b=false;
-        for (int k=0; k<tileDescription.size(); k++) {
-          Tile t=tileDescription.get(k);
-          //System.out.println(i+"jjjj"+j+"kkkkk"+t.xpos+"llll"+t.ypos);
-          if (t.xpos==i && t.ypos==j) {
-            //System.out.println("LETTER"+t.letter+t.xpos+"  "+t.ypos);
-            s+=t.letter;
-            b=true;
-            //System.out.println("s "+s+b);
-          }
-        }
-        if (!b) {
-          //System.out.println("+");
-          s+=" ";
-        }
-        ArrayList<String> list=sep(s);
-        if (asinb(list, words)==false) {
-          System.out.println("NOTHERE");
-          return false;
-        }
-      }
-      //System.out.println(s+"SSS");
-      //String[] list0=split("a,,,b,c",',');
-      //System.out.println(list0[1]);
-      //System.out.println("SIZE"+list.size());
-      //System.out.println("word"+list[0]+"...");
-      //System.out.println(toString(list));
-      /*for (int m=0; m<list.length; m++) {
-       try {
-       File words = new File("words1.txt");//this won't work on the school computers, I hevn't figured out where processing looks for files, but it's not in any of the directories in the git folder
-       Scanner s1 = new Scanner(words);
-       while (s1.hasNext()) {//this thing takes forever to run
-       if (list[m].equals(s1.next())) {
-       return true;
-       }
-       }
-       }
-       catch (FileNotFoundException e) {
-       System.out.println("Put the file in the right place...");
-       }
-       }
-       */
-    }
-    ////////////////////////////////////////////////////
-    for (int i=0; i<15*size; i+=size) {
-      String s="";
-      for (int j=0; j<15*size; j+=size) {
-        boolean b=false;
-        for (int k=0; k<tileDescription.size(); k++) {
-          Tile t=tileDescription.get(k);
-          //System.out.println(i+"jjjj"+j+"kkkkk"+t.xpos+"llll"+t.ypos);
-          if (t.xpos==i && t.ypos==j) {
-            //System.out.println("LETTER"+t.letter+t.xpos+"  "+t.ypos);
-            s+=t.letter;
-            b=true;
-            //System.out.println("s "+s+b);
-          }
-        }
-        if (!b) {
-          //System.out.println("+");
-          s+=" ";
-        }
-        ArrayList<String> list=sep(s);
-        if (asinb(list, words)==false) {
-          System.out.println("NOTHERE");
-          return false;
-        }
-      }
-      //System.out.println(s+"SSS");
-      //String[] list0=split("a,,,b,c",',');
-      //System.out.println(list0[1]);
-      //System.out.println("SIZE"+list.size());
-      //System.out.println("word"+list[0]+"...");
-      //System.out.println(toString(list));
-      /*for (int m=0; m<list.length; m++) {
-       try {
-       File words = new File("words1.txt");//this won't work on the school computers, I hevn't figured out where processing looks for files, but it's not in any of the directories in the git folder
-       Scanner s1 = new Scanner(words);
-       while (s1.hasNext()) {//this thing takes forever to run
-       if (list[m].equals(s1.next())) {
-       return true;
-       }
-       }
-       }
-       catch (FileNotFoundException e) {
-       System.out.println("Put the file in the right place...");
-       }
-       }
-       */
-    }
-    System.out.println("HERE");
+    ArrayList<ArrayList<Tile>> allWords = readBoard();
     return true;
+    /*
+      ArrayList<String> list=sep(s);
+     if (asinb(list, words)==false) {
+     System.out.println("NOTHERE");
+     return false;
+     ////////////////////////////////////////////////////
+     for (int i=0; i<15*size; i+=size) {
+     String s="";
+     for (int j=0; j<15*size; j+=size) {
+     boolean b=false;
+     for (int k=0; k<tileDescription.size(); k++) {
+     Tile t=tileDescription.get(k);
+     //System.out.println(i+"jjjj"+j+"kkkkk"+t.xpos+"llll"+t.ypos);
+     if (t.xpos==i && t.ypos==j) {
+     //System.out.println("LETTER"+t.letter+t.xpos+"  "+t.ypos);
+     s+=t.letter;
+     b=true;
+     //System.out.println("s "+s+b);
+     }
+     }
+     if (!b) {
+     //System.out.println("+");
+     s+=" ";
+     }
+     ArrayList<String> list=sep(s);
+     if (asinb(list, words)==false) {
+     System.out.println("NOTHERE");
+     return false;
+     }
+     }
+     //System.out.println(s+"SSS");
+     //String[] list0=split("a,,,b,c",',');
+     //System.out.println(list0[1]);
+     //System.out.println("SIZE"+list.size());
+     //System.out.println("word"+list[0]+"...");
+     //System.out.println(toString(list));
+    /*for (int m=0; m<list.length; m++) {
+     try {
+     File words = new File("words1.txt");//this won't work on the school computers, I hevn't figured out where processing looks for files, but it's not in any of the directories in the git folder
+     Scanner s1 = new Scanner(words);
+     while (s1.hasNext()) {//this thing takes forever to run
+     if (list[m].equals(s1.next())) {
+     return true;
+     }
+     }
+     }
+     catch (FileNotFoundException e) {
+     System.out.println("Put the file in the right place...");
+     }
+     }
+     
+     }
+     System.out.println("HERE");
+     return true;
+     */
   }
 
 
