@@ -7,6 +7,7 @@ class GameScreen {
   ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
   ArrayList<Player> players = new ArrayList<Player>(0);
   String[] dict1;
+  int[][] multt;
   //methods that need to run while game is in gamemode
 
   public void printTileDescription() {
@@ -23,6 +24,7 @@ class GameScreen {
     //printTileDescription();//could not make this into generic print array due to things not being global variables
     placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
     createPlayers(1);//can later change arguement when Main Menu works
+    multt=b1.mult;
     dict1=loadStrings("words1.txt");
     System.out.println(dict1[dict1.length-1]);
   }
@@ -315,7 +317,14 @@ class GameScreen {
     }
   }
 
-  public void black() {
+  public int multt(int x, int y) {
+    System.out.println(x+" "+y);
+    return multt[x/size][y/size];
+  }
+
+  public int black() {
+    Board b1=new Board();
+    int score=0;
     System.out.println(legit() == true);
     if (legit()) {
       System.out.println("MUAHAHA");
@@ -323,13 +332,15 @@ class GameScreen {
         Tile t =tileDescription.get(i);
         if (t.origy!=t.ypos) {
           t.placed=true;
+          score+=t.score*multt(t.xpos,t.ypos);
         }
         t.origx=t.xpos;
         t.origy=t.ypos;
       }
     }
+    System.out.println("SCORE"+score);
+    return score;
   }
-
 
 
   public void mouseClicked() {

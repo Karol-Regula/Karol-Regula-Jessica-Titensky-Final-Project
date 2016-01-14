@@ -81,7 +81,4 @@ class Board {
     rect(16*size, 15*size, size, size); //put unfinalized tiles back on rack
   }
 
-  public int mult(int x, int y) {
-    return mult[x/size][y/size];
-  }
 }
