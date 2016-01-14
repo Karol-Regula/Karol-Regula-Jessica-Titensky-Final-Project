@@ -6,7 +6,7 @@ public int size;
 
 void setup() {
   size = 40;
-  frameRate(10);
+  frameRate(60);
   //runs only at the beginning and does the initializing stuff
   //size(17 * size, 17 * size);//does not work, will not accept variables
   size(680, 680);//window size

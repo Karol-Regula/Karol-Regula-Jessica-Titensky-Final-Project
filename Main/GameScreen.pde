@@ -325,7 +325,7 @@ class GameScreen {
   public int black() {
     Board b1=new Board();
     int score=0;
-    System.out.println(legit() == true);
+    //System.out.println(legit() == true);
     if (legit()) {
       System.out.println("MUAHAHA");
       for (int i=0; i<tileDescription.size(); i++) {
