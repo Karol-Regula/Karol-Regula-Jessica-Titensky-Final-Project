@@ -72,9 +72,6 @@ class Board {
     }
 
 
-    System.out.println("MULTS0" +mult[14][14]+" "+mult[13][13]);
-    System.out.println("MULTS1" +mult(40*14, 40*14)+" "+mult(40*13, 40*13));
-
     fill(0, 0, 0);
     rect(16*size, 16*size, size, size); //finalize tiles changes on board
     fill(126, 126, 126);
