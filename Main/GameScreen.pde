@@ -6,6 +6,7 @@ class GameScreen {
 
   ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
   ArrayList<Player> players = new ArrayList<Player>(0);
+  String[] dict1;
   //methods that need to run while game is in gamemode
 
   public void printTileDescription() {
@@ -22,6 +23,8 @@ class GameScreen {
     //printTileDescription();//could not make this into generic print array due to things not being global variables
     placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
     createPlayers(1);//can later change arguement when Main Menu works
+    dict1=loadStrings("words1.txt");
+    System.out.println(dict1[dict1.length-1]);
   }
 
   public void createTiles() {
@@ -95,19 +98,17 @@ class GameScreen {
     System.out.println(t.score);
     t.print(t.bodyColor);
   }
-  /*
+
   public boolean ainb(String a, String[] b) {
-   for (int i=0; i<b.length; i++) {
-   if (a.equals("")) {
-   } else {
-   if (a.equals(b[i])) {
-   return true;
-   }
-   }
-   }
-   return false;
-   }
-   
+    for (int i=0; i<b.length; i++) {
+      if (a.length()==1 || a.equals(b[i]) || a.equals("")) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /*
    public boolean asinb(ArrayList<String> a, String[] b) {
    for (int i=0; i<a.size(); i++) {
    if (!(ainb(a.get(i), b))) {
@@ -176,7 +177,7 @@ class GameScreen {
                 wordCopy.add(word.get(b));
               }
               allWords.add(wordCopy);
-              while (word.size() > 0){
+              while (word.size() > 0) {
                 word.remove(0);
               }
             }
@@ -210,7 +211,7 @@ class GameScreen {
                 wordCopy.add(word.get(b));
               }
               allWords.add(wordCopy);
-              while (word.size() > 0){
+              while (word.size() > 0) {
                 word.remove(0);
               }
             }
@@ -231,92 +232,112 @@ class GameScreen {
 
   public boolean legit() {
     ArrayList<ArrayList<Tile>> allWords = readBoard();
+    for (int i=0; i<allWords.size(); i++) {
+      String word="";
+        for (int j=0; j<allWords.get(i).size(); j++) {
+        Tile t= allWords.get(i).get(j);
+        word+=t.letter;
+      }
+      System.out.println("THEWORD"+word+ainb(word,dict1));
+      if (ainb(word, dict1)==false) {
+        return false;
+      }
+    }
     return true;
-    /*
+  }
+
+  /*
       ArrayList<String> list=sep(s);
-     if (asinb(list, words)==false) {
-     System.out.println("NOTHERE");
-     return false;
-     ////////////////////////////////////////////////////
-     for (int i=0; i<15*size; i+=size) {
-     String s="";
-     for (int j=0; j<15*size; j+=size) {
-     boolean b=false;
-     for (int k=0; k<tileDescription.size(); k++) {
-     Tile t=tileDescription.get(k);
-     //System.out.println(i+"jjjj"+j+"kkkkk"+t.xpos+"llll"+t.ypos);
-     if (t.xpos==i && t.ypos==j) {
-     //System.out.println("LETTER"+t.letter+t.xpos+"  "+t.ypos);
-     s+=t.letter;
-     b=true;
-     //System.out.println("s "+s+b);
-     }
-     }
-     if (!b) {
-     //System.out.println("+");
-     s+=" ";
-     }
-     ArrayList<String> list=sep(s);
-     if (asinb(list, words)==false) {
-     System.out.println("NOTHERE");
-     return false;
-     }
-     }
-     //System.out.println(s+"SSS");
-     //String[] list0=split("a,,,b,c",',');
-     //System.out.println(list0[1]);
-     //System.out.println("SIZE"+list.size());
-     //System.out.println("word"+list[0]+"...");
-     //System.out.println(toString(list));
-    /*for (int m=0; m<list.length; m++) {
-     try {
-     File words = new File("words1.txt");//this won't work on the school computers, I hevn't figured out where processing looks for files, but it's not in any of the directories in the git folder
-     Scanner s1 = new Scanner(words);
-     while (s1.hasNext()) {//this thing takes forever to run
-     if (list[m].equals(s1.next())) {
-     return true;
-     }
-     }
-     }
-     catch (FileNotFoundException e) {
-     System.out.println("Put the file in the right place...");
-     }
-     }
-     
-     }
-     System.out.println("HERE");
-     return true;
-     */
+   if (asinb(list, words)==false) {
+   System.out.println("NOTHERE");
+   return false;
+   ////////////////////////////////////////////////////
+   for (int i=0; i<15*size; i+=size) {
+   String s="";
+   for (int j=0; j<15*size; j+=size) {
+   boolean b=false;
+   for (int k=0; k<tileDescription.size(); k++) {
+   Tile t=tileDescription.get(k);
+   //System.out.println(i+"jjjj"+j+"kkkkk"+t.xpos+"llll"+t.ypos);
+   if (t.xpos==i && t.ypos==j) {
+   //System.out.println("LETTER"+t.letter+t.xpos+"  "+t.ypos);
+   s+=t.letter;
+   b=true;
+   //System.out.println("s "+s+b);
+   }
+   }
+   if (!b) {
+   //System.out.println("+");
+   s+=" ";
+   }
+   ArrayList<String> list=sep(s);
+   if (asinb(list, words)==false) {
+   System.out.println("NOTHERE");
+   return false;
+   }
+   }
+   //System.out.println(s+"SSS");
+   //String[] list0=split("a,,,b,c",',');
+   //System.out.println(list0[1]);
+   //System.out.println("SIZE"+list.size());
+   //System.out.println("word"+list[0]+"...");
+   //System.out.println(toString(list));
+  /*for (int m=0; m<list.length; m++) {
+   try {
+   File words = new File("words1.txt");//this won't work on the school computers, I hevn't figured out where processing looks for files, but it's not in any of the directories in the git folder
+   Scanner s1 = new Scanner(words);
+   while (s1.hasNext()) {//this thing takes forever to run
+   if (list[m].equals(s1.next())) {
+   return true;
+   }
+   }
+   }
+   catch (FileNotFoundException e) {
+   System.out.println("Put the file in the right place...");
+   }
+   }
+   
+   }
+   System.out.println("HERE");
+   return true;
+   }*/
+
+  public void gray() {
+    Board b1=new Board();
+    b1.ddraw();
+    for (int i=0; i < tileDescription.size(); i++) {//temporary fix to all tiles printing in top left corner, but for now the game effectively has 15 tiles in play
+      //======================================================need to fix above line when implementing adding new tiles as the game is played by the players
+      fill(180, 102, 5);
+      rect(tileDescription.get(i).origx, tileDescription.get(i).origy, size, size);
+      tileDescription.get(i).xpos=tileDescription.get(i).origx;
+      tileDescription.get(i).ypos=tileDescription.get(i).origy;
+      tileDescription.get(i).print(tileDescription.get(i).bodyColor);
+    }
+  }
+
+  public void black() {
+    System.out.println(legit() == true);
+    if (legit()) {
+      System.out.println("MUAHAHA");
+      for (int i=0; i<tileDescription.size(); i++) {
+        Tile t =tileDescription.get(i);
+        if (t.origy!=t.ypos) {
+          t.placed=true;
+        }
+        t.origx=t.xpos;
+        t.origy=t.ypos;
+      }
+    }
   }
 
 
 
   public void mouseClicked() {
     if (16 * size <mouseX && 17 * size >mouseX && 15 * size <mouseY && 16 * size >mouseY) {
-      Board b1=new Board();
-      b1.ddraw();
-      for (int i=0; i < tileDescription.size(); i++) {//temporary fix to all tiles printing in top left corner, but for now the game effectively has 15 tiles in play
-        //======================================================need to fix above line when implementing adding new tiles as the game is played by the players
-        fill(180, 102, 5);
-        rect(tileDescription.get(i).origx, tileDescription.get(i).origy, size, size);
-        tileDescription.get(i).xpos=tileDescription.get(i).origx;
-        tileDescription.get(i).ypos=tileDescription.get(i).origy;
-        tileDescription.get(i).print(tileDescription.get(i).bodyColor);
-      }
+      gray();
     } 
     if (16 * size <mouseX && 17 * size >mouseX && 16 * size <mouseY && 17 * size >mouseY) {
-      System.out.println(legit() == true);
-      if (legit()) {
-        System.out.println("MUAHAHA");
-        for (int i=0; i<tileDescription.size(); i++) {
-          Tile t =tileDescription.get(i);
-          if (t.origy!=t.ypos) {
-            t.placed=true;
-          }
-          t.origx=t.xpos;
-          t.origy=t.ypos;
-        }
-      }
+      black();
     }
     if (selected) {
       move();
