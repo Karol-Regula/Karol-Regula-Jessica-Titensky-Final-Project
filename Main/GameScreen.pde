@@ -19,11 +19,10 @@ class GameScreen {
     Board b1 = new Board();
     b1.ddraw();
     createTiles();//creates tiles and places them in arrayList
-    printTileDescription();//could not make this into generic print array due to things not being global variables
+    //printTileDescription();//could not make this into generic print array due to things not being global variables
     placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
     createPlayers(1);//can later change arguement when Main Menu works
   }
-  //System.out.println(tileDescription.get(3).xpos + " " + tileDescription.get(3).ypos);
 
   public void createTiles() {
     int[] tileFrequency = new int[]{9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1};//contains the frequencies of all the letters, SPACES NOT YET INCLUDED
@@ -56,14 +55,12 @@ class GameScreen {
 
   public boolean detect() {
     Tile t=tileDescription.get(0);
-    //if (mousePressed) {//will check if mouse was pressed on a tile, tile will follow mouse
     for (int x = 0; x < tileDescription.size(); x++) {
       if (mouseX > tileDescription.get(x).xpos && mouseX < tileDescription.get(x).xpos + size &&
         mouseY > tileDescription.get(x).ypos && mouseY < tileDescription.get(x).ypos + size) {
         if (mouseY>16 * size) {
-          System.out.println("got here");
           t=tileDescription.get(x);
-          t.select();
+          t.print(color(204, 159, 102));//color(204, 159, 102));
           return true;
           /*
           ===========================//this commented code is supposed to make the tile follow the mouse, it does not fully work as of now, mouse detection still works
@@ -88,7 +85,7 @@ class GameScreen {
         t=tileDescription.get(i);
       }
     }
-    System.out.println("pressed");
+    //System.out.println("pressed");
     fill(255, 255, 255);
     rect(t.xpos, t.ypos, size, size);
     selected=false;
@@ -96,7 +93,7 @@ class GameScreen {
     t.ypos=mouseY-mouseY%size;//not sure about these
     t.bodyColor = color(180, 102, 5);
     System.out.println(t.score);
-    t.print();//why does this not print the score.
+    t.print();
   }
 
   public boolean ainb(String a, String[] b) {

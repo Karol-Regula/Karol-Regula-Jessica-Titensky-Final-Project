@@ -20,8 +20,21 @@ class Tile {
     origy= 10000;//top left vertex ypos
   }
 
+  public void print(color whatColor) {
+    PFont f = createFont("Arial", 16, true);
+    bodyColor = whatColor;
+    fill(bodyColor);  
+    rect(xpos, ypos, size, size);
+    textFont(f, 25);
+    fill(0, 0, 0);//this means that all of the shapes that are made will be filled until noFill() is run
+    text(letter, xpos + (size/2) -size/5, ypos + (size/2) +size/5);//has some manual adjustments made for now //===================================need to manually adjust
+    textFont(f, 10);
+    text(score, xpos + (size/2) + 12, ypos + (size/2) + 15);
+    //testing
+    //rect(90,90,30,30);//for now just a rectangle, tiles obviously have more variables
+  }
+  
   public void print() {
-    System.out.println(xpos+" "+ypos);
     PFont f = createFont("Arial", 16, true);
     fill(bodyColor);  
     rect(xpos, ypos, size, size);
@@ -33,20 +46,6 @@ class Tile {
     //testing
     //rect(90,90,30,30);//for now just a rectangle, tiles obviously have more variables
   }
-
-  public void select() {
-    PFont f = createFont("Arial", 16, true);
-    bodyColor=color(204, 159, 102);
-    fill(bodyColor);  
-    rect(xpos, ypos, size, size);
-    textFont(f, 25);
-    fill(0, 0, 0);
-    text(letter, xpos + (size/2) -size/5, ypos + (size/2) +size/5);
-    textFont(f, 10);
-    text(score, xpos + (size/2) + 12, ypos + (size/2) + 15);
-  }
-
-
 
   public int getxpos() {
     return xpos;
