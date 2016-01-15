@@ -8,6 +8,7 @@ class GameScreen {
   ArrayList<Player> players = new ArrayList<Player>(0);
   String[] dict1;
   int[][] multt;
+  int turn = 0;
   //methods that need to run while game is in gamemode
 
   public void printTileDescription() {
@@ -17,16 +18,22 @@ class GameScreen {
     }
   }
 
+  public ArrayList<Tile> getTileDescription() {
+    return tileDescription;
+  }
+
   public void boardSetup() {
     Board b1 = new Board();
     b1.ddraw();
     createTiles();//creates tiles and places them in arrayList
     //printTileDescription();//could not make this into generic print array due to things not being global variables
-    placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
-    createPlayers(1);//can later change arguement when Main Menu works
+    //placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
+    createPlayers(2);//can later change arguement when Main Menu works
+    setupPlayers();
     multt=b1.mult;
     dict1=loadStrings("words1.txt");
     System.out.println(dict1[dict1.length-1]);
+    activePlayer().placeTiles();
   }
 
   public void createTiles() {
@@ -38,24 +45,48 @@ class GameScreen {
         tileDescription.add(t1);//adds new tile into Arraylist
       }
     }
+    Collections.shuffle(tileDescription);
   }
 
-  public void placeTiles() {
-    Collections.shuffle(tileDescription);//shuffles Arraylist so that we do not have to choose elements randomly
-    for (int x = 0; x < 15; x++) {
-      tileDescription.get(x).xpos = x * size;
-      tileDescription.get(x).ypos = 16 * size;
-      tileDescription.get(x).origx = x * size;
-      tileDescription.get(x).origy = 16 *size;
-      tileDescription.get(x).print(tileDescription.get(x).bodyColor);
-    }
-  }
 
-  public void createPlayers(int n) {
+  public void createPlayers(int n) {//creates the players, takes arguement fot number of them
     for (int x = 0; x < n; x++) {
-      Player p1 = new Player();
+      Player p1 = new Player(x);
       players.add(p1);
     }
+  }
+
+  public void setupPlayers() {//assigns tiles to players
+    for (int i = 0; i < players.size(); i++) {
+      for (int j = 0; j < 98/players.size(); j++) {
+        players.get(i).hasTiles.add(tileDescription.get(j));
+      }
+    }
+    players.get(0).isTurn = true;
+  }
+
+  public Player activePlayer() {
+    for (int x = 0; x < players.size(); x++) {
+      if (players.get(x).isTurn) {
+        return players.get(x);
+      }
+    }
+    System.out.println("No player's turn");
+    return players.get(0);
+  }
+
+  public void nextPlayer() {
+    System.out.println("nextPLayer()");
+    if (turn == 0) {
+      players.get(0).isTurn = false;
+      players.get(1).isTurn = true;
+      turn = 1;
+    }else {
+      players.get(1).isTurn = false;
+      players.get(0).isTurn = true;
+      turn = 0;
+    }
+    System.out.println(activePlayer().name);
   }
 
   public boolean detect() {
@@ -236,11 +267,11 @@ class GameScreen {
     ArrayList<ArrayList<Tile>> allWords = readBoard();
     for (int i=0; i<allWords.size(); i++) {
       String word="";
-        for (int j=0; j<allWords.get(i).size(); j++) {
+      for (int j=0; j<allWords.get(i).size(); j++) {
         Tile t= allWords.get(i).get(j);
         word+=t.letter;
       }
-      System.out.println("THEWORD"+word+ainb(word,dict1));
+      System.out.println("THEWORD"+word+ainb(word, dict1));
       if (ainb(word, dict1)==false) {
         return false;
       }
@@ -332,16 +363,22 @@ class GameScreen {
         Tile t =tileDescription.get(i);
         if (t.origy!=t.ypos) {
           t.placed=true;
-          score+=t.score*multt(t.xpos,t.ypos);
+          score+=t.score*multt(t.xpos, t.ypos);
         }
         t.origx=t.xpos;
         t.origy=t.ypos;
       }
     }
     System.out.println("SCORE"+score);
+    if (score > 0){
+      System.out.println("here");
+      activePlayer().score += score;
+      nextPlayer();
+      activePlayer().placeTiles();
+      System.out.println("new Tiles placed");
+    }
     return score;
   }
-
 
   public void mouseClicked() {
     if (16 * size <mouseX - xd && 17 * size >mouseX - xd && 15 * size <mouseY - yd && 16 * size >mouseY - yd) {

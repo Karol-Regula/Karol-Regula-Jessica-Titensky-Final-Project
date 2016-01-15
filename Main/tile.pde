@@ -4,6 +4,7 @@ class Tile {
   public char letter;
   public int score;
   public boolean placed;
+  public int inTray;
   public int xpos;
   public int ypos;
   public int origx;
