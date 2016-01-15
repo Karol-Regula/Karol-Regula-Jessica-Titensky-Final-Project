@@ -6,13 +6,13 @@ public int size;
 public int xd,yd;
 
 void setup() {
-  size = 40;
-  xd=200;
-  yd=80;
+  size = 35;
+  xd=175;
+  yd=70;
   frameRate(60);
   //runs only at the beginning and does the initializing stuff
   //size(17 * size, 17 * size);//does not work, will not accept variables
-  size(880, 760);//window size
+  size(770, 665);//window size
   background(255, 255, 0);//background color
   //noStroke();//disables border
   //fill(0, 102);//sets color used for filling
@@ -36,7 +36,7 @@ void draw() {
     //g1.mouseClicked();
   }
   if (mousePressed) {//testing purposes
-    // System.out.println(mouseX + " " + mouseY); prints mouse position into console
+    // System.out.println(mouseX - xd + " " + mouseY); prints mouse position into console
   }
   //mouse pressed moved to MainMenu class
 }

@@ -61,9 +61,9 @@ class GameScreen {
   public boolean detect() {
     Tile t=tileDescription.get(0);
     for (int x = 0; x < tileDescription.size(); x++) {
-      if (mouseX > tileDescription.get(x).xpos && mouseX < tileDescription.get(x).xpos + size &&
-        mouseY > tileDescription.get(x).ypos && mouseY < tileDescription.get(x).ypos + size) {
-        if (mouseY>16 * size) {
+      if (mouseX - xd > tileDescription.get(x).xpos && mouseX - xd < tileDescription.get(x).xpos + size &&
+        mouseY - yd > tileDescription.get(x).ypos && mouseY - yd < tileDescription.get(x).ypos + size) {
+        if (mouseY - yd>16 * size) {
           t=tileDescription.get(x);
           t.print(color(204, 159, 102));
           return true;
@@ -72,7 +72,7 @@ class GameScreen {
            while (! mousePressed) {//follows until next mouse press
            System.out.println("and here");
            Tile tc = tileDescription.get(x);
-           tc.xpos = mouseX;
+           tc.xpos = mouseX - xd;
            tc.ypos = mouseY;
            tc.print();
            */
@@ -94,8 +94,8 @@ class GameScreen {
     fill(255, 255, 255);
     rect(t.xpos+xd, t.ypos+yd, size, size);
     selected=false;
-    t.xpos=mouseX-mouseX%size;
-    t.ypos=mouseY-mouseY%size;//not sure about these
+    t.xpos=(mouseX - xd)-(mouseX - xd)%size;
+    t.ypos=(mouseY - yd)-(mouseY - yd)%size;//not sure about these
     t.bodyColor = color(180, 102, 5);
     System.out.println(t.score);
     t.print(t.bodyColor);
@@ -344,10 +344,10 @@ class GameScreen {
 
 
   public void mouseClicked() {
-    if (16 * size <mouseX && 17 * size >mouseX && 15 * size <mouseY && 16 * size >mouseY) {
+    if (16 * size <mouseX - xd && 17 * size >mouseX - xd && 15 * size <mouseY - yd && 16 * size >mouseY - yd) {
       gray();
     } 
-    if (16 * size <mouseX && 17 * size >mouseX && 16 * size <mouseY && 17 * size >mouseY) {
+    if (16 * size <mouseX - xd && 17 * size >mouseX - xd && 16 * size <mouseY - yd && 17 * size >mouseY - yd) {
       black();
     }
     if (selected) {
