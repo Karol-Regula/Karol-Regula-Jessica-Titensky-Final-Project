@@ -14,7 +14,7 @@ class GameScreen {
   public void printTileDescription() {
     //Tile t = tileDescription.get(0);
     for (int x = 0; x < tileDescription.size(); x++) {
-      System.out.println(tileDescription.get(x).letter);
+      System.out.println(tileDescription.get(x).owner);
     }
   }
 
@@ -29,11 +29,12 @@ class GameScreen {
     //printTileDescription();//could not make this into generic print array due to things not being global variables
     //placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
     createPlayers(2);//can later change arguement when Main Menu works
-    setupPlayers();
+    setupPlayers();//assigns each player a portion of the tiles
+    printTileDescription();
     multt=b1.mult;
     dict1=loadStrings("words1.txt");
     System.out.println(dict1[dict1.length-1]);
-    activePlayer().placeTiles();
+    placeTiles();
   }
 
   public void createTiles() {
@@ -48,6 +49,26 @@ class GameScreen {
     Collections.shuffle(tileDescription);
   }
 
+  public void placeTiles() {//convert to  general from player
+    GameScreen g1 = new GameScreen();
+    int j = 0;
+    for (int i = 0; i < tileDescription.size(); i++) {
+      //System.out.println(tileDescription.get(i).owner);
+      if (tileDescription.get(i).owner.equals(activePlayer().name) && tileDescription.get(i).placed == false) {
+        tileDescription.get(i).xpos = i * size;
+        tileDescription.get(i).ypos = 16 * size;
+        tileDescription.get(i).origx = i * size;
+        tileDescription.get(i).origy = 16 *size;
+        if (tileDescription.get(i).placed == false) {
+          tileDescription.get(i).print(tileDescription.get(i).bodyColor);
+          j++;
+        }
+      }
+      if (j > 14) {
+        break;
+      }
+    }
+  }
 
   public void createPlayers(int n) {//creates the players, takes arguement fot number of them
     for (int x = 0; x < n; x++) {
@@ -57,9 +78,18 @@ class GameScreen {
   }
 
   public void setupPlayers() {//assigns tiles to players
+    int x = 0;
+    int j = 0;
     for (int i = 0; i < players.size(); i++) {
-      for (int j = 0; j < 98/players.size(); j++) {
-        players.get(i).hasTiles.add(tileDescription.get(j));
+      while (j < tileDescription.size()) {
+        tileDescription.get(j).owner = players.get(x).name;
+        if (x == 0) {
+          x = 1;
+        }
+        if (x == 1) {
+          x = 0;
+        }
+        j++;
       }
     }
     players.get(0).isTurn = true;
@@ -81,12 +111,19 @@ class GameScreen {
       players.get(0).isTurn = false;
       players.get(1).isTurn = true;
       turn = 1;
-    }else {
+    } else {
       players.get(1).isTurn = false;
       players.get(0).isTurn = true;
       turn = 0;
     }
     System.out.println(activePlayer().name);
+
+    //debugging
+    Board b1 = new Board();
+    b1.ddraw();
+    for (int x = 0; x < tileDescription.size(); x++) {
+      tileDescription.get(x).print(tileDescription.get(x).bodyColor);
+    }
   }
 
   public boolean detect() {
@@ -128,7 +165,7 @@ class GameScreen {
     t.xpos=(mouseX - xd)-(mouseX - xd)%size;
     t.ypos=(mouseY - yd)-(mouseY - yd)%size;//not sure about these
     t.bodyColor = color(180, 102, 5);
-    System.out.println(t.score);
+    //System.out.println(t.score);
     t.print(t.bodyColor);
   }
 
@@ -190,7 +227,7 @@ class GameScreen {
         for (int k=0; k<tileDescription.size(); k++) {//compares coordinates of all tiles to the ones currently in the first two loops
           Tile t1=tileDescription.get(k);
           if (t1.xpos==i && t1.ypos==j) {
-            System.out.println("foundmatchX");
+            //System.out.println("foundmatchX");
             if (moreLetters == false) {//what happens when a NEW word is found (first letter added)
               word.add(t1);
               moreLetters = false;
@@ -199,12 +236,12 @@ class GameScreen {
               Tile t2=tileDescription.get(m);
               //System.out.println("here5");
               if (t2.xpos==i + size && t2.ypos==j) {
-                System.out.println("foundnextLetterPossibilityX");
+                //System.out.println("foundnextLetterPossibilityX");
                 moreLetters = true;
               }
             }
             if (moreLetters == false) {//if there are no more letters that follow, adds word to ArrayList
-              System.out.println("addingwordX");
+              //System.out.println("addingwordX");
               ArrayList<Tile> wordCopy = new ArrayList<Tile>();
               for (int b = 0; b < word.size(); b++) {//to get around memory address pointers
                 wordCopy.add(word.get(b));
@@ -224,7 +261,7 @@ class GameScreen {
         for (int k=0; k<tileDescription.size(); k++) {//compares coordinates of all tiles to the ones currently in the first two loops
           Tile t1=tileDescription.get(k);
           if (t1.xpos==i && t1.ypos==j) {
-            System.out.println("foundmatchY");
+            //System.out.println("foundmatchY");
             if (moreLetters == false) {//what happens when a NEW word is found (first letter added)
               word.add(t1);
               moreLetters = false;
@@ -233,12 +270,12 @@ class GameScreen {
               Tile t2=tileDescription.get(m);
               //System.out.println("here5");
               if (t2.xpos==i && t2.ypos==j + size) {
-                System.out.println("foundnextLetterPossibilityY");
+                //System.out.println("foundnextLetterPossibilityY");
                 moreLetters = true;
               }
             }
             if (moreLetters == false) {//if there are no more letters that follow, adds word to ArrayList
-              System.out.println("addingwordY");
+              //System.out.println("addingwordY");
               ArrayList<Tile> wordCopy = new ArrayList<Tile>();
               for (int b = 0; b < word.size(); b++) {//to get around memory address pointers
                 wordCopy.add(word.get(b));
@@ -254,11 +291,11 @@ class GameScreen {
     }
     for (int i = 0; i < allWords.size(); i++) {
       String s = "";
-      System.out.println(allWords.get(i).size());
+      //System.out.println(allWords.get(i).size());
       for (int j = 0; j < allWords.get(i).size(); j ++) {
         s+= allWords.get(i).get(j).letter;
       }
-      System.out.println(s);
+      //System.out.println(s);
     }
     return allWords;
   }
@@ -271,11 +308,12 @@ class GameScreen {
         Tile t= allWords.get(i).get(j);
         word+=t.letter;
       }
-      System.out.println("THEWORD"+word+ainb(word, dict1));
+      //System.out.println("THEWORD"+word+ainb(word, dict1));
       if (ainb(word, dict1)==false) {
         return false;
       }
     }
+
     return true;
   }
 
@@ -341,15 +379,21 @@ class GameScreen {
     for (int i=0; i < tileDescription.size(); i++) {//temporary fix to all tiles printing in top left corner, but for now the game effectively has 15 tiles in play
       //======================================================need to fix above line when implementing adding new tiles as the game is played by the players
       fill(180, 102, 5);
-      rect(tileDescription.get(i).origx+xd, tileDescription.get(i).origy+yd, size, size);
-      tileDescription.get(i).xpos=tileDescription.get(i).origx;
-      tileDescription.get(i).ypos=tileDescription.get(i).origy;
-      tileDescription.get(i).print(tileDescription.get(i).bodyColor);
+      //rect(tileDescription.get(i).origx - xd, tileDescription.get(i).origy - yd, size, size);
+      if (tileDescription.get(i).xpos != tileDescription.get(i).origx || tileDescription.get(i).ypos != tileDescription.get(i).origy) {
+        tileDescription.get(i).xpos=tileDescription.get(i).origx;
+        tileDescription.get(i).ypos=tileDescription.get(i).origy;
+        tileDescription.get(i).print(tileDescription.get(i).bodyColor);
+      }
+    }
+    for (int x = 0; x < tileDescription.size(); x++) {
+      tileDescription.get(x).print(tileDescription.get(x).bodyColor);
     }
   }
 
+
   public int multt(int x, int y) {
-    System.out.println(x+" "+y);
+    //System.out.println(x+" "+y);
     return multt[x/size][y/size];
   }
 
@@ -370,11 +414,10 @@ class GameScreen {
       }
     }
     System.out.println("SCORE"+score);
-    if (score > 0){
-      System.out.println("here");
+    if (score > 0) {
       activePlayer().score += score;
       nextPlayer();
-      activePlayer().placeTiles();
+      placeTiles();
       System.out.println("new Tiles placed");
     }
     return score;

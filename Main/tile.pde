@@ -9,6 +9,7 @@ class Tile {
   public int ypos;
   public int origx;
   public int origy;
+  public String owner;
 
   public Tile(char whatLetter, int whatScore) {//have to rework xplace, might be redundant
     placed = false;
@@ -31,6 +32,14 @@ class Tile {
     text(letter, xpos + (size/2) -size/5+xd, ypos + (size/2) +size/5+yd);//has some manual adjustments made for now //===================================need to manually adjust
     textFont(f, 10);
     text(score, xpos + (size/2) + 12+xd, ypos + (size/2) + 15+yd);
+    
+    //for debugging, >>>also see code in nextPlayer()<<<;
+    text(xpos, xpos + (size/2) + 12+xd -20, ypos + (size/2) + 15+yd - 60);
+    text(ypos, xpos + (size/2) + 12+xd -20, ypos + (size/2) + 15+yd - 50);
+    text(origx, xpos + (size/2) + 12+xd -20, ypos + (size/2) + 15+yd - 40);
+    text(origy, xpos + (size/2) + 12+xd -20, ypos + (size/2) + 15+yd - 30);
+    
+    
     //testing
     //rect(90,90,30,30);//for now just a rectangle, tiles obviously have more variables
   }

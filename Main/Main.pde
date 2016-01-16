@@ -64,3 +64,8 @@ void draw() {
 //player class
 //timer/padding
 //on main menu--size
+
+
+//include space tiles
+//ai
+//

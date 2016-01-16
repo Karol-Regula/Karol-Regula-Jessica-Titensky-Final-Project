@@ -2,7 +2,7 @@ class Board {
 
   public int[][] mult;
 
-  int w=17, h=17, s=size;
+  int w=width/size, h=height/size, s=size;
 
   void ddraw() {
     mult= new int[15][15];
