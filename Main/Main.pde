@@ -3,16 +3,16 @@ String mode;// literally determines what mode game is in
 GameScreen g1 = new GameScreen();//made these into global(ish) variables so that they do not have to re-initialized in every method that uses their methods
 MainMenu m1 = new MainMenu();
 public int size;
-public int xd,yd;
+public int xd, yd;
 
 void setup() {
   size = 35;
   xd=175;
   yd=70;
-  frameRate(60);
+  frameRate(120);
   //runs only at the beginning and does the initializing stuff
   //size(17 * size, 17 * size);//does not work, will not accept variables
-  size(770, 665);//window size
+  size(840, 735);//window size
   background(255, 255, 0);//background color
   //noStroke();//disables border
   //fill(0, 102);//sets color used for filling
@@ -64,8 +64,3 @@ void draw() {
 //player class
 //timer/padding
 //on main menu--size
-
-
-//include space tiles
-//ai
-//

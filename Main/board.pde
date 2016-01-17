@@ -37,12 +37,15 @@ class Board {
     mult[2][2]=mult[3][3]=mult[4][4]=mult[7][7]=mult[1][1]=2;
 
     background(255, 255, 255);  
+    /*
     for (int i=0; i<w; i++) {
-      line(i*s, 0, i*s, height);
-    }
-    for (int i=0; i<h; i++) {
-      line(0, i*s, width, i*s);
-    }
+     line(i*s, 0, i*s, height);
+     }
+     for (int i=0; i<h; i++) {
+     line(0, i*s, width, i*s);
+     }
+     */
+
     for (int i=0; i<8; i++) {
       for (int j=0; j<8; j++) {
         fill(colors[i][j][0], colors[i][j][1], colors[i][j][2]);
@@ -77,5 +80,4 @@ class Board {
     fill(126, 126, 126);
     rect(16*size+xd, 15*size+yd, size, size); //put unfinalized tiles back on rack
   }
-
 }
