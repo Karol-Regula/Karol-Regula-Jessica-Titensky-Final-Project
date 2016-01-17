@@ -27,11 +27,23 @@ class Tile {
     bodyColor = whatColor;
     fill(bodyColor);  
     rect(xpos+xd, ypos+yd, size, size);
-    textFont(f, 25);
+    textFont(f, 23);
     fill(0, 0, 0);//this means that all of the shapes that are made will be filled until noFill() is run
-    text(letter, xpos + (size/2) -size/5+xd, ypos + (size/2) +size/5+yd);//has some manual adjustments made for now //===================================need to manually adjust
-    textFont(f, 10);
-    text(score, xpos + (size/2) + 12+xd, ypos + (size/2) + 15+yd);
+    if (letter == 'I' || letter == 'J'){
+      text(letter, xpos + (size/2) -size/5+xd + 4, ypos + (size/2) +size/5+yd);
+    }else if (letter == 'W'){
+      text(letter, xpos + (size/2) -size/5+xd  - 3, ypos + (size/2) +size/5+yd);
+    }else{
+      text(letter, xpos + (size/2) -size/5+xd, ypos + (size/2) +size/5+yd);//has some manual adjustments made for now //===================================need to manually adjust
+    }
+    
+    textFont(f, 9);
+    if (score == 10){
+      text(score, xpos + (size/2) + 6+xd, ypos + (size/2) + 16+yd);
+    }else{
+      text(score, xpos + (size/2) + 10+xd, ypos + (size/2) + 16+yd);
+    }
+    
     //testing
     //rect(90,90,30,30);//for now just a rectangle, tiles obviously have more variables
   }
