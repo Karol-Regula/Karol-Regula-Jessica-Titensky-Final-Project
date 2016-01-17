@@ -69,9 +69,11 @@ class GameScreen {
 
   public void createPlayers(int n) {
     for (int x = 0; x < n; x++) {
-      Player p1 = new Player(x);
+      Player p1 = new Player(""+x, false);
       players.add(p1);
     }
+    Player p1 = new Player("AI", true);
+    players.add(p1);
   }
 
   public void setupPlayers() {
@@ -135,7 +137,13 @@ class GameScreen {
     Board b1 = new Board();
     refillTiles();
     nextPlayer();
-    placeTiles();
+    if (activePlayer().isAI == true){
+      AI a1 = new AI();
+      a1.grabTiles();
+      placeTiles();
+    }else{
+      placeTiles();
+    }
     b1.scoreBoard();
     System.out.println("nowPLAYER"+activePlayer().name);
   }
