@@ -32,6 +32,7 @@ class GameScreen {
     multt=b1.mult;
     dict1=loadStrings("words1.txt");
     System.out.println(dict1[0]);
+    b1.scoreBoard();
   }
 
   public void createTiles() {
@@ -130,7 +131,14 @@ class GameScreen {
     return players.get(0);
   }
 
-
+  public void nextTurn() {//place for all the things that happen after the black button approves the move
+    Board b1 = new Board();
+    refillTiles();
+    nextPlayer();
+    placeTiles();
+    b1.scoreBoard();
+    System.out.println("nowPLAYER"+activePlayer().name);
+  }
 
   public boolean detect() {
     Tile t=tileDescription.get(0);
@@ -441,6 +449,7 @@ class GameScreen {
       tileDescription.get(i).ypos=tileDescription.get(i).origy;
       tileDescription.get(i).print(tileDescription.get(i).bodyColor);
     }
+    b1.scoreBoard();
   }
 
   public int multt(int x, int y) {
@@ -467,10 +476,7 @@ class GameScreen {
     }
     if (score>0) {
       activePlayer().score+=score;
-      refillTiles();
-      nextPlayer();
-      placeTiles();
-      System.out.println("nowPLAYER"+activePlayer().name);
+      nextTurn();
     }
   }
 

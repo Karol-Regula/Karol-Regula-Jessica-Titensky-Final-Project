@@ -6,7 +6,7 @@ public class Player {
 
   public Player(int x) {
     score = 0;
-    name = ""+x;
+    name = "Player "+x;
     isTurn=false;
   }
 }

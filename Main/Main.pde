@@ -12,7 +12,7 @@ void setup() {
   frameRate(120);
   //runs only at the beginning and does the initializing stuff
   //size(17 * size, 17 * size);//does not work, will not accept variables
-  size(840, 735);//window size
+  size(875, 735);//window size
   background(255, 255, 0);//background color
   //noStroke();//disables border
   //fill(0, 102);//sets color used for filling
