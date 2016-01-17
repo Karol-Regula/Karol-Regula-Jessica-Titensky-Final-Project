@@ -79,5 +79,10 @@ class Board {
     rect(16*size+xd, 16*size+yd, size, size); //finalize tiles changes on board
     fill(126, 126, 126);
     rect(16*size+xd, 15*size+yd, size, size); //put unfinalized tiles back on rack
+    fill(0, 0, 0);
+    rect(5*size, 1*size + 3*(size/4) +2, 15*size, size/4);
+    rect(4*size + 3*(size/4) +2, 1*size + 3*(size/4) +2, size/4, 15*size + size/2);
+    rect(4*size + 3*(size/4) +2, 17*size, size*15 + size/2, size/4);
+    rect(20*size, size + + 3*(size/4) +2, size/4, size*15 + size/2);
   }
 }

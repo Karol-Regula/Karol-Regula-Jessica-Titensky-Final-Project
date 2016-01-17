@@ -23,11 +23,6 @@ class GameScreen {
   public void boardSetup() {
     Board b1 = new Board();
     b1.ddraw();
-    fill(0, 0, 0);
-    rect(4*size, 1*size, 17*size, size);
-    rect(4*size, 1*size, size, 17*size);
-    rect(4*size, 17*size, size*17, size);
-    rect(20*size, size, size, size*17);
     createTiles();//creates tiles and places them in arrayList
     //printTileDescription();//could not make this into generic print array due to things not being global variables
 
