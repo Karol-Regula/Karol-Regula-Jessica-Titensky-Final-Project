@@ -139,7 +139,7 @@ class GameScreen {
     nextPlayer();
     if (activePlayer().isAI == true){
       AI a1 = new AI();
-      a1.grabTiles();
+      a1.wordsPossible();
       placeTiles();
     }else{
       placeTiles();

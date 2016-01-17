@@ -64,3 +64,5 @@ void draw() {
 //player class
 //timer/padding
 //on main menu--size
+
+//make dict1 load only once, also make AI only do hasNow getting once per dict1 word
