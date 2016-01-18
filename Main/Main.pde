@@ -29,7 +29,7 @@ void mouseClicked() {
 
 void draw() {
   if (mode == "mainMenu") {// all the menu buttons would exist here
-    m1.detect();//detects mouse presses and where the mouse it
+    m1.select();//detects mouse presses and where the mouse it
   }
   if (mode == "gameScreen") {//would print the board and tiles and run the game code
     //g1.detect();

@@ -1,4 +1,4 @@
-class Board extends GameScreen{
+class Board extends GameScreen {
 
   public int[][] mult;
 
@@ -86,28 +86,27 @@ class Board extends GameScreen{
     rect(4*size + 3*(size/4) +2, 17*size, size*15 + size/2, size/4);
     rect(20*size, size + + 3*(size/4) +2, size/4, size*15 + size/2);
   }
-  
-  public void scoreBoard(){
+
+  public void scoreBoard() {
     PFont f = createFont("Arial", 16, true);
     noStroke();
-    fill(255,255,255);
+    fill(255, 255, 255);
     rect(21 * size, 4 * size, 24 * size, 8 * size);
     fill(#516DD8);
     rect(21 * size + size / 2, 3 * size, 3 * size, size);
     textFont(f, 15);
-    fill(0,0,0);
+    fill(0, 0, 0);
     text("Score Board", 21 * size + size / 2 + 8, 3 * size + size /2 + 5);
     //settings for for loop
-    fill(0,0,0);
+    fill(0, 0, 0);
     textFont(f, 12);
-    for (int i = 0; i < g1.players.size(); i++){
+    for (int i = 0; i < g1.players.size(); i++) {
       fill(#7993F5);
       rect(21 * size + size / 2, 4 * size + i * size, 3 * size, size);
-      fill(0,0,0);
+      fill(0, 0, 0);
       text(g1.players.get(i).name+":", 22 * size, 5 * size + i * size - 15);
       text(g1.players.get(i).score, 23 * size + 25, 5 * size + i * size - 15);
     }
     stroke(1);
   }
-  
 }

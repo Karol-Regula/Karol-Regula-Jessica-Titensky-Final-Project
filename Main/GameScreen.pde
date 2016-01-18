@@ -20,13 +20,13 @@ class GameScreen {
     }
   }
 
-  public void boardSetup() {
+  public void boardSetup(int players, boolean ai) {
     Board b1 = new Board();
     b1.ddraw();
     createTiles();//creates tiles and places them in arrayList
     //printTileDescription();//could not make this into generic print array due to things not being global variables
 
-    createPlayers(2);//can later change arguement when Main Menu works
+    createPlayers(players, ai);//can later change arguement when Main Menu works
     setupPlayers();
     placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
     multt=b1.mult;
@@ -67,13 +67,15 @@ class GameScreen {
     }
   }
 
-  public void createPlayers(int n) {
+  public void createPlayers(int n, boolean ai) {
     for (int x = 0; x < n; x++) {
       Player p1 = new Player(""+x, false);
       players.add(p1);
     }
-    Player p1 = new Player("AI", true);
-    players.add(p1);
+    if (ai) {
+      Player p1 = new Player("AI", true);
+      players.add(p1);
+    }
   }
 
   public void setupPlayers() {
@@ -137,11 +139,11 @@ class GameScreen {
     Board b1 = new Board();
     refillTiles();
     nextPlayer();
-    if (activePlayer().isAI == true){
+    if (activePlayer().isAI == true) {
       AI a1 = new AI();
       a1.wordsPossible();
       placeTiles();
-    }else{
+    } else {
       placeTiles();
     }
     b1.scoreBoard();
