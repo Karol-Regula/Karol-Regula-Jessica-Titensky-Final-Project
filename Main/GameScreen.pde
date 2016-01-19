@@ -141,7 +141,8 @@ class GameScreen {
     nextPlayer();
     if (activePlayer().isAI == true) {
       AI a1 = new AI();
-      a1.wordsPossible();
+      //a1.wordsPossible();//commented out because this already occurs in tryAllWords()
+      a1.tryAllWords();
       placeTiles();
     } else {
       placeTiles();
