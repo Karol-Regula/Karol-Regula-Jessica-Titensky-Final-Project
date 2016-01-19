@@ -490,14 +490,25 @@ class GameScreen {
     }
   }
 
+  public void red() {
+    mode = "mainMenu";//sets mode
+    MainMenu m1 = new MainMenu();
+    m1.setupMenu();
+  }
+
+
+
 
   public void mouseClicked() {
-    if (16 * size <mouseX - xd && 17 * size >mouseX - xd && 15 * size <mouseY - yd && 16 * size >mouseY - yd) {
+    if (16*size+xd<mouseX && mouseX<16*size+xd+size*2.5 && 15*size+yd-10<mouseY && mouseY<15*size+yd-10+size) {
       gray();
     } 
-    if (16 * size <mouseX - xd && 17 * size >mouseX - xd && 16 * size <mouseY - yd && 17 * size >mouseY - yd) {
+    if (16*size+xd<mouseX && mouseX<16*size+xd+size*2.5 && 16*size+yd<mouseY && mouseY<16*size+yd+size) {
       black();
     }
+    if (width-size*2<mouseX && mouseX<width && 0<mouseY && mouseY<size) {
+      red();
+    }    
     if (selected) {
       move();
     } else {
