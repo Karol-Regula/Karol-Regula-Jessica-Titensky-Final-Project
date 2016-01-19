@@ -36,7 +36,7 @@ void draw() {
     //g1.mouseClicked();
   }
   if (mousePressed) {//testing purposes
-    // System.out.println(mouseX - xd + " " + mouseY); prints mouse position into console
+    //System.out.println((mouseX - xd)  + " " + (mouseY - yd)); //prints mouse position into console
   }
   //mouse pressed moved to MainMenu class
 }

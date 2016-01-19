@@ -183,15 +183,18 @@ class GameScreen {
         t=tileDescription.get(i);
       }
     }
-    //System.out.println("pressed");
-    fill(255, 255, 255);
-    rect(t.xpos+xd, t.ypos+yd, size, size);
-    selected=false;
-    t.xpos=(mouseX - xd)-(mouseX - xd)%size;
-    t.ypos=(mouseY - yd)-(mouseY - yd)%size;//not sure about these
-    t.bodyColor = color(180, 102, 5);
-    System.out.println(t.score);
-    t.print(t.bodyColor);
+    if ((mouseX > 5 * size && mouseX < 20 * size && mouseY > 2 * size && mouseY < 17 * size) || //fixed the player being able to move the tile to anywhere on the board
+      (mouseX - xd > t.xpos && mouseX - xd < t.xpos + size && mouseY - yd > t.ypos && mouseY - yd < t.ypos + size)) {//handles case of deselecting tiles
+      //System.out.println("pressed");
+      fill(255, 255, 255);
+      rect(t.xpos+xd, t.ypos+yd, size, size);
+      selected=false;
+      t.xpos=(mouseX - xd)-(mouseX - xd)%size;
+      t.ypos=(mouseY - yd)-(mouseY - yd)%size;//not sure about these
+      t.bodyColor = color(180, 102, 5);
+      System.out.println(t.score);
+      t.print(t.bodyColor);
+    }
   }
 
   public boolean ainb(String a, String[] b) {
