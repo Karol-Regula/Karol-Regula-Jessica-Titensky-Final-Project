@@ -110,6 +110,7 @@ class GameScreen {
         for (int j=x; j<x+n; j++) {
           tileDescription.get(j).owner=p.name;
           upto++;
+          System.out.println("UPTOO"+upto);
         }
       }
     }

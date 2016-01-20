@@ -119,6 +119,14 @@ class Board extends GameScreen {
       text(g1.players.get(i).name+":", 22 * size, 5 * size + i * size - 15);
       text(g1.players.get(i).score, 23 * size + 25, 5 * size + i * size - 15);
     }
+    fill(#7993F5);
+    rect(21 * size + size / 2, 4 * size + g1.players.size() * size, 3 * size, size);
+    fill(0, 0, 0);
+    text("Tiles left"+":", 22 * size, 5 * size + g1.players.size() * size - 15);
+    text(""+(g1.tileDescription.size()-g1.upto), 23 * size + 25, 5 * size + g1.players.size() * size - 15);
+    
+    
+    
     stroke(1);
   }
 }
