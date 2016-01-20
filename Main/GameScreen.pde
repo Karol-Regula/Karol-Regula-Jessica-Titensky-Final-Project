@@ -3,7 +3,7 @@ import java.lang.Math;
 import java.io.FileNotFoundException;
 class GameScreen {
 
-  boolean selected=false;
+  boolean selected=false, swap=false;
 
   ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
   int upto=0;
@@ -464,6 +464,7 @@ class GameScreen {
       tileDescription.get(i).print(tileDescription.get(i).bodyColor);
     }
     b1.scoreBoard();
+    swap=false;
   }
 
   public int multt(int x, int y) {
@@ -500,7 +501,67 @@ class GameScreen {
     m1.setupMenu();
   }
 
+  public void swapselect() {
+    System.out.println(swap);
+    if (!swap) {
+      fill(203, 116, 227);
+      rect(16*size+xd, 14*size+yd-20, size*2.5, size);
+      fill(255, 255, 255);
+      PFont f = createFont("Arial", 16, true);
+      textFont(f, 23);
+      textSize(25);
+      text("Swap", 16*size+xd+14, 14*size+yd-20+28);
+      swap=true;
+    } else {
+      if (tileDescription.size()-upto>=7) {
+        for (int i=0; i<tileDescription.size(); i++) {
+          Tile t=tileDescription.get(i);
+          if (t.bodyColor==color(204, 159, 102)) {
+            System.out.println(t.letter);
+            char c=t.letter;
+            /*
+            tileDescription.set(i, tileDescription.get(upto));
+             tileDescription.get(i).owner=t.owner;
+             tileDescription.get(i).bodyColor=color(180, 102, 5);
+             tileDescription.set(upto, t);
+             tileDescription.get(upto).owner="";
+             tileDescription.get(upto).bodyColor=color(180, 102, 5);
+             */
+            t.letter=tileDescription.get(upto).letter;
+            tileDescription.get(upto).letter=c;
+            System.out.println(t.letter);
+            ArrayList<Tile> lastTiles= new ArrayList<Tile>();
+            for (int j=upto; j<tileDescription.size(); j++) {
+              lastTiles.add(tileDescription.get(j));
+            }
+            Collections.shuffle(lastTiles);
+            for (int j=0; j<lastTiles.size(); j++) {
+              tileDescription.set(upto+j, lastTiles.get(j));
+            }
+            t.bodyColor=color(180, 102, 5);
+            t.print(t.bodyColor);
+            upto++;
+          }
+        }
+      }
+      fill(158, 45, 189);
+      rect(16*size+xd, 14*size+yd-20, size*2.5, size);
+      fill(255, 255, 255);
+      PFont f = createFont("Arial", 16, true);
+      textFont(f, 23);
+      textSize(25);
+      text("Swap", 16*size+xd+14, 14*size+yd-20+28);
+      swap=false;
+      selected=false;
+      nextTurn();
+    }
+  }
 
+  public void swap() {
+    if (swap && mousePressed) {
+      detect();
+    }
+  }
 
 
   public void mouseClicked() {
@@ -512,7 +573,10 @@ class GameScreen {
     }
     if (width-size*2<mouseX && mouseX<width && 0<mouseY && mouseY<size) {
       red();
-    }    
+    }
+    if (16*size+xd<mouseX && mouseX<16*size+xd+size*2.5 && 14*size+yd-20<mouseY && mouseY<14*size+yd-20+size) {
+      swapselect();
+    }
     if (selected) {
       move();
     } else {

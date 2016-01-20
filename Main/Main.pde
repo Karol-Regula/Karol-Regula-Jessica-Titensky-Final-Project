@@ -34,6 +34,7 @@ void draw() {
   if (mode == "gameScreen") {//would print the board and tiles and run the game code
     //g1.detect();
     //g1.mouseClicked();
+    g1.swap();
   }
   if (mousePressed) {//testing purposes
     //System.out.println((mouseX - xd)  + " " + (mouseY - yd)); //prints mouse position into console

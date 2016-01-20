@@ -110,23 +110,23 @@ public class AI extends GameScreen {
     //printScoreIndexes();
   }
 
-  public void prepareScoreIndexes(){
-    while (scoreIndexX.size() > 0){
+  public void prepareScoreIndexes() {
+    while (scoreIndexX.size() > 0) {
       scoreIndexX.remove(0);
     }
-    while (scoreIndexY.size() > 0){
+    while (scoreIndexY.size() > 0) {
       scoreIndexY.remove(0);
     }
   }
-  
-  public void printScoreIndexes(){//method only for debuggin'
-    for (int x = 0; x < scoreIndexX.size(); x++){
-      if (scoreIndexX.get(x) > 0){
+
+  public void printScoreIndexes() {//method only for debuggin'
+    for (int x = 0; x < scoreIndexX.size(); x++) {
+      if (scoreIndexX.get(x) > 0) {
         System.out.println("scoreIndexX, position: "+x+"value: "+scoreIndexX.get(x));
       }
     }
-    for (int x = 0; x < scoreIndexY.size(); x++){
-      if (scoreIndexY.get(x) > 0){
+    for (int x = 0; x < scoreIndexY.size(); x++) {
+      if (scoreIndexY.get(x) > 0) {
         System.out.println("scoreIndexY, position: "+x+"value: "+scoreIndexY.get(x));
       }
     }
@@ -151,7 +151,7 @@ public class AI extends GameScreen {
             }
             scoreIndexX.add(score);
             score = 0;
-          }else{
+          } else {
             scoreIndexX.add(0);
           }
           gray();
@@ -175,7 +175,7 @@ public class AI extends GameScreen {
             }
             scoreIndexY.add(score);
             score = 0;
-          }else{
+          } else {
             scoreIndexY.add(0);
           }
           gray();

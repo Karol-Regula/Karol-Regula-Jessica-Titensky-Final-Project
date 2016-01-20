@@ -77,9 +77,9 @@ class Board extends GameScreen {
 
 
     fill(0, 0, 0);
-    rect(16*size+xd, 16*size+yd, size*2.5, size); //finalize tiles changes on board
+    rect(16*size+xd, 16*size+yd, size*2.5, size); //play
     fill(126, 126, 126);
-    rect(16*size+xd, 15*size+yd-10, size*2.5, size); //put unfinalized tiles back on rack
+    rect(16*size+xd, 15*size+yd-10, size*2.5, size); //undo
     fill(0, 0, 0);
     rect(5*size, 1*size + 3*(size/4) +2, 15*size, size/4);
     rect(4*size + 3*(size/4) +2, 1*size + 3*(size/4) +2, size/4, 15*size + size/2);
@@ -87,6 +87,8 @@ class Board extends GameScreen {
     rect(20*size, size + + 3*(size/4) +2, size/4, size*15 + size/2);
     fill(148, 30, 39);
     rect(width-size*2, 0, size*2, size); //leave
+    fill(158, 45, 189);
+    rect(16*size+xd, 14*size+yd-20, size*2.5, size); //swap
     fill(255, 255, 255);
     PFont f = createFont("Arial", 16, true);
     textFont(f, 23);
@@ -94,6 +96,7 @@ class Board extends GameScreen {
     text("Exit", width-2*size+12, 28);
     text("Play", 16*size+xd+20, 16*size+yd+28);
     text("Undo", 16*size+xd+16, 15*size+yd-10+28);
+    text("Swap", 16*size+xd+14, 14*size+yd-20+28);
   }
 
   public void scoreBoard() {
