@@ -11,3 +11,5 @@ Final Project 2016 APCS
 	Bugfix - scoreBoard now correctly keeps track of the amount of tiles left in the bag after a player has swapped their tiles out (previously the number of tiles in the bag would decrease)
 	New class - Input Field: detects keypresses and for now prints them into the console. Will be used as a means for the player to provide input when choosing their name and selecting a letter for the 2 blank tiles(not yet implemented).
 	Tiles also have a new variable that identifies them in a unique way ("number").
+
+	Jessica- changed the scoring system to be based on words and not letters, and fixed the swapping function so that it returns the swapped out tiles to the 'box' (Karol fixed this in how its displayed, but it the game still functioned without those tiles)
