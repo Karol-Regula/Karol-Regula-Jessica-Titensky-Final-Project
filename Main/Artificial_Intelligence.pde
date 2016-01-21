@@ -143,14 +143,21 @@ public class AI extends GameScreen {
 
   public void tryWord(ArrayList<Tile> input) {//tries all possible positions for one word
     int score = 0;
+    boolean badOverlap = false;
     ArrayList<Tile> useless = new ArrayList<Tile>();
     for (int i = 3 * size; i < 16 * size; i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
       for (int j = 6 * size; j < ((19 * size) - ((input.size() * size))); j+= size) {//xdimension
         for (int x = 0; x < input.size(); x++) {
           input.get(x).xpos = j + x * size;
           input.get(x).ypos = i;
+          for (int z = 0; z < g1.tileDescription.size(); z++) {
+            if (g1.tileDescription.get(z).xpos == input.get(x).xpos && g1.tileDescription.get(z).ypos == input.get(x).ypos && g1.tileDescription.get(z).letter != input.get(x).letter) {
+              badOverlap = true;
+              System.out.println("Bad overlap");
+            }
+          }
         }
-        if (g1.legitt() && g1.legit()) {
+        if (g1.legitt() && g1.legit() && !badOverlap) {
           //System.out.println("legits passedx============================================================");
           for (int k = 0; k < g1.tileDescription.size(); k++) {
             Tile t = g1.tileDescription.get(k);
@@ -162,8 +169,8 @@ public class AI extends GameScreen {
           }
           scoreIndexX.add(score);
           ArrayList<Tile> inputMod = new ArrayList<Tile>(); 
-          for (int n = 0; n < input.size(); n++){
-            Tile t1 = new Tile(input.get(n).letter, input.get(n).score,input.get(n).number);//this might be the cause of future bugs, be wary
+          for (int n = 0; n < input.size(); n++) {
+            Tile t1 = new Tile(input.get(n).letter, input.get(n).score, input.get(n).number);//this might be the cause of future bugs, be weary
             t1.xpos = input.get(n).xpos;
             t1.ypos = input.get(n).ypos;
             inputMod.add(t1);
@@ -176,6 +183,7 @@ public class AI extends GameScreen {
           scoreIndexX.add(0);
           tileIndexX.add(useless);
         }
+        badOverlap = false;
         g1.gray();
       }
     }
@@ -208,37 +216,34 @@ public class AI extends GameScreen {
      }
      */
   }
-  
-  public void makePlay(){
+
+  public void makePlay() {
     boolean end = false;
-    Tile t1 = new Tile('a',1,1);
-    for (int i = 0; i < scoreIndexX.size(); i++){
-      if (scoreIndexX.get(i) > 7){
+    Tile t1 = new Tile('a', 1, 1);
+    for (int i = 0; i < scoreIndexX.size(); i++) {
+      if (scoreIndexX.get(i) > 6) {
         //debugging
         System.out.println("Found a score of "+scoreIndexX.get(i));
         System.out.println("Length of word: " + tileIndexX.get(i).size());
-        for (int d = 0; d < tileIndexX.get(i).size(); d++){
+        for (int d = 0; d < tileIndexX.get(i).size(); d++) {
           System.out.println(tileIndexX.get(i).get(d).xpos);
           System.out.println(tileIndexX.get(i).get(d).ypos);
           System.out.println(tileIndexX.get(i).get(d).letter);
-        }
-        
-        for (int j = 0; j < tileIndexX.get(i).size(); j++){
-          for (int k = 0; k < g1.tileDescription.size(); k++){
-            if (g1.tileDescription.get(k).number == tileIndexX.get(i).get(j).number){
+        }       
+        for (int j = 0; j < tileIndexX.get(i).size(); j++) {
+          for (int k = 0; k < g1.tileDescription.size(); k++) {
+            System.out.println(g1.tileDescription.get(k).number + " " + tileIndexX.get(i).get(j).number);
+            if (g1.tileDescription.get(k).number == tileIndexX.get(i).get(j).number) {
               g1.tileDescription.get(k).xpos = tileIndexX.get(i).get(j).xpos;
               g1.tileDescription.get(k).ypos = tileIndexX.get(i).get(j).ypos;
-              System.out.println(g1.tileDescription.get(k).xpos + " " + (g1.tileDescription.get(k).ypos));
+              System.out.println("number matched" + g1.tileDescription.get(k).xpos + " " + (g1.tileDescription.get(k).ypos));
             }
-              end = true;
-              break;
-          }
-          if (end){
-            break;
           }
         }
+        end = true;
+        break;
       }
-      if (end){
+      if (end) {
         g1.black();
         break;
       }

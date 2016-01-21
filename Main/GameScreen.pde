@@ -40,7 +40,7 @@ class GameScreen {
     int[] tileScores = new int[]{1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
     for (int i = 0; i < tileFrequency.length; i ++) {
       for (int j = 0; j < tileFrequency[i]; j++) {
-        Tile t1 = new Tile((char)('A' + i), tileScores[i],i);
+        Tile t1 = new Tile((char)('A' + i), tileScores[i], i);
         tileDescription.add(t1);//adds new tile into Arraylist
       }
     }
@@ -475,7 +475,8 @@ class GameScreen {
   public void black() {
     Board b1=new Board();
     int score=0;
-    //System.out.println(legit() == true);
+    System.out.println(legit() == true);
+    System.out.println(legitt() == true);
     if (legitt()&&legit()) {
       System.out.println("MUAHAHA");
       for (int i=0; i<tileDescription.size(); i++) {
@@ -518,6 +519,7 @@ class GameScreen {
           Tile t=tileDescription.get(i);
           if (t.bodyColor==color(204, 159, 102)) {
             System.out.println(t.letter);
+            upto--;
             char c=t.letter;
             /*
             tileDescription.set(i, tileDescription.get(upto));
@@ -582,5 +584,10 @@ class GameScreen {
     } else {
       selected=detect();
     }
+  }
+
+  void keyPressed() {
+    InputField i1 = new InputField();
+    i1.listen();
   }
 }

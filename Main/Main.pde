@@ -27,6 +27,10 @@ void mouseClicked() {
   }
 }
 
+void keyPressed() {
+    g1.keyPressed();
+}
+
 void draw() {
   if (mode == "mainMenu") {// all the menu buttons would exist here
     m1.select();//detects mouse presses and where the mouse it
