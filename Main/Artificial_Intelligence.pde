@@ -4,8 +4,10 @@ public class AI extends GameScreen {
   ArrayList<Tile> hasNow;
   //ArrayList<ArrayList<Integer>> scoreIndexX = new ArrayList<ArrayList<Integer>>(); //this is different every turn
   //ArrayList<ArrayList<Integer>> scoreIndexY = new ArrayList<ArrayList<Integer>>(); //this is different every turn
-  ArrayList<Integer> scoreIndexX = new ArrayList<Integer>(); //this is different every turn
-  ArrayList<Integer> scoreIndexY = new ArrayList<Integer>(); //this is different every turn
+  ArrayList<Integer> scoreIndexX = new ArrayList<Integer>();
+  ArrayList<Integer> scoreIndexY = new ArrayList<Integer>();
+  ArrayList<ArrayList<Tile>> tileIndexX = new ArrayList<ArrayList<Tile>>();
+  ArrayList<ArrayList<Tile>> tileIndexY = new ArrayList<ArrayList<Tile>>();
   int currentWordTested = 0;
 
   public AI() {
@@ -102,24 +104,31 @@ public class AI extends GameScreen {
 
   public void tryAllWords() {//tries to insert all of the words into all avaliable posisions on the board
     ArrayList<ArrayList<Tile>> possibleWords = wordsPossible();
-    prepareScoreIndexes();
-    for (int i = 0; i < 3; i++) {//possibleWords.size();
+    prepareIndexes();
+    for (int i = 0; i < possibleWords.size() && i < 8; i++) {//possibleWords.size();
       currentWordTested = i;
       tryWord(possibleWords.get(i));
     }
-    printScoreIndexes();
+    printIndexes();
+    makePlay();
   }
 
-  public void prepareScoreIndexes() {
+  public void prepareIndexes() {
     while (scoreIndexX.size() > 0) {
       scoreIndexX.remove(0);
     }
     while (scoreIndexY.size() > 0) {
       scoreIndexY.remove(0);
     }
+    while (tileIndexX.size() > 0) {
+      scoreIndexY.remove(0);
+    }
+    while (tileIndexY.size() > 0) {
+      scoreIndexY.remove(0);
+    }
   }
 
-  public void printScoreIndexes() {//method only for debuggin'
+  public void printIndexes() {//method only for debuggin'
     for (int x = 0; x < scoreIndexX.size(); x++) {
       if (scoreIndexX.get(x) > 0) {
         System.out.println("scoreIndexX, position: "+x+"value: "+scoreIndexX.get(x));
@@ -134,60 +143,106 @@ public class AI extends GameScreen {
 
   public void tryWord(ArrayList<Tile> input) {//tries all possible positions for one word
     int score = 0;
-    for (int i = 2 * size; i < 17 * size; i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
-      for (int j = 5 * size; j < ((20 * size) - ((input.size() * size))); j+= size) {//xdimension
+    ArrayList<Tile> useless = new ArrayList<Tile>();
+    for (int i = 3 * size; i < 16 * size; i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
+      for (int j = 6 * size; j < ((19 * size) - ((input.size() * size))); j+= size) {//xdimension
         for (int x = 0; x < input.size(); x++) {
           input.get(x).xpos = j + x * size;
           input.get(x).ypos = i;
-          if (g1.legitt() && g1.legit()) {
-            //System.out.println("legits passedx============================================================");
-            for (int k = 0; k < g1.tileDescription.size(); k++) {
-              Tile t = g1.tileDescription.get(k);
-              if (t.origy!=t.ypos) {
-                //t.placed=true;
-                System.out.println("scoring=============");
-                score+=t.score;//* g1.multt(t.xpos, t.ypos);
-              }
-              t.xpos=t.origx;
-              t.ypos=t.origy;
-            }
-            scoreIndexX.add(score);
-            score = 0;
-          } else {
-            scoreIndexX.add(0);
-          }
-          gray();
         }
+        if (g1.legitt() && g1.legit()) {
+          //System.out.println("legits passedx============================================================");
+          for (int k = 0; k < g1.tileDescription.size(); k++) {
+            Tile t = g1.tileDescription.get(k);
+            if (t.origy!=t.ypos) {
+              //t.placed=true;
+              System.out.println("scoring=============");
+              score+=t.score * g1.multt(t.xpos - xd, t.ypos - yd);
+            }
+          }
+          scoreIndexX.add(score);
+          ArrayList<Tile> inputMod = new ArrayList<Tile>(); 
+          for (int n = 0; n < input.size(); n++){
+            Tile t1 = new Tile(input.get(n).letter, input.get(n).score,input.get(n).number);//this might be the cause of future bugs, be wary
+            t1.xpos = input.get(n).xpos;
+            t1.ypos = input.get(n).ypos;
+            inputMod.add(t1);
+          }
+          //t.xpos=t.origx;
+          //t.ypos=t.origy;
+          tileIndexX.add(inputMod);//these index all tries, is inefficient, have to make this index only successful tries
+          score = 0;
+        } else {
+          scoreIndexX.add(0);
+          tileIndexX.add(useless);
+        }
+        g1.gray();
       }
     }
     /*
     for (int i = 2 * size; i < 17 * size; i+= size) {//first weird for loops I ever wrote//ydimension//vertical
-      for (int j = 5 * size; j < 20 * size; j+= size) {//xdimension
-        for (int x = 0; x < input.size(); x++) {
-          input.get(x).xpos = j;
-          input.get(x).ypos = i + x * size;
-          if (g1.legitt() && g1.legit()) {
-            //System.out.println("legits passedy===========================================================");
-            for (int k = 0; k < g1.tileDescription.size(); k++) {
-              Tile t = g1.tileDescription.get(k);
-              if (t.origy!=t.ypos) {
-                t.placed=true;
-                System.out.println("scoring=============");
-                score+=t.score;//* g1.multt(t.xpos, t.ypos);
-              }
-              //t.origx=t.xpos;
-              //t.origy=t.ypos;
+     for (int j = 5 * size; j < 20 * size; j+= size) {//xdimension
+     for (int x = 0; x < input.size(); x++) {
+     input.get(x).xpos = j;
+     input.get(x).ypos = i + x * size;
+     if (g1.legitt() && g1.legit()) {
+     //System.out.println("legits passedy===========================================================");
+     for (int k = 0; k < g1.tileDescription.size(); k++) {
+     Tile t = g1.tileDescription.get(k);
+     if (t.origy!=t.ypos) {
+     t.placed=true;
+     System.out.println("scoring=============");
+     score+=t.score;//* g1.multt(t.xpos, t.ypos);
+     }
+     //t.origx=t.xpos;
+     //t.origy=t.ypos;
+     }
+     scoreIndexY.add(score);
+     score = 0;
+     } else {
+     scoreIndexY.add(0);
+     }
+     gray();
+     }
+     }
+     }
+     */
+  }
+  
+  public void makePlay(){
+    boolean end = false;
+    Tile t1 = new Tile('a',1,1);
+    for (int i = 0; i < scoreIndexX.size(); i++){
+      if (scoreIndexX.get(i) > 7){
+        //debugging
+        System.out.println("Found a score of "+scoreIndexX.get(i));
+        System.out.println("Length of word: " + tileIndexX.get(i).size());
+        for (int d = 0; d < tileIndexX.get(i).size(); d++){
+          System.out.println(tileIndexX.get(i).get(d).xpos);
+          System.out.println(tileIndexX.get(i).get(d).ypos);
+          System.out.println(tileIndexX.get(i).get(d).letter);
+        }
+        
+        for (int j = 0; j < tileIndexX.get(i).size(); j++){
+          for (int k = 0; k < g1.tileDescription.size(); k++){
+            if (g1.tileDescription.get(k).number == tileIndexX.get(i).get(j).number){
+              g1.tileDescription.get(k).xpos = tileIndexX.get(i).get(j).xpos;
+              g1.tileDescription.get(k).ypos = tileIndexX.get(i).get(j).ypos;
+              System.out.println(g1.tileDescription.get(k).xpos + " " + (g1.tileDescription.get(k).ypos));
             }
-            scoreIndexY.add(score);
-            score = 0;
-          } else {
-            scoreIndexY.add(0);
+              end = true;
+              break;
           }
-          gray();
+          if (end){
+            break;
+          }
         }
       }
+      if (end){
+        g1.black();
+        break;
+      }
     }
-    */
   }
 
   public void updateHasNow() {

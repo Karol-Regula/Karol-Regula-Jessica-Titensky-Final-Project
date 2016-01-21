@@ -9,8 +9,9 @@ class Tile {
   public int origx;
   public int origy;
   public String owner;
+  public int number;
 
-  public Tile(char whatLetter, int whatScore) {//have to rework xplace, might be redundant
+  public Tile(char whatLetter, int whatScore, int whatNumber) {//have to rework xplace, might be redundant
     placed = false;
     bodyColor = color(180, 102, 5);
     letter = whatLetter;
@@ -20,6 +21,7 @@ class Tile {
     origx= 10000;//top left vertex xpos, randomly scattered for now, still need to be acessed but we still don't have a nice permanenet place for them
     origy= 10000;//top left vertex ypos
     owner="";
+    number = whatNumber;
   }
 
   public void print(color whatColor) {
