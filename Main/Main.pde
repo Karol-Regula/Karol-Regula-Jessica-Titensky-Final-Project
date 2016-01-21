@@ -28,7 +28,7 @@ void mouseClicked() {
 }
 
 void keyPressed() {
-    g1.keyPressed();
+  g1.keyPressed();
 }
 
 void draw() {

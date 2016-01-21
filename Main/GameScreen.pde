@@ -8,6 +8,7 @@ class GameScreen {
   ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
   int upto=0;
   ArrayList<Player> players = new ArrayList<Player>(0);
+  ArrayList<ArrayList<Tile>> current =new ArrayList<ArrayList<Tile>>();
   String[] dict1;
   int[][] multt;
   int turn;
@@ -472,11 +473,37 @@ class GameScreen {
     return multt[x/size][y/size];
   }
 
+  public int scoreit() {
+    int s=0;
+    ArrayList<ArrayList<Tile>> recent = readBoard();
+    ArrayList<ArrayList<Tile>> existing = new ArrayList<ArrayList<Tile>>();
+    for (int i=0; i<current.size(); i++) {
+      existing.add(current.get(i));
+    }
+    for (int i=0; i<recent.size(); i++) {
+      if (recent.get(i).size()>1) {
+        int x=existing.indexOf(recent.get(i));
+        if (x==-1) {
+          for (int j=0; j<recent.get(i).size(); j++) {
+            Tile t=recent.get(i).get(j);
+            s+=t.score*multt(t.xpos, t.ypos);
+          }
+        } else {
+          existing.remove(recent.get(i));
+        }
+      }
+    }
+    current=readBoard();
+    System.out.println("SSSSSS"+s);
+    return s;
+  }          
+
+
   public void black() {
     Board b1=new Board();
     int score=0;
-    System.out.println(legit() == true);
-    System.out.println(legitt() == true);
+    //System.out.println(legit() == true);
+    //System.out.println(legitt() == true);
     if (legitt()&&legit()) {
       System.out.println("MUAHAHA");
       for (int i=0; i<tileDescription.size(); i++) {
@@ -489,11 +516,15 @@ class GameScreen {
         t.origy=t.ypos;
       }
       System.out.println("Score"+score);
+      //System.out.println("OTHER"+scoreit());
     }
+    System.out.println("ppppppppppp"+activePlayer().score);
     if (score>0) {
-      activePlayer().score+=score;
+      activePlayer().score+=scoreit();
+      System.out.println("qqqqqqqqqqqq"+activePlayer().score);
       nextTurn();
     }
+    //b1.scoreBoard();
   }
 
   public void red() {
@@ -542,7 +573,7 @@ class GameScreen {
             }
             t.bodyColor=color(180, 102, 5);
             t.print(t.bodyColor);
-            upto++;
+            //upto++;
           }
         }
       }
