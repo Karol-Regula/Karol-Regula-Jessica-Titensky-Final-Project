@@ -142,7 +142,6 @@ class GameScreen {
     nextPlayer();
     if (activePlayer().isAI == true) {
       AI a1 = new AI();
-      //a1.wordsPossible();//commented out because this already occurs in tryAllWords()
       a1.tryAllWords();
       placeTiles();
     } else {
@@ -256,7 +255,7 @@ class GameScreen {
         for (int k=0; k<tileDescription.size(); k++) {//compares coordinates of all tiles to the ones currently in the first two loops
           Tile t1=tileDescription.get(k);
           if (t1.xpos==i && t1.ypos==j) {
-            System.out.println("foundmatchX");
+            //System.out.println("foundmatchX");
             if (moreLetters == false) {//what happens when a NEW word is found (first letter added)
               word.add(t1);
               moreLetters = false;
@@ -265,12 +264,12 @@ class GameScreen {
               Tile t2=tileDescription.get(m);
               //System.out.println("here5");
               if (t2.xpos==i + size && t2.ypos==j) {
-                System.out.println("foundnextLetterPossibilityX");
+                //System.out.println("foundnextLetterPossibilityX");
                 moreLetters = true;
               }
             }
             if (moreLetters == false) {//if there are no more letters that follow, adds word to ArrayList
-              System.out.println("addingwordX");
+              //System.out.println("addingwordX");
               ArrayList<Tile> wordCopy = new ArrayList<Tile>();
               for (int b = 0; b < word.size(); b++) {//to get around memory address pointers
                 wordCopy.add(word.get(b));
@@ -290,7 +289,7 @@ class GameScreen {
         for (int k=0; k<tileDescription.size(); k++) {//compares coordinates of all tiles to the ones currently in the first two loops
           Tile t1=tileDescription.get(k);
           if (t1.xpos==i && t1.ypos==j) {
-            System.out.println("foundmatchY");
+            //System.out.println("foundmatchY");
             if (moreLetters == false) {//what happens when a NEW word is found (first letter added)
               word.add(t1);
               moreLetters = false;
@@ -299,12 +298,12 @@ class GameScreen {
               Tile t2=tileDescription.get(m);
               //System.out.println("here5");
               if (t2.xpos==i && t2.ypos==j + size) {
-                System.out.println("foundnextLetterPossibilityY");
+                //System.out.println("foundnextLetterPossibilityY");
                 moreLetters = true;
               }
             }
             if (moreLetters == false) {//if there are no more letters that follow, adds word to ArrayList
-              System.out.println("addingwordY");
+              //System.out.println("addingwordY");
               ArrayList<Tile> wordCopy = new ArrayList<Tile>();
               for (int b = 0; b < word.size(); b++) {//to get around memory address pointers
                 wordCopy.add(word.get(b));
@@ -320,7 +319,7 @@ class GameScreen {
     }
     for (int i = 0; i < allWords.size(); i++) {
       String s = "";
-      System.out.println(allWords.get(i).size());
+      //System.out.println(allWords.get(i).size());
       for (int j = 0; j < allWords.get(i).size(); j ++) {
         s+= allWords.get(i).get(j).letter;
       }
@@ -355,13 +354,13 @@ class GameScreen {
     }
     for (int i=0; i<inplace.size(); i++) {
       Tile t=inplace.get(i);
-      System.out.println("LET"+t.letter);
+      //System.out.println("LET"+t.letter);
       if (((t.xpos-x)==0 && Math.abs(t.ypos-y)==size) || ((t.ypos-y)==0 && Math.abs(t.xpos-x)==size)) {
-        System.out.println("yes");
+        //System.out.println("yes");
         return true;
       }
     }
-    System.out.println("no");
+    //System.out.println("no");
     return false;
   }
 
@@ -373,7 +372,7 @@ class GameScreen {
       }
     }
     if (inplace.size()==0) {
-      System.out.println("SIZE=0");
+      //System.out.println("SIZE=0");
       for (int i=0; i<tileDescription.size(); i++) {
         Tile t=tileDescription.get(i);
         if (t.xpos==7*size && t.ypos==7*size) {
@@ -381,11 +380,11 @@ class GameScreen {
         }
       }
     } else {
-      System.out.println("SIZE!=0");
+      //System.out.println("SIZE!=0");
       for (int i=0; i<tileDescription.size(); i++) {
         Tile t=tileDescription.get(i);
         if (t.ypos!=t.origy) {
-          System.out.println("TESTING"+t.letter);
+          //System.out.println("TESTING"+t.letter);
           if (isTouching(t.xpos, t.ypos)) {
             return true;
           }

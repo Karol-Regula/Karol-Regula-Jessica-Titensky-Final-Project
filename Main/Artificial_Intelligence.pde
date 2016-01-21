@@ -102,12 +102,12 @@ public class AI extends GameScreen {
 
   public void tryAllWords() {//tries to insert all of the words into all avaliable posisions on the board
     ArrayList<ArrayList<Tile>> possibleWords = wordsPossible();
-    //prepareScoreIndexes();
-    for (int i = 0; i < possibleWords.size(); i++) {
-      //currentWordTested = i;
-      //tryWord(possibleWords.get(i));
+    prepareScoreIndexes();
+    for (int i = 0; i < 3; i++) {//possibleWords.size();
+      currentWordTested = i;
+      tryWord(possibleWords.get(i));
     }
-    //printScoreIndexes();
+    printScoreIndexes();
   }
 
   public void prepareScoreIndexes() {
@@ -135,19 +135,21 @@ public class AI extends GameScreen {
   public void tryWord(ArrayList<Tile> input) {//tries all possible positions for one word
     int score = 0;
     for (int i = 2 * size; i < 17 * size; i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
-      for (int j = 5 * size; j < 20 * size; j+= size) {//xdimension
+      for (int j = 5 * size; j < ((20 * size) - ((input.size() * size))); j+= size) {//xdimension
         for (int x = 0; x < input.size(); x++) {
           input.get(x).xpos = j + x * size;
           input.get(x).ypos = i;
-          if (legit() && legitt()) {
-            for (int k = 0; k<tileDescription.size(); k++) {
-              Tile t =tileDescription.get(k);
+          if (g1.legitt() && g1.legit()) {
+            //System.out.println("legits passedx============================================================");
+            for (int k = 0; k < g1.tileDescription.size(); k++) {
+              Tile t = g1.tileDescription.get(k);
               if (t.origy!=t.ypos) {
-                t.placed=true;
-                score+=t.score*multt(t.xpos, t.ypos);
+                //t.placed=true;
+                System.out.println("scoring=============");
+                score+=t.score;//* g1.multt(t.xpos, t.ypos);
               }
-              t.origx=t.xpos;
-              t.origy=t.ypos;
+              t.xpos=t.origx;
+              t.ypos=t.origy;
             }
             scoreIndexX.add(score);
             score = 0;
@@ -158,20 +160,23 @@ public class AI extends GameScreen {
         }
       }
     }
+    /*
     for (int i = 2 * size; i < 17 * size; i+= size) {//first weird for loops I ever wrote//ydimension//vertical
       for (int j = 5 * size; j < 20 * size; j+= size) {//xdimension
         for (int x = 0; x < input.size(); x++) {
           input.get(x).xpos = j;
           input.get(x).ypos = i + x * size;
-          if (legit() && legitt()) {
-            for (int k = 0; k<tileDescription.size(); k++) {
-              Tile t =tileDescription.get(k);
+          if (g1.legitt() && g1.legit()) {
+            //System.out.println("legits passedy===========================================================");
+            for (int k = 0; k < g1.tileDescription.size(); k++) {
+              Tile t = g1.tileDescription.get(k);
               if (t.origy!=t.ypos) {
                 t.placed=true;
-                score+=t.score*multt(t.xpos, t.ypos);
+                System.out.println("scoring=============");
+                score+=t.score;//* g1.multt(t.xpos, t.ypos);
               }
-              t.origx=t.xpos;
-              t.origy=t.ypos;
+              //t.origx=t.xpos;
+              //t.origy=t.ypos;
             }
             scoreIndexY.add(score);
             score = 0;
@@ -182,6 +187,7 @@ public class AI extends GameScreen {
         }
       }
     }
+    */
   }
 
   public void updateHasNow() {
