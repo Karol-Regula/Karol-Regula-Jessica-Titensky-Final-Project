@@ -10,7 +10,6 @@ class Tile {
   public int origy;
   public String owner;
   public int number;
-  public boolean needsLetter;
 
   public Tile(char whatLetter, int whatScore, int whatNumber) {//have to rework xplace, might be redundant
     placed = false;
@@ -23,7 +22,6 @@ class Tile {
     origy= 10000;//top left vertex ypos
     owner="";
     number = whatNumber;
-    needsLetter = false;
   }
 
   public void print(color whatColor) {
@@ -37,8 +35,6 @@ class Tile {
       text(letter, xpos + (size/2) -size/5+xd + 4, ypos + (size/2) +size/5+yd);
     } else if (letter == 'W') {
       text(letter, xpos + (size/2) -size/5+xd  - 3, ypos + (size/2) +size/5+yd);
-    }else if (letter == '*'){
-      //does not print the asterisk on a blank tile
     } else {
       text(letter, xpos + (size/2) -size/5+xd, ypos + (size/2) +size/5+yd);//has some manual adjustments made for now //===================================need to manually adjust
     }
@@ -46,9 +42,7 @@ class Tile {
     textFont(f, 9);
     if (score == 10) {
       text(score, xpos + (size/2) + 6+xd, ypos + (size/2) + 16+yd);
-    } else if (letter == '*'){
-      //does not print score on a blank tile
-    }else {
+    } else {
       text(score, xpos + (size/2) + 10+xd, ypos + (size/2) + 16+yd);
     }
 

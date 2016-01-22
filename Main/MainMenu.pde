@@ -7,7 +7,7 @@ class MainMenu {
   public void setupMenu() {
     background(13, 42, 158);
     //rect(75+xd, 100+yd, 300, 100);
-    PFont f = createFont("Comic Sans MS Bold", 48); //HATERS GONNA HATE, BUT COMIC SANS IS LOVE, COMIC SANS IS LIFE, //...
+    PFont f = createFont("Comic Sans MS Bold", 48); //HATERS GONNA HATE, BUT COMIC SANS IS LOVE, COMIC SANS IS LIFE, 
     textFont(f, 48);
     fill(255, 122, 13);
     fill(255, 122, 13);

@@ -8,6 +8,7 @@ class GameScreen {
   ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
   int upto=0;
   ArrayList<Player> players = new ArrayList<Player>(0);
+  ArrayList<ArrayList<Tile>> current =new ArrayList<ArrayList<Tile>>();
   String[] dict1;
   int[][] multt;
   int turn;
@@ -44,10 +45,6 @@ class GameScreen {
         tileDescription.add(t1);//adds new tile into Arraylist
       }
     }
-    Tile t2 = new Tile('*', 0, 99);
-    Tile t3 = new Tile('*', 0, 100);
-    tileDescription.add(t2);
-    tileDescription.add(t3);
     Collections.shuffle(tileDescription);//shuffles Arraylist so that we do not have to choose elements randomly
   }
 
@@ -162,19 +159,8 @@ class GameScreen {
         mouseY - yd > tileDescription.get(x).ypos && mouseY - yd < tileDescription.get(x).ypos + size) {
         if (mouseY - yd>16 * size) {
           t=tileDescription.get(x);
-          //handle blank tiles
-          //do this before move is called and before the tile is allowed to move, ot just don;t move the tol;e
-          if (t.letter == '*') {
-            PFont f = createFont("Arial", 16, true);
-            textFont(f, 20);
-            fill(#2E49F0);
-            text("Press any key to assign a letter to the blank tile", 100, 500);
-            t.needsLetter = true;
-            return false;
-          } else {
-            t.print(color(204, 159, 102));
-            return true;
-          }
+          t.print(color(204, 159, 102));
+          return true;
           /*
           ===========================//this commented code is supposed to make the tile follow the mouse, it does not fully work as of now, mouse detection still works
            while (! mousePressed) {//follows until next mouse press
@@ -487,11 +473,37 @@ class GameScreen {
     return multt[x/size][y/size];
   }
 
+  public int scoreit() {
+    int s=0;
+    ArrayList<ArrayList<Tile>> recent = readBoard();
+    ArrayList<ArrayList<Tile>> existing = new ArrayList<ArrayList<Tile>>();
+    for (int i=0; i<current.size(); i++) {
+      existing.add(current.get(i));
+    }
+    for (int i=0; i<recent.size(); i++) {
+      if (recent.get(i).size()>1) {
+        int x=existing.indexOf(recent.get(i));
+        if (x==-1) {
+          for (int j=0; j<recent.get(i).size(); j++) {
+            Tile t=recent.get(i).get(j);
+            s+=t.score*multt(t.xpos, t.ypos);
+          }
+        } else {
+          existing.remove(recent.get(i));
+        }
+      }
+    }
+    current=readBoard();
+    System.out.println("SSSSSS"+s);
+    return s;
+  }          
+
+
   public void black() {
     Board b1=new Board();
     int score=0;
-    System.out.println(legit() == true);
-    System.out.println(legitt() == true);
+    //System.out.println(legit() == true);
+    //System.out.println(legitt() == true);
     if (legitt()&&legit()) {
       System.out.println("MUAHAHA");
       for (int i=0; i<tileDescription.size(); i++) {
@@ -504,11 +516,15 @@ class GameScreen {
         t.origy=t.ypos;
       }
       System.out.println("Score"+score);
+      //System.out.println("OTHER"+scoreit());
     }
+    System.out.println("ppppppppppp"+activePlayer().score);
     if (score>0) {
-      activePlayer().score+=score;
+      activePlayer().score+=scoreit();
+      System.out.println("qqqqqqqqqqqq"+activePlayer().score);
       nextTurn();
     }
+    //b1.scoreBoard();
   }
 
   public void red() {
@@ -557,7 +573,7 @@ class GameScreen {
             }
             t.bodyColor=color(180, 102, 5);
             t.print(t.bodyColor);
-            upto++;
+            //upto++;
           }
         }
       }
@@ -602,15 +618,7 @@ class GameScreen {
   }
 
   void keyPressed() {
-    for (int i = 0; i < tileDescription.size(); i++) {
-      if (tileDescription.get(i).needsLetter) {
-        InputField i1 = new InputField();
-        char theLetter = Character.toUpperCase(i1.listen());
-        tileDescription.get(i).letter = theLetter;
-        tileDescription.get(i).needsLetter = false;
-        tileDescription.get(i).print(tileDescription.get(i).bodyColor);
-        gray();
-      }
-    }
+    InputField i1 = new InputField();
+    i1.listen();
   }
 }
