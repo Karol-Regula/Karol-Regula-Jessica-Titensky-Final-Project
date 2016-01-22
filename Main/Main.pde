@@ -71,3 +71,7 @@ void draw() {
 //on main menu--size
 
 //make dict1 load only once, also make AI only do hasNow getting once per dict1 word
+
+//problems with entire words being scored (I'm not sure if I broke that or not, but I probably did not)
+//implementation of swapselect
+//tiles now move down to the left when replenished after a move, only happens when there are 100 tiles in the ArrayList

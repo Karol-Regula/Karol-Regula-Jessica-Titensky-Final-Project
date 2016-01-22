@@ -8,10 +8,10 @@ class GameScreen {
   ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
   int upto=0;
   ArrayList<Player> players = new ArrayList<Player>(0);
-  ArrayList<ArrayList<Tile>> current =new ArrayList<ArrayList<Tile>>();
   String[] dict1;
   int[][] multt;
   int turn;
+  int[] tileScores = new int[]{1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
   //methods that need to run while game is in gamemode
 
   public void printTileDescription() {
@@ -45,6 +45,12 @@ class GameScreen {
         tileDescription.add(t1);//adds new tile into Arraylist
       }
     }
+    Tile t2 = new Tile('*', 0, 99);
+    Tile t3 = new Tile('*', 0, 100);
+    t2.wasBlank = true;
+    t3.wasBlank = true;
+    tileDescription.add(t2);
+    tileDescription.add(t3);
     Collections.shuffle(tileDescription);//shuffles Arraylist so that we do not have to choose elements randomly
   }
 
@@ -159,8 +165,18 @@ class GameScreen {
         mouseY - yd > tileDescription.get(x).ypos && mouseY - yd < tileDescription.get(x).ypos + size) {
         if (mouseY - yd>16 * size) {
           t=tileDescription.get(x);
-          t.print(color(204, 159, 102));
-          return true;
+          //handle blank tiles
+          if (t.letter == '*') {
+            PFont f = createFont("Arial", 16, true);
+            textFont(f, 12);
+            fill(#2E49F0);
+            text("Press a key to assign a letter to the blank tile.", 250, 650);
+            t.needsLetter = true;
+            return false;
+          } else {
+            t.print(color(204, 159, 102));
+            return true;
+          }
           /*
           ===========================//this commented code is supposed to make the tile follow the mouse, it does not fully work as of now, mouse detection still works
            while (! mousePressed) {//follows until next mouse press
@@ -464,6 +480,14 @@ class GameScreen {
       tileDescription.get(i).ypos=tileDescription.get(i).origy;
       tileDescription.get(i).print(tileDescription.get(i).bodyColor);
     }
+    for (int j = 0; j < tileDescription.size(); j++){
+      if (tileDescription.get(j).wasBlank && !tileDescription.get(j).placed){
+        System.out.println("reverting");
+        tileDescription.get(j).letter = '*';
+        tileDescription.get(j).score = 0;
+        tileDescription.get(j).print(tileDescription.get(j).bodyColor);
+      }
+    }
     b1.scoreBoard();
     swap=false;
   }
@@ -473,37 +497,11 @@ class GameScreen {
     return multt[x/size][y/size];
   }
 
-  public int scoreit() {
-    int s=0;
-    ArrayList<ArrayList<Tile>> recent = readBoard();
-    ArrayList<ArrayList<Tile>> existing = new ArrayList<ArrayList<Tile>>();
-    for (int i=0; i<current.size(); i++) {
-      existing.add(current.get(i));
-    }
-    for (int i=0; i<recent.size(); i++) {
-      if (recent.get(i).size()>1) {
-        int x=existing.indexOf(recent.get(i));
-        if (x==-1) {
-          for (int j=0; j<recent.get(i).size(); j++) {
-            Tile t=recent.get(i).get(j);
-            s+=t.score*multt(t.xpos, t.ypos);
-          }
-        } else {
-          existing.remove(recent.get(i));
-        }
-      }
-    }
-    current=readBoard();
-    System.out.println("SSSSSS"+s);
-    return s;
-  }          
-
-
   public void black() {
     Board b1=new Board();
     int score=0;
-    //System.out.println(legit() == true);
-    //System.out.println(legitt() == true);
+    System.out.println(legit() == true);
+    System.out.println(legitt() == true);
     if (legitt()&&legit()) {
       System.out.println("MUAHAHA");
       for (int i=0; i<tileDescription.size(); i++) {
@@ -516,15 +514,11 @@ class GameScreen {
         t.origy=t.ypos;
       }
       System.out.println("Score"+score);
-      //System.out.println("OTHER"+scoreit());
     }
-    System.out.println("ppppppppppp"+activePlayer().score);
     if (score>0) {
-      activePlayer().score+=scoreit();
-      System.out.println("qqqqqqqqqqqq"+activePlayer().score);
+      activePlayer().score+=score;
       nextTurn();
     }
-    //b1.scoreBoard();
   }
 
   public void red() {
@@ -552,6 +546,7 @@ class GameScreen {
             System.out.println(t.letter);
             upto--;
             char c=t.letter;
+            int s=t.score;
             /*
             tileDescription.set(i, tileDescription.get(upto));
              tileDescription.get(i).owner=t.owner;
@@ -561,7 +556,9 @@ class GameScreen {
              tileDescription.get(upto).bodyColor=color(180, 102, 5);
              */
             t.letter=tileDescription.get(upto).letter;
+            t.score=tileDescription.get(upto).score;
             tileDescription.get(upto).letter=c;
+            tileDescription.get(upto).score=s;
             System.out.println(t.letter);
             ArrayList<Tile> lastTiles= new ArrayList<Tile>();
             for (int j=upto; j<tileDescription.size(); j++) {
@@ -573,7 +570,7 @@ class GameScreen {
             }
             t.bodyColor=color(180, 102, 5);
             t.print(t.bodyColor);
-            //upto++;
+            upto++;
           }
         }
       }
@@ -618,7 +615,38 @@ class GameScreen {
   }
 
   void keyPressed() {
-    InputField i1 = new InputField();
-    i1.listen();
+    System.out.println(key);
+    System.out.println(key > 'a');
+    System.out.println(key < 'z');
+    char input;
+    char theLetter = '}';
+    for (int i = 0; i < tileDescription.size(); i++) {
+      if (tileDescription.get(i).needsLetter) {
+        System.out.println("Needs Letter");
+        InputField i1 = new InputField();
+        input = i1.listen();
+        /*
+        if (Character.getNumericValue(input) >= Character.getNumericValue('a') && Character.getNumericValue(input) <= Character.getNumericValue('z')) {
+          theLetter = Character.toUpperCase(input);
+        } else if (Character.getNumericValue(input) >= Character.getNumericValue('A') && Character.getNumericValue(input) <= Character.getNumericValue('Z')) {
+          theLetter = input;
+        }
+        */
+        if (input >= 'a' && input <= 'z') {
+          theLetter = Character.toUpperCase(input);
+        } else if (input >= 'A' && input <= 'Z') {
+          theLetter = input;
+        }
+        if (theLetter != '}') {
+          System.out.println(theLetter);
+          tileDescription.get(i).letter = theLetter;
+          tileDescription.get(i).needsLetter = false;
+          //assinging the score to the letter
+          tileDescription.get(i).score = tileScores[(Character.getNumericValue(tileDescription.get(i).letter)) - (Character.getNumericValue('a'))];
+          tileDescription.get(i).print(tileDescription.get(i).bodyColor);
+          gray();
+        }
+      }
+    }
   }
 }
