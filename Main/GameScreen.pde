@@ -8,6 +8,7 @@ class GameScreen {
   ArrayList<Tile> tileDescription = new ArrayList<Tile>(0);//tiles stored in Arraylist contaning object arrays which in turn store data about tiles 
   int upto=0;
   ArrayList<Player> players = new ArrayList<Player>(0);
+  ArrayList<ArrayList<Tile>> current =new ArrayList<ArrayList<Tile>>();
   String[] dict1;
   int[][] multt;
   int turn;
@@ -480,8 +481,8 @@ class GameScreen {
       tileDescription.get(i).ypos=tileDescription.get(i).origy;
       tileDescription.get(i).print(tileDescription.get(i).bodyColor);
     }
-    for (int j = 0; j < tileDescription.size(); j++){
-      if (tileDescription.get(j).wasBlank && !tileDescription.get(j).placed){
+    for (int j = 0; j < tileDescription.size(); j++) {
+      if (tileDescription.get(j).wasBlank && !tileDescription.get(j).placed) {
         System.out.println("reverting");
         tileDescription.get(j).letter = '*';
         tileDescription.get(j).score = 0;
@@ -516,7 +517,7 @@ class GameScreen {
       System.out.println("Score"+score);
     }
     if (score>0) {
-      activePlayer().score+=score;
+      activePlayer().score+=scoreit();
       nextTurn();
     }
   }
@@ -539,12 +540,13 @@ class GameScreen {
       text("Swap", 16*size+xd+14, 14*size+yd-20+28);
       swap=true;
     } else {
+      System.out.println("sdjkfhsdjkahgk");
       if (tileDescription.size()-upto>=7) {
         for (int i=0; i<tileDescription.size(); i++) {
           Tile t=tileDescription.get(i);
           if (t.bodyColor==color(204, 159, 102)) {
             System.out.println(t.letter);
-            upto--;
+            //upto--;
             char c=t.letter;
             int s=t.score;
             /*
@@ -570,7 +572,7 @@ class GameScreen {
             }
             t.bodyColor=color(180, 102, 5);
             t.print(t.bodyColor);
-            upto++;
+            //upto++;
           }
         }
       }
@@ -586,6 +588,32 @@ class GameScreen {
       nextTurn();
     }
   }
+
+  public int scoreit() {
+    int s=0;
+    ArrayList<ArrayList<Tile>> recent = readBoard();
+    ArrayList<ArrayList<Tile>> existing = new ArrayList<ArrayList<Tile>>();
+    for (int i=0; i<current.size(); i++) {
+      existing.add(current.get(i));
+    }
+    for (int i=0; i<recent.size(); i++) {
+      if (recent.get(i).size()>1) {
+        int x=existing.indexOf(recent.get(i));
+        if (x==-1) {
+          for (int j=0; j<recent.get(i).size(); j++) {
+            Tile t=recent.get(i).get(j);
+            s+=t.score*multt(t.xpos, t.ypos);
+          }
+        } else {
+          existing.remove(recent.get(i));
+        }
+      }
+    }
+    current=readBoard();
+    System.out.println("SSSSSS"+s);
+    return s;
+  }  
+
 
   public void swap() {
     if (swap && mousePressed) {
@@ -608,7 +636,7 @@ class GameScreen {
       swapselect();
     }
     if (selected) {
-      move();
+      detect();
     } else {
       selected=detect();
     }
@@ -627,11 +655,11 @@ class GameScreen {
         input = i1.listen();
         /*
         if (Character.getNumericValue(input) >= Character.getNumericValue('a') && Character.getNumericValue(input) <= Character.getNumericValue('z')) {
-          theLetter = Character.toUpperCase(input);
-        } else if (Character.getNumericValue(input) >= Character.getNumericValue('A') && Character.getNumericValue(input) <= Character.getNumericValue('Z')) {
-          theLetter = input;
-        }
-        */
+         theLetter = Character.toUpperCase(input);
+         } else if (Character.getNumericValue(input) >= Character.getNumericValue('A') && Character.getNumericValue(input) <= Character.getNumericValue('Z')) {
+         theLetter = input;
+         }
+         */
         if (input >= 'a' && input <= 'z') {
           theLetter = Character.toUpperCase(input);
         } else if (input >= 'A' && input <= 'Z') {
