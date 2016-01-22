@@ -44,6 +44,10 @@ class GameScreen {
         tileDescription.add(t1);//adds new tile into Arraylist
       }
     }
+    Tile t2 = new Tile('*', 0, 99);
+    Tile t3 = new Tile('*', 0, 100);
+    tileDescription.add(t2);
+    tileDescription.add(t3);
     Collections.shuffle(tileDescription);//shuffles Arraylist so that we do not have to choose elements randomly
   }
 
@@ -158,8 +162,19 @@ class GameScreen {
         mouseY - yd > tileDescription.get(x).ypos && mouseY - yd < tileDescription.get(x).ypos + size) {
         if (mouseY - yd>16 * size) {
           t=tileDescription.get(x);
-          t.print(color(204, 159, 102));
-          return true;
+          //handle blank tiles
+          //do this before move is called and before the tile is allowed to move, ot just don;t move the tol;e
+          if (t.letter == '*') {
+            PFont f = createFont("Arial", 16, true);
+            textFont(f, 20);
+            fill(#2E49F0);
+            text("Press any key to assign a letter to the blank tile", 100, 500);
+            t.needsLetter = true;
+            return false;
+          } else {
+            t.print(color(204, 159, 102));
+            return true;
+          }
           /*
           ===========================//this commented code is supposed to make the tile follow the mouse, it does not fully work as of now, mouse detection still works
            while (! mousePressed) {//follows until next mouse press
@@ -587,7 +602,15 @@ class GameScreen {
   }
 
   void keyPressed() {
-    InputField i1 = new InputField();
-    i1.listen();
+    for (int i = 0; i < tileDescription.size(); i++) {
+      if (tileDescription.get(i).needsLetter) {
+        InputField i1 = new InputField();
+        char theLetter = Character.toUpperCase(i1.listen());
+        tileDescription.get(i).letter = theLetter;
+        tileDescription.get(i).needsLetter = false;
+        tileDescription.get(i).print(tileDescription.get(i).bodyColor);
+        gray();
+      }
+    }
   }
 }
