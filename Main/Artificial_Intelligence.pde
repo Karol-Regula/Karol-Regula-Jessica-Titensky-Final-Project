@@ -327,7 +327,7 @@ public class AI extends GameScreen {
       x++;
       min -= 2;
     }
-    if (!madeWord){
+    if (!madeWord) {
       System.out.println("AI couldn't make word due to bad tiles");
     }
   }

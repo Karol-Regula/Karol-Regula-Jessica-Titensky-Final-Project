@@ -484,6 +484,7 @@ class GameScreen {
       rect(tileDescription.get(i).origx+xd, tileDescription.get(i).origy+yd, size, size);
       tileDescription.get(i).xpos=tileDescription.get(i).origx;
       tileDescription.get(i).ypos=tileDescription.get(i).origy;
+      tileDescription.get(i).bodyColor=color(180, 102, 5);
       tileDescription.get(i).print(tileDescription.get(i).bodyColor);
     }
     for (int j = 0; j < tileDescription.size(); j++) {
@@ -507,13 +508,22 @@ class GameScreen {
 
   public int multt(int x, int y) {
     System.out.println(x+" "+y);
-    return multt[x/size][y/size];
+    if (multt.length>x/size) {
+      if (multt[x/size].length>y/size) {
+        return multt[x/size][y/size];
+      } else {
+        return -10000;
+      }
+    } else {
+      return -10000;
+    }
   }
 
   public void black() {
     System.out.println("black()");
     Board b1=new Board();
     int score=0;
+    int put=0;
     //System.out.println(legit() == true);
     //System.out.println(legitt() == true);
     if (legitt()&&legit()) {
@@ -522,6 +532,7 @@ class GameScreen {
         Tile t =tileDescription.get(i);
         if (t.origy!=t.ypos) {
           t.placed=true;
+          put++;
           score+=t.score*multt(t.xpos, t.ypos);
         }
         t.origx=t.xpos;
@@ -531,6 +542,9 @@ class GameScreen {
     }
     if (score>0) {
       activePlayer().score+=scoreit();
+      if (put>0) {
+        activePlayer().score+=50;
+      }
       nextTurn();
     }
     for (int i=0; i<tileDescription.size(); i++) {
@@ -559,11 +573,13 @@ class GameScreen {
       text("Swap", 16*size+xd+14, 14*size+yd-20+28);
       swap=true;
     } else {
+      int idk=0;
       //System.out.println("sdjkfhsdjkahgk");
       if (tileDescription.size()-upto>=7) {
         for (int i=0; i<tileDescription.size(); i++) {
           Tile t=tileDescription.get(i);
           if (t.bodyColor==color(204, 159, 102)) {
+            idk++;
             //System.out.println(t.letter);
             //upto--;
             //char c=t.letter;
@@ -614,7 +630,7 @@ class GameScreen {
       textSize(25);
       text("Swap", 16*size+xd+14, 14*size+yd-20+28);
       swap=false;
-      if (selected) {
+      if (idk>0) {
         nextTurn();
       }
       selected=false;
@@ -661,13 +677,13 @@ class GameScreen {
     } 
     if (16*size+xd<mouseX && mouseX<16*size+xd+size*2.5 && 16*size+yd<mouseY && mouseY<16*size+yd+size) {
       //try {
-        //Thread.sleep(200);                 //1000 milliseconds is one second.
-        //System.out.println("mouseClicked calling black()");
-        black();
-     // } 
+      //Thread.sleep(200);                 //1000 milliseconds is one second.
+      //System.out.println("mouseClicked calling black()");
+      black();
+      // } 
       //catch(InterruptedException ex) {
-        //Thread.currentThread().interrupt();
-//}
+      //Thread.currentThread().interrupt();
+      //}
     }
     if (width-size*2<mouseX && mouseX<width && 0<mouseY && mouseY<size) {
       red();

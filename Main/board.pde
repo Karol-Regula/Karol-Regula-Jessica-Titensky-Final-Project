@@ -100,29 +100,30 @@ class Board extends GameScreen {
   }
 
   public void scoreBoard() {
+    int c=20;
     PFont f = createFont("Arial", 16, true);
     noStroke();
     fill(255, 255, 255);
-    rect(21 * size, 4 * size, 24 * size, 8 * size);
+    rect(21 * size-c, 4 * size, 24 * size+c, 8 * size);
     fill(#516DD8);
-    rect(21 * size + size / 2, 3 * size, 3 * size, size);
+    rect(21 * size + size / 2-c, 3 * size, 3 * size+c, size);
     textFont(f, 15);
     fill(0, 0, 0);
-    text("Score Board", 21 * size + size / 2 + 8, 3 * size + size /2 + 5);
+    text("Score Board", 21 * size + size / 2 + 8-c, 3 * size + size /2 + 5);
     //settings for for loop
     fill(0, 0, 0);
     textFont(f, 12);
     for (int i = 0; i < g1.players.size(); i++) {
       fill(#7993F5);
-      rect(21 * size + size / 2, 4 * size + i * size, 3 * size, size);
+      rect(21 * size + size / 2-c, 4 * size + i * size, 3 * size+c, size);
       fill(0, 0, 0);
-      text(g1.players.get(i).name+":", 22 * size, 5 * size + i * size - 15);
-      text(g1.players.get(i).score, 23 * size + 25, 5 * size + i * size - 15);
+      text(g1.players.get(i).name+":", 22 * size-20-c*2/3, 5 * size + i * size - 15);
+      text(g1.players.get(i).score, 23 * size + 30, 5 * size + i * size - 15);
     }
     fill(#7993F5);
-    rect(21 * size + size / 2, 4 * size + g1.players.size() * size, 3 * size, size);
+    rect(21 * size + size / 2-c, 4 * size + g1.players.size() * size, 3 * size+c, size);
     fill(0, 0, 0);
-    text("Tiles left"+":", 22 * size, 5 * size + g1.players.size() * size - 15);
+    text("Tiles left"+":", 22 * size-c/2, 5 * size + g1.players.size() * size - 15);
     text(""+(g1.tileDescription.size()-g1.upto), 23 * size + 25, 5 * size + g1.players.size() * size - 15);
 
 
