@@ -243,7 +243,7 @@ public class AI extends GameScreen {
       if (end) {
         System.out.println("Concluding AI");
         g1.black();
-        gray();
+        g1.gray();
         break;
       }
     }
