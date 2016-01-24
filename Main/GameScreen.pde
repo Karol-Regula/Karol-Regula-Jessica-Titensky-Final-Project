@@ -33,17 +33,19 @@ class GameScreen {
     placeTiles();//places the tiles from arrayList onto the board, randomly chooses tiles
     multt=b1.mult;
     dict1=loadStrings("words1.txt");
-    System.out.println(dict1[0]);
+    //System.out.println(dict1[0]);
     b1.scoreBoard();
   }
 
   public void createTiles() {
+    int b = 0;
     int[] tileFrequency = new int[]{9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1};//contains the frequencies of all the letters, SPACES NOT YET INCLUDED
     int[] tileScores = new int[]{1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 1, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10};
     for (int i = 0; i < tileFrequency.length; i ++) {
       for (int j = 0; j < tileFrequency[i]; j++) {
-        Tile t1 = new Tile((char)('A' + i), tileScores[i], i);
+        Tile t1 = new Tile((char)('A' + i), tileScores[i], b);
         tileDescription.add(t1);//adds new tile into Arraylist
+        b++;
       }
     }
     Tile t2 = new Tile('*', 0, 99);
@@ -109,7 +111,7 @@ class GameScreen {
           n++;
         }
       }
-      System.out.println(p.name+"NNN"+n);
+      //System.out.println(p.name+"NNN"+n);
       n=7-n;
       int x=upto;
       if (tileDescription.size()<upto+n) {
@@ -121,7 +123,7 @@ class GameScreen {
         for (int j=x; j<x+n; j++) {
           tileDescription.get(j).owner=p.name;
           upto++;
-          System.out.println("UPTOO"+upto);
+          //System.out.println("UPTOO"+upto);
         }
       }
     }
@@ -143,7 +145,7 @@ class GameScreen {
         return players.get(i);
       }
     }
-    System.out.println("BROKEN");
+    //System.out.println("BROKEN");
     return players.get(0);
   }
 
@@ -213,7 +215,7 @@ class GameScreen {
       t.xpos=(mouseX - xd)-(mouseX - xd)%size;
       t.ypos=(mouseY - yd)-(mouseY - yd)%size;//not sure about these
       t.bodyColor = color(180, 102, 5);
-      System.out.println(t.score);
+      //System.out.println(t.score);
       t.print(t.bodyColor);
     }
   }
@@ -344,7 +346,7 @@ class GameScreen {
       for (int j = 0; j < allWords.get(i).size(); j ++) {
         s+= allWords.get(i).get(j).letter;
       }
-      System.out.println(s);
+      //System.out.println(s);
     }
     return allWords;
   }
@@ -357,7 +359,7 @@ class GameScreen {
         Tile t= allWords.get(i).get(j);
         word+=t.letter;
       }
-      System.out.println("THEWORD"+word+ainb(word, dict1));
+      //System.out.println("THEWORD"+word+ainb(word, dict1));
       if (ainb(word, dict1)==false) {
         return false;
       }
@@ -509,10 +511,11 @@ class GameScreen {
   }
 
   public void black() {
+    System.out.println("black()");
     Board b1=new Board();
     int score=0;
-    System.out.println(legit() == true);
-    System.out.println(legitt() == true);
+    //System.out.println(legit() == true);
+    //System.out.println(legitt() == true);
     if (legitt()&&legit()) {
       System.out.println("MUAHAHA");
       for (int i=0; i<tileDescription.size(); i++) {
@@ -524,7 +527,7 @@ class GameScreen {
         t.origx=t.xpos;
         t.origy=t.ypos;
       }
-      System.out.println("Score"+score);
+      //System.out.println("Score"+score);
     }
     if (score>0) {
       activePlayer().score+=scoreit();
@@ -556,12 +559,12 @@ class GameScreen {
       text("Swap", 16*size+xd+14, 14*size+yd-20+28);
       swap=true;
     } else {
-      System.out.println("sdjkfhsdjkahgk");
+      //System.out.println("sdjkfhsdjkahgk");
       if (tileDescription.size()-upto>=7) {
         for (int i=0; i<tileDescription.size(); i++) {
           Tile t=tileDescription.get(i);
           if (t.bodyColor==color(204, 159, 102)) {
-            System.out.println(t.letter);
+            //System.out.println(t.letter);
             //upto--;
             //char c=t.letter;
             //int s=t.score;
@@ -583,7 +586,7 @@ class GameScreen {
             tileDescription.get(i).origx=tileDescription.get(i).xpos=t.xpos;
             tileDescription.get(i).origy=tileDescription.get(i).ypos=t.ypos;
             tileDescription.get(i).owner=t.owner;
-            System.out.println("WITH"+tileDescription.get(i).letter);
+            //System.out.println("WITH"+tileDescription.get(i).letter);
             tileDescription.set(upto, t);
             tileDescription.get(upto).origx=tileDescription.get(upto).xpos=tileDescription.get(upto).origy=tileDescription.get(upto).ypos=1000;
             tileDescription.get(upto).owner="";
@@ -597,7 +600,7 @@ class GameScreen {
               tileDescription.set(upto+j, lastTiles.get(j));
             }
             //t.bodyColor=color(180, 102, 5);
-            System.out.println(tileDescription.get(i).letter);
+            //System.out.println(tileDescription.get(i).letter);
             tileDescription.get(i).print(tileDescription.get(i).bodyColor);
             //upto++;
           }
@@ -640,7 +643,7 @@ class GameScreen {
       }
     }
     current=readBoard();
-    System.out.println("SSSSSS"+s);
+    //System.out.println("SSSSSS"+s);
     return s;
   }  
 
@@ -657,7 +660,14 @@ class GameScreen {
       gray();
     } 
     if (16*size+xd<mouseX && mouseX<16*size+xd+size*2.5 && 16*size+yd<mouseY && mouseY<16*size+yd+size) {
-      black();
+      //try {
+        //Thread.sleep(200);                 //1000 milliseconds is one second.
+        //System.out.println("mouseClicked calling black()");
+        black();
+     // } 
+      //catch(InterruptedException ex) {
+        //Thread.currentThread().interrupt();
+//}
     }
     if (width-size*2<mouseX && mouseX<width && 0<mouseY && mouseY<size) {
       red();

@@ -9,7 +9,7 @@ void setup() {
   size = 35;
   xd=175;
   yd=70;
-  frameRate(120);
+  frameRate(30);
   //runs only at the beginning and does the initializing stuff
   //size(17 * size, 17 * size);//does not work, will not accept variables
   size(875, 735);//window size

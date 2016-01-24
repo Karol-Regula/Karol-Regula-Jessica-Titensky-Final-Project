@@ -41,7 +41,7 @@ public class AI extends GameScreen {
       //System.out.println(i);
       word = dict1[i];
       if (canMake(word)) {
-        System.out.println(word);
+        //System.out.println(word);
         for (int x = 0; x < hasNow.size(); x++) {
           copy.add(hasNow.get(x));
         }
@@ -50,7 +50,7 @@ public class AI extends GameScreen {
           for (int k = 0; k < copy.size(); k++) {
             if (copy.get(k).letter == word.charAt(0)) {
               word = word.substring(1, word.length());
-              System.out.println("word: "+word);
+              //System.out.println("word: "+word);
               current.add(copy.get(k));
               copy.remove(k);
               k--;
@@ -61,9 +61,9 @@ public class AI extends GameScreen {
           }
         }
         if (current.size() > 0) {
-          System.out.println("here 101");
+          //System.out.println("here 101");
           for (int m = 0; m < current.size(); m++) {
-            System.out.println(current.get(m).letter);
+            //System.out.println(current.get(m).letter);
           }
           possibleWords.add(current);
         }
@@ -72,9 +72,9 @@ public class AI extends GameScreen {
     //debugging
     for (int i = 0; i < possibleWords.size(); i++) {
       for (int j = 0; j < possibleWords.get(i).size(); j++) {
-        System.out.print(possibleWords.get(i).get(j).letter);
+        //System.out.print(possibleWords.get(i).get(j).letter);
       }
-      System.out.println();
+      //System.out.println();
     }
     return possibleWords;
   }
@@ -96,7 +96,7 @@ public class AI extends GameScreen {
       }
     }
     if (word.length() == 0) {
-      System.out.println("canMake() == true)");
+      //System.out.println("canMake() == true)");
       return true;
     }
     return false;
@@ -131,12 +131,12 @@ public class AI extends GameScreen {
   public void printIndexes() {//method only for debuggin'
     for (int x = 0; x < scoreIndexX.size(); x++) {
       if (scoreIndexX.get(x) > 0) {
-        System.out.println("scoreIndexX, position: "+x+"value: "+scoreIndexX.get(x));
+        //System.out.println("scoreIndexX, position: "+x+"value: "+scoreIndexX.get(x));
       }
     }
     for (int x = 0; x < scoreIndexY.size(); x++) {
       if (scoreIndexY.get(x) > 0) {
-        System.out.println("scoreIndexY, position: "+x+"value: "+scoreIndexY.get(x));
+        //System.out.println("scoreIndexY, position: "+x+"value: "+scoreIndexY.get(x));
       }
     }
   }
@@ -153,7 +153,7 @@ public class AI extends GameScreen {
           for (int z = 0; z < g1.tileDescription.size(); z++) {
             if (g1.tileDescription.get(z).xpos == input.get(x).xpos && g1.tileDescription.get(z).ypos == input.get(x).ypos && g1.tileDescription.get(z).letter != input.get(x).letter) {
               badOverlap = true;
-              System.out.println("Bad overlap");
+              //System.out.println("Bad overlap");
             }
           }
         }
@@ -192,7 +192,7 @@ public class AI extends GameScreen {
           for (int z = 0; z < g1.tileDescription.size(); z++) {
             if (g1.tileDescription.get(z).xpos == input.get(x).xpos && g1.tileDescription.get(z).ypos == input.get(x).ypos && g1.tileDescription.get(z).letter != input.get(x).letter) {
               badOverlap = true;
-              System.out.println("Bad overlap");
+              //System.out.println("Bad overlap");
             }
           }
         }
@@ -255,66 +255,80 @@ public class AI extends GameScreen {
 
   public void makePlay() {
     boolean end = false;
+    int x = 0;
+    boolean madeWord = false;
+    int min = 22;
     //Tile t1 = new Tile('a', 1, 1);
-    for (int i = 0; i < scoreIndexX.size(); i++) {
-      if (scoreIndexX.get(i) > 8) {
-        //debugging
-        System.out.println("Found a score of "+scoreIndexX.get(i));
-        System.out.println("Length of word: " + tileIndexX.get(i).size());
-        for (int d = 0; d < tileIndexX.get(i).size(); d++) {
-          System.out.println(tileIndexX.get(i).get(d).xpos);
-          System.out.println(tileIndexX.get(i).get(d).ypos);
-          System.out.println(tileIndexX.get(i).get(d).letter);
-        }       
-        for (int j = 0; j < tileIndexX.get(i).size(); j++) {
-          for (int k = 0; k < g1.tileDescription.size(); k++) {
-            System.out.println(g1.tileDescription.get(k).number + " " + tileIndexX.get(i).get(j).number);
-            if (g1.tileDescription.get(k).number == tileIndexX.get(i).get(j).number) {
-              g1.tileDescription.get(k).xpos = tileIndexX.get(i).get(j).xpos;
-              g1.tileDescription.get(k).ypos = tileIndexX.get(i).get(j).ypos;
-              System.out.println("number matched" + g1.tileDescription.get(k).xpos + " " + (g1.tileDescription.get(k).ypos));
+    while (x < 10 && !madeWord) {
+      for (int i = 0; i < scoreIndexX.size(); i++) {
+        if (scoreIndexX.get(i) > min) {
+          //debugging
+          //System.out.println("Found a score of "+scoreIndexX.get(i));
+          //System.out.println("Length of word: " + tileIndexX.get(i).size());
+          for (int d = 0; d < tileIndexX.get(i).size(); d++) {
+            //System.out.println(tileIndexX.get(i).get(d).xpos);
+            //System.out.println(tileIndexX.get(i).get(d).ypos);
+            //System.out.println(tileIndexX.get(i).get(d).letter);
+          }       
+          System.out.println("makeplay() " + tileIndexX.get(i).size());
+          for (int j = 0; j < tileIndexX.get(i).size(); j++) {
+            for (int k = 0; k < g1.tileDescription.size(); k++) {
+              //System.out.println(g1.tileDescription.get(k).number + " " + tileIndexX.get(i).get(j).number);
+              if (g1.tileDescription.get(k).number == tileIndexX.get(i).get(j).number) {
+                g1.tileDescription.get(k).xpos = tileIndexX.get(i).get(j).xpos;
+                g1.tileDescription.get(k).ypos = tileIndexX.get(i).get(j).ypos;
+                //System.out.println("number matched" + g1.tileDescription.get(k).xpos + " " + (g1.tileDescription.get(k).ypos));
+              }
             }
           }
+          end = true;
+          madeWord = true;
         }
-        end = true;
+        //System.out.println("end = " + end);
+        if (end) {
+          //System.out.println("Concluding AI");
+          g1.black();
+          g1.gray();
+          break;
+        }
       }
-      System.out.println("end = " + end);
-      if (end) {
-        System.out.println("Concluding AI");
-        g1.black();
-        g1.gray();
-        break;
+      for (int i = 0; i < scoreIndexY.size(); i++) {
+        if (scoreIndexY.get(i) > min) {
+          //debugging
+          //System.out.println("Found a score of "+scoreIndexY.get(i));
+          //System.out.println("Length of word: " + tileIndexY.get(i).size());
+          for (int d = 0; d < tileIndexY.get(i).size(); d++) {
+            //System.out.println(tileIndexY.get(i).get(d).xpos);
+            //System.out.println(tileIndexY.get(i).get(d).ypos);
+            //System.out.println(tileIndexY.get(i).get(d).letter);
+          }
+          System.out.println("makePlay() " + tileIndexY.get(i).size());
+          for (int j = 0; j < tileIndexY.get(i).size(); j++) {
+            for (int k = 0; k < g1.tileDescription.size(); k++) {
+              //System.out.println(g1.tileDescription.get(k).number + " " + tileIndexY.get(i).get(j).number);
+              if (g1.tileDescription.get(k).number == tileIndexY.get(i).get(j).number) {
+                g1.tileDescription.get(k).xpos = tileIndexY.get(i).get(j).xpos;
+                g1.tileDescription.get(k).ypos = tileIndexY.get(i).get(j).ypos;
+                //System.out.println("number matched" + g1.tileDescription.get(k).xpos + " " + (g1.tileDescription.get(k).ypos));
+              }
+            }
+          }
+          end = true;
+          madeWord = true;
+        }
+        //System.out.println("end = " + end);
+        if (end) {
+          //System.out.println("Concluding AI");
+          g1.black();
+          g1.gray();
+          break;
+        }
       }
+      x++;
+      min -= 2;
     }
-    for (int i = 0; i < scoreIndexY.size(); i++) {
-      if (scoreIndexY.get(i) > 8) {
-        //debugging
-        System.out.println("Found a score of "+scoreIndexY.get(i));
-        System.out.println("Length of word: " + tileIndexY.get(i).size());
-        for (int d = 0; d < tileIndexY.get(i).size(); d++) {
-          System.out.println(tileIndexY.get(i).get(d).xpos);
-          System.out.println(tileIndexY.get(i).get(d).ypos);
-          System.out.println(tileIndexY.get(i).get(d).letter);
-        }       
-        for (int j = 0; j < tileIndexY.get(i).size(); j++) {
-          for (int k = 0; k < g1.tileDescription.size(); k++) {
-            System.out.println(g1.tileDescription.get(k).number + " " + tileIndexY.get(i).get(j).number);
-            if (g1.tileDescription.get(k).number == tileIndexY.get(i).get(j).number) {
-              g1.tileDescription.get(k).xpos = tileIndexY.get(i).get(j).xpos;
-              g1.tileDescription.get(k).ypos = tileIndexY.get(i).get(j).ypos;
-              System.out.println("number matched" + g1.tileDescription.get(k).xpos + " " + (g1.tileDescription.get(k).ypos));
-            }
-          }
-        }
-        end = true;
-      }
-      System.out.println("end = " + end);
-      if (end) {
-        System.out.println("Concluding AI");
-        g1.black();
-        g1.gray();
-        break;
-      }
+    if (!madeWord){
+      System.out.println("AI couldn't make word due to bad tiles");
     }
   }
 
