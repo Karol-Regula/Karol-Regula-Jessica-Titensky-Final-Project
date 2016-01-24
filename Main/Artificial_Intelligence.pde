@@ -105,7 +105,7 @@ public class AI extends GameScreen {
   public void tryAllWords() {//tries to insert all of the words into all avaliable posisions on the board
     ArrayList<ArrayList<Tile>> possibleWords = wordsPossible();
     prepareIndexes();
-    for (int i = 0; i < possibleWords.size() && i < 8; i++) {//possibleWords.size();
+    for (int i = 0; i < possibleWords.size(); i++) {//possibleWords.size();
       currentWordTested = i;
       tryWord(possibleWords.get(i));
     }
@@ -179,9 +179,6 @@ public class AI extends GameScreen {
           //t.ypos=t.origy;
           tileIndexX.add(inputMod);//these index all tries, is inefficient, have to make this index only successful tries
           score = 0;
-        } else {
-          scoreIndexX.add(0);
-          tileIndexX.add(useless);
         }
         badOverlap = false;
         g1.grayAI();
@@ -219,9 +216,9 @@ public class AI extends GameScreen {
 
   public void makePlay() {
     boolean end = false;
-    Tile t1 = new Tile('a', 1, 1);
+    //Tile t1 = new Tile('a', 1, 1);
     for (int i = 0; i < scoreIndexX.size(); i++) {
-      if (scoreIndexX.get(i) > 6) {
+      if (scoreIndexX.get(i) > 8) {
         //debugging
         System.out.println("Found a score of "+scoreIndexX.get(i));
         System.out.println("Length of word: " + tileIndexX.get(i).size());
@@ -241,10 +238,12 @@ public class AI extends GameScreen {
           }
         }
         end = true;
-        break;
       }
+      System.out.println("end = " + end);
       if (end) {
+        System.out.println("Concluding AI");
         g1.black();
+        gray();
         break;
       }
     }
