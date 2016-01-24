@@ -25,16 +25,22 @@ void mouseClicked() {
   if (mode=="gameScreen") {
     g1.mouseClicked();
   }
+  if (mode=="mainMenu") {
+    m1.mouseClicked();
+  }
 }
 
 void keyPressed() {
   g1.keyPressed();
+  m1.write();
 }
 
 void draw() {
+  /*
   if (mode == "mainMenu") {// all the menu buttons would exist here
-    m1.select();//detects mouse presses and where the mouse it
-  }
+   m1.select();//detects mouse presses and where the mouse it
+   }
+   */
   if (mode == "gameScreen") {//would print the board and tiles and run the game code
     //g1.detect();
     //g1.mouseClicked();

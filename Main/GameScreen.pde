@@ -77,7 +77,7 @@ class GameScreen {
 
   public void createPlayers(int n, boolean ai) {
     for (int x = 0; x < n; x++) {
-      Player p1 = new Player(""+x, false);
+      Player p1 = new Player(m1.names[x], false);
       players.add(p1);
     }
     if (ai) {

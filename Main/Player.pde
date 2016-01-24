@@ -7,7 +7,7 @@ public class Player {
 
   public Player(String x, boolean makeAI) {
     score = 0;
-    name = "Player "+x;
+    name = x;
     isTurn=false;
     isAI = makeAI;
   }

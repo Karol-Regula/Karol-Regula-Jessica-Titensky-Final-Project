@@ -3,6 +3,18 @@ class MainMenu {
   int players;
   boolean ai;
   boolean aii =false; 
+  String[] names;
+  int active;
+
+
+  /*
+ public void detect() {
+   if (mousePressed && mouseY - yd < 200 && mouseY - yd > 100 && mouseX - xd > 75 && mouseY - yd < 375) {//checks if mouse was pressed on the button
+   mode = "gameScreen";//changes mode to the gameScreen
+   g1.boardSetup(0, false);//runs only once, sets up board
+   }
+   }
+   */
 
   public void setupMenu() {
     background(13, 42, 158);
@@ -53,18 +65,61 @@ class MainMenu {
     text("no", 563, 272);
   }
 
-  /*
- public void detect() {
-   if (mousePressed && mouseY - yd < 200 && mouseY - yd > 100 && mouseX - xd > 75 && mouseY - yd < 375) {//checks if mouse was pressed on the button
-   mode = "gameScreen";//changes mode to the gameScreen
-   g1.boardSetup(0, false);//runs only once, sets up board
-   }
-   }
-   */
+  public void setupNames() {
+    fill(13, 42, 158);
+    noStroke();
+    rect(350, 300, 400, 200);
+    stroke(0);
+    for (int i=0; i<players; i++) {
+      fill(171, 247, 182);
+      rect(370, 330+40*i, 140, 30);
+      fill(255, 122, 13);
+      textSize(20);
+      text("Player "+(i+1), 380, 353+40*i);
+    }
+    names= new String[players];
+  }
+
+  public void write() {
+    if (active!=0) {
+      if (key==ENTER || key==RETURN) {
+        fill(171, 247, 182);
+        rect(370, 330+40*(active-1), 140, 30);
+        fill(255, 122, 13);
+        textSize(15);
+        text(names[active-1], 370, 353+40*(active-1));
+        active=0;
+      } else {
+        if (key==BACKSPACE && names[active-1].length()>0) {
+          names[active-1]=names[active-1].substring(0, names[active-1].length()-1);
+        } else {
+          if (names[active-1].length()<=8 && key!=CODED) {
+            names[active-1]+=key;
+          }
+        }
+        System.out.println("GOING"+active+"SOFAR"+names[active-1]);
+        update(active-1);
+      }
+    }
+  }
 
 
-  public void select() {
-    if (mousePressed && 300<mouseX && mouseX<350 && 175<mouseY && mouseY<225) {
+  public void update(int player) {
+    fill(69, 209, 90);
+    rect(370, 330+40*player, 140, 30);
+    fill(255, 122, 13);
+    textSize(15);
+    text(names[active-1], 370, 353+40*player);
+  }
+
+
+
+
+
+
+
+  public void mouseClicked() {
+    if (300<mouseX && mouseX<350 && 175<mouseY && mouseY<225) {
       setupPlayers();
       players=1;
       fill(69, 209, 90);
@@ -72,8 +127,9 @@ class MainMenu {
       fill(255, 122, 13);
       textSize(30);
       text("1", 318, 212);
+      setupNames();
     }
-    if (mousePressed && 375<mouseX && mouseX<425 && 175<mouseY && mouseY<225) {
+    if (375<mouseX && mouseX<425 && 175<mouseY && mouseY<225) {
       setupPlayers();
       players=2;
       fill(69, 209, 90);
@@ -81,8 +137,9 @@ class MainMenu {
       fill(255, 122, 13);
       textSize(30);
       text("2", 393, 212);
+      setupNames();
     }
-    if (mousePressed && 450<mouseX && mouseX<500 && 175<mouseY && mouseY<225) {
+    if (450<mouseX && mouseX<500 && 175<mouseY && mouseY<225) {
       setupPlayers();
       players=3;
       fill(69, 209, 90);
@@ -90,8 +147,9 @@ class MainMenu {
       fill(255, 122, 13);
       textSize(30);
       text("3", 468, 212);
+      setupNames();
     }
-    if (mousePressed && 525<mouseX && mouseX<575 && 175<mouseY && mouseY<225) {
+    if (525<mouseX && mouseX<575 && 175<mouseY && mouseY<225) {
       setupPlayers();
       players=4;
       fill(69, 209, 90);
@@ -99,8 +157,9 @@ class MainMenu {
       fill(255, 122, 13);
       textSize(30);
       text("4", 543, 212);
+      setupNames();
     }
-    if (mousePressed && 475<mouseX && mouseX<525 && 250<mouseY && mouseY<280) {
+    if (475<mouseX && mouseX<525 && 250<mouseY && mouseY<280) {
       setupAI();
       ai=true;
       aii=true;
@@ -110,7 +169,7 @@ class MainMenu {
       textSize(20);
       text("yes", 483, 272);
     }
-    if (mousePressed && 550<mouseX && mouseX<600 && 250<mouseY && mouseY<280) {
+    if (550<mouseX && mouseX<600 && 250<mouseY && mouseY<280) {
       setupAI();
       ai=false;
       aii=true;
@@ -120,7 +179,41 @@ class MainMenu {
       textSize(20);
       text("no", 563, 272);
     }
-    if (mousePressed && 700<mouseX && mouseX<800 && 600<mouseY && mouseY<660) {
+    if (370<mouseX && mouseX<510 && 330<mouseY && mouseY<360 && players>=1) {
+      if (active==0) {
+        fill(69, 209, 90);
+        rect(370, 330, 140, 30);
+        names[0]=" ";
+        active=1;
+        //System.out.println("ONE");
+        //System.out.println(mouseY);
+      }
+    }
+    if (370<mouseX && mouseX<510 && 370<mouseY && mouseY<400 && players>=2) {
+      if (active==0) {
+        fill(69, 209, 90);
+        rect(370, 370, 140, 30);
+        names[1]=" ";
+        active=2;
+      }
+    }
+    if (370<mouseX && mouseX<510 && 410<mouseY && mouseY<440 && players>=3) {
+      if (active==0) {
+        fill(69, 209, 90);
+        rect(370, 410, 140, 30);
+        names[2]=" ";
+        active=3;
+      }
+    }
+    if (370<mouseX && mouseX<510 && 450<mouseY && mouseY<470 && players>=4) {
+      if (active==0) {
+        fill(69, 209, 90);
+        rect(370, 450, 140, 30);
+        names[3]=" ";
+        active=4;
+      }
+    }
+    if (700<mouseX && mouseX<800 && 600<mouseY && mouseY<660) {
       if (players!=0 && aii) {
         mode="gameScreen";
         g1=new GameScreen();
