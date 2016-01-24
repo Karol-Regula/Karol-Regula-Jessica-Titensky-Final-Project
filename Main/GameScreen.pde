@@ -547,8 +547,8 @@ class GameScreen {
           if (t.bodyColor==color(204, 159, 102)) {
             System.out.println(t.letter);
             //upto--;
-            char c=t.letter;
-            int s=t.score;
+            //char c=t.letter;
+            //int s=t.score;
             /*
             tileDescription.set(i, tileDescription.get(upto));
              tileDescription.get(i).owner=t.owner;
@@ -556,12 +556,22 @@ class GameScreen {
              tileDescription.set(upto, t);
              tileDescription.get(upto).owner="";
              tileDescription.get(upto).bodyColor=color(180, 102, 5);
+             
+             t.letter=tileDescription.get(upto).letter;
+             t.score=tileDescription.get(upto).score;
+             tileDescription.get(upto).letter=c;
+             tileDescription.get(upto).score=s;
+             System.out.println(t.letter);
              */
-            t.letter=tileDescription.get(upto).letter;
-            t.score=tileDescription.get(upto).score;
-            tileDescription.get(upto).letter=c;
-            tileDescription.get(upto).score=s;
-            System.out.println(t.letter);
+            tileDescription.set(i, tileDescription.get(upto));
+            tileDescription.get(i).origx=tileDescription.get(i).xpos=t.xpos;
+            tileDescription.get(i).origy=tileDescription.get(i).ypos=t.ypos;
+            tileDescription.get(i).owner=t.owner;
+            System.out.println("WITH"+tileDescription.get(i).letter);
+            tileDescription.set(upto, t);
+            tileDescription.get(upto).origx=tileDescription.get(upto).xpos=tileDescription.get(upto).origy=tileDescription.get(upto).ypos=1000;
+            tileDescription.get(upto).owner="";
+            tileDescription.get(upto).bodyColor=color(180, 102, 5);
             ArrayList<Tile> lastTiles= new ArrayList<Tile>();
             for (int j=upto; j<tileDescription.size(); j++) {
               lastTiles.add(tileDescription.get(j));
@@ -570,8 +580,9 @@ class GameScreen {
             for (int j=0; j<lastTiles.size(); j++) {
               tileDescription.set(upto+j, lastTiles.get(j));
             }
-            t.bodyColor=color(180, 102, 5);
-            t.print(t.bodyColor);
+            //t.bodyColor=color(180, 102, 5);
+            System.out.println(tileDescription.get(i).letter);
+            tileDescription.get(i).print(tileDescription.get(i).bodyColor);
             //upto++;
           }
         }
@@ -584,8 +595,11 @@ class GameScreen {
       textSize(25);
       text("Swap", 16*size+xd+14, 14*size+yd-20+28);
       swap=false;
+      if (selected) {
+        nextTurn();
+      }
       selected=false;
-      nextTurn();
+      //nextTurn();
     }
   }
 
