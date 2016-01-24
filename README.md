@@ -18,5 +18,9 @@ Final Project 2016 APCS
  	Karol - Fixed a bug in the swapselect() method, did not swap tile scores when swapping letters. Most tiles had incorrect scores after swapping. Reverted to old commit to make sure I didn't break that. Added everything back in after bug was fixed.
  	Finally added the two blank tiles increading the amount of tiles to 100 (equal number and distribution to real Scrabble). The player may press any upper or lower case key (illegal keypresses do not crash the game) in order to assign a letter to a blank tile that he or she has previously selected. The selecting occurs in detect() and changes the boolean needsLetter to true. In keyspressed() a loop and a if statement find the tile with needsLetter = true and change the letter to the input from the Input class. The tile then sets its score to match the score the letter should have.
  	Bugs Introduced - Tiles now slide down to the left when being replenished (not really a bug but the behavior is different from the one before)(and that worries me).
-	Might have broken new scoring system that tracked the score for entire words when a letter was added to them. This could be related to the other bug. (Will coordinate in class, ask how new scoring system works and fix bug) 	
+	Might have broken new scoring system that tracked the score for entire words when a letter was added to them. This could be related to the other bug. (Will coordinate in class, ask how new scoring system works and fix bug) 
+	01-24-16
+	Major work on AI, now works ~90% (from 0%) of the time. 
+	
+	>>>  See commit notes for details. <<<
  	
