@@ -21,6 +21,9 @@ Final Project 2016 APCS
 	Might have broken new scoring system that tracked the score for entire words when a letter was added to them. This could be related to the other bug. (Will coordinate in class, ask how new scoring system works and fix bug) 
 	01-24-16
 	Major work on AI, now works ~90% (from 0%) of the time. 
+
+	01-23/24-16
+	Jessica- fixed a lot of buggy things (swapping, blank tiles, undoing, and scoring. and made the adding names thing.
 	
 	>>>  See commit notes for details. <<<
  	
