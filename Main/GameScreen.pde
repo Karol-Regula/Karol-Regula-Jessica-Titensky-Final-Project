@@ -482,7 +482,7 @@ class GameScreen {
       tileDescription.get(i).print(tileDescription.get(i).bodyColor);
     }
     for (int j = 0; j < tileDescription.size(); j++) {
-      if (tileDescription.get(j).wasBlank && !tileDescription.get(j).placed) {
+      if (tileDescription.get(j).wasBlank) {// && !tileDescription.get(j).placed) {
         System.out.println("reverting");
         tileDescription.get(j).letter = '*';
         tileDescription.get(j).score = 0;
@@ -519,6 +519,12 @@ class GameScreen {
     if (score>0) {
       activePlayer().score+=scoreit();
       nextTurn();
+    }
+    for (int i=0; i<tileDescription.size(); i++) {
+      Tile t=tileDescription.get(i);
+      if (t.wasBlank && t.xpos!=1000) {
+        t.wasBlank=false;
+      }
     }
   }
 
@@ -650,7 +656,8 @@ class GameScreen {
       swapselect();
     }
     if (selected) {
-      detect();
+      //detect();
+      move();
     } else {
       selected=detect();
     }
@@ -682,11 +689,17 @@ class GameScreen {
         if (theLetter != '}') {
           System.out.println(theLetter);
           tileDescription.get(i).letter = theLetter;
-          tileDescription.get(i).needsLetter = false;
+          tileDescription.get(i).needsLetter = false;//tileDescription.get(i).wasBlank = false;
           //assinging the score to the letter
           tileDescription.get(i).score = tileScores[(Character.getNumericValue(tileDescription.get(i).letter)) - (Character.getNumericValue('a'))];
+          System.out.println(""+tileDescription.get(i).letter+""+tileDescription.get(i).score);
           tileDescription.get(i).print(tileDescription.get(i).bodyColor);
-          gray();
+          //gray();
+          fill(255, 255, 255);
+          noStroke();
+          rect(200, 640, size*15, 15);
+          stroke(0);
+          System.out.println("YASS");
         }
       }
     }
