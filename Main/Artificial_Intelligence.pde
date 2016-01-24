@@ -184,6 +184,45 @@ public class AI extends GameScreen {
         g1.grayAI();
       }
     }
+    for (int i = 3 * size; i < 16 * size; i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
+      for (int j = 6 * size; j < ((19 * size) - ((input.size() * size))); j+= size) {//xdimension
+        for (int x = 0; x < input.size(); x++) {
+          input.get(x).xpos = j;
+          input.get(x).ypos = i + x * size;
+          for (int z = 0; z < g1.tileDescription.size(); z++) {
+            if (g1.tileDescription.get(z).xpos == input.get(x).xpos && g1.tileDescription.get(z).ypos == input.get(x).ypos && g1.tileDescription.get(z).letter != input.get(x).letter) {
+              badOverlap = true;
+              System.out.println("Bad overlap");
+            }
+          }
+        }
+        if (g1.legitt() && g1.legit() && !badOverlap) {
+          //System.out.println("legits passedx============================================================");
+          for (int k = 0; k < g1.tileDescription.size(); k++) {
+            Tile t = g1.tileDescription.get(k);
+            if (t.origy!=t.ypos) {
+              //t.placed=true;
+              System.out.println("scoring=============");
+              score+=t.score * g1.multt(t.xpos - xd, t.ypos - yd);
+            }
+          }
+          scoreIndexY.add(score);
+          ArrayList<Tile> inputMod = new ArrayList<Tile>(); 
+          for (int n = 0; n < input.size(); n++) {
+            Tile t1 = new Tile(input.get(n).letter, input.get(n).score, input.get(n).number);//this might be the cause of future bugs, be weary
+            t1.xpos = input.get(n).xpos;
+            t1.ypos = input.get(n).ypos;
+            inputMod.add(t1);
+          }
+          //t.xpos=t.origx;
+          //t.ypos=t.origy;
+          tileIndexY.add(inputMod);//these index all tries, is inefficient, have to make this index only successful tries
+          score = 0;
+        }
+        badOverlap = false;
+        g1.grayAI();
+      }
+    }
     /*
     for (int i = 2 * size; i < 17 * size; i+= size) {//first weird for loops I ever wrote//ydimension//vertical
      for (int j = 5 * size; j < 20 * size; j+= size) {//xdimension
@@ -233,6 +272,36 @@ public class AI extends GameScreen {
             if (g1.tileDescription.get(k).number == tileIndexX.get(i).get(j).number) {
               g1.tileDescription.get(k).xpos = tileIndexX.get(i).get(j).xpos;
               g1.tileDescription.get(k).ypos = tileIndexX.get(i).get(j).ypos;
+              System.out.println("number matched" + g1.tileDescription.get(k).xpos + " " + (g1.tileDescription.get(k).ypos));
+            }
+          }
+        }
+        end = true;
+      }
+      System.out.println("end = " + end);
+      if (end) {
+        System.out.println("Concluding AI");
+        g1.black();
+        g1.gray();
+        break;
+      }
+    }
+    for (int i = 0; i < scoreIndexY.size(); i++) {
+      if (scoreIndexY.get(i) > 8) {
+        //debugging
+        System.out.println("Found a score of "+scoreIndexY.get(i));
+        System.out.println("Length of word: " + tileIndexY.get(i).size());
+        for (int d = 0; d < tileIndexY.get(i).size(); d++) {
+          System.out.println(tileIndexY.get(i).get(d).xpos);
+          System.out.println(tileIndexY.get(i).get(d).ypos);
+          System.out.println(tileIndexY.get(i).get(d).letter);
+        }       
+        for (int j = 0; j < tileIndexY.get(i).size(); j++) {
+          for (int k = 0; k < g1.tileDescription.size(); k++) {
+            System.out.println(g1.tileDescription.get(k).number + " " + tileIndexY.get(i).get(j).number);
+            if (g1.tileDescription.get(k).number == tileIndexY.get(i).get(j).number) {
+              g1.tileDescription.get(k).xpos = tileIndexY.get(i).get(j).xpos;
+              g1.tileDescription.get(k).ypos = tileIndexY.get(i).get(j).ypos;
               System.out.println("number matched" + g1.tileDescription.get(k).xpos + " " + (g1.tileDescription.get(k).ypos));
             }
           }
