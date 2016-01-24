@@ -486,7 +486,7 @@ class GameScreen {
     }
     for (int j = 0; j < tileDescription.size(); j++) {
       if (tileDescription.get(j).wasBlank) {// && !tileDescription.get(j).placed) {
-        System.out.println("reverting");
+        //System.out.println("reverting");
         tileDescription.get(j).letter = '*';
         tileDescription.get(j).score = 0;
         tileDescription.get(j).print(tileDescription.get(j).bodyColor);
@@ -494,6 +494,13 @@ class GameScreen {
     }
     b1.scoreBoard();
     swap=false;
+  }
+
+  public void grayAI() {//simplified for AI usage
+    for (int i=0; i < tileDescription.size(); i++) {//temporary fix to all tiles printing in top left corner, but for now the game effectively has 15 tiles in play
+      tileDescription.get(i).xpos=tileDescription.get(i).origx;
+      tileDescription.get(i).ypos=tileDescription.get(i).origy;
+    }
   }
 
   public int multt(int x, int y) {

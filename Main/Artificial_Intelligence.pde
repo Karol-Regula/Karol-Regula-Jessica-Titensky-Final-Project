@@ -184,7 +184,7 @@ public class AI extends GameScreen {
           tileIndexX.add(useless);
         }
         badOverlap = false;
-        g1.gray();
+        g1.grayAI();
       }
     }
     /*
@@ -210,7 +210,7 @@ public class AI extends GameScreen {
      } else {
      scoreIndexY.add(0);
      }
-     gray();
+     grayAI();
      }
      }
      }
