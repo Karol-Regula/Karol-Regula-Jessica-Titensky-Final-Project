@@ -184,8 +184,8 @@ public class AI extends GameScreen {
         g1.grayAI();
       }
     }
-    for (int i = 3 * size; i < 16 * size; i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
-      for (int j = 6 * size; j < ((19 * size) - ((input.size() * size))); j+= size) {//xdimension
+    for (int i = 3 * size; i < ((16 * size) - ((input.size() * size))); i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
+      for (int j = 6 * size; j < 19 * size; j+= size) {//xdimension
         for (int x = 0; x < input.size(); x++) {
           input.get(x).xpos = j;
           input.get(x).ypos = i + x * size;

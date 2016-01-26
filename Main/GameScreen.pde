@@ -542,7 +542,7 @@ class GameScreen {
     }
     if (score>0) {
       activePlayer().score+=scoreit();
-      if (put>0) {
+      if (put >= 7) {
         activePlayer().score+=50;
       }
       nextTurn();
