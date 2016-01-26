@@ -489,7 +489,7 @@ class GameScreen {
     }
     for (int j = 0; j < tileDescription.size(); j++) {
       if (tileDescription.get(j).wasBlank) {// && !tileDescription.get(j).placed) {
-        //System.out.println("reverting");
+        System.out.println("reverting");
         tileDescription.get(j).letter = '*';
         tileDescription.get(j).score = 0;
         tileDescription.get(j).print(tileDescription.get(j).bodyColor);
@@ -549,7 +549,7 @@ class GameScreen {
     }
     for (int i=0; i<tileDescription.size(); i++) {
       Tile t=tileDescription.get(i);
-      if (t.wasBlank && t.xpos!=1000) {
+      if (t.wasBlank && t.placed) {
         t.wasBlank=false;
       }
     }

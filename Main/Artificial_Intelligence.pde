@@ -338,6 +338,10 @@ public class AI extends GameScreen {
       }
       g1.swapselect();
       System.out.println("AI has swapped its tiles because it could not make a word.");
+      PFont f = createFont("Arial", 16, true);
+      textFont(f, 12);
+      fill(#2E49F0);
+      text("AI has swapped its tiles because it could not make a word.", 250, 620);
     }
   }
 
