@@ -121,10 +121,10 @@ public class AI extends GameScreen {
       scoreIndexY.remove(0);
     }
     while (tileIndexX.size() > 0) {
-      scoreIndexY.remove(0);
+      tileIndexX.remove(0);
     }
     while (tileIndexY.size() > 0) {
-      scoreIndexY.remove(0);
+      tileIndexY.remove(0);
     }
   }
 
