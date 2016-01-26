@@ -1,7 +1,23 @@
 # Karol-Regula-Jessica-Titensky-Final-Project
 Final Project 2016 APCS
 
-				Changelog
+
+			Project Description
+			~~~~~~~~~~~~~~~~~~~
+Scrabble with multiplayer or against an AI.
+
+
+      		     	Directions to compile/run
+			~~~~~~~~~~~~~~~~~~~~~~~~~
+Open any of the .pde files in Main and press run.
+
+     	    	     	
+			Directions to use it
+			~~~~~~~~~~~~~~~~~~~~
+On the main menu, press how many players you want, and whether to have an AI. To enter player names, press on that player's box, type in the name (max 8 chars), and press enter. On the game screen, to make a move, select a letter and then press where on the board you want it (the first move has to go through the center square and the others all have to touch other tiles on the board). To make the move, press play and if its a valid word, itll go onto the next players turn (shown in the scoreboard). For each word you make, you get the sum of the scores on each letter of the word multiplied by the square that letter is on (white is 1x, red and blue are 2x, green and orange are 3x).Instead of making a word, you can also swap tiles on your turn (press swap, select which tiles to change, and press swap again to end the turn (this only works if there are >=7 tiles left)). The undo button gets rid of all the tiles you just put on the board, undoes anything you just selected for a swap, and reverts originally blank tiles in your tile rack to being blank again. 
+
+
+			     	Changelog
  				~~~~~~~~~
   01-20-16
   	Karol-worked on AI and fixed a part of how tiles should move
@@ -25,5 +41,6 @@ Final Project 2016 APCS
 	01-23/24-16
 	Jessica- fixed a lot of buggy things (swapping, blank tiles, undoing, and scoring. and made the adding names thing.
 	
+
 	>>>  See commit notes for details. <<<
  	
