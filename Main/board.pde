@@ -114,7 +114,11 @@ class Board extends GameScreen {
     fill(0, 0, 0);
     textFont(f, 12);
     for (int i = 0; i < g1.players.size(); i++) {
-      fill(#7993F5);
+      if (g1.players.get(i).name.equals(g1.activePlayer().name)) {
+        fill(157, 177, 250);
+      } else {
+        fill(#7993F5);
+      }
       rect(21 * size + size / 2-c, 4 * size + i * size, 3 * size+c, size);
       fill(0, 0, 0);
       text(g1.players.get(i).name+":", 22 * size-20-c*2/3, 5 * size + i * size - 15);
