@@ -145,8 +145,8 @@ public class AI extends GameScreen {
     int score = 0;
     boolean badOverlap = false;
     ArrayList<Tile> useless = new ArrayList<Tile>();
-    for (int i = 3 * size; i < 16 * size; i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
-      for (int j = 6 * size; j < ((19 * size) - ((input.size() * size))); j+= size) {//xdimension
+    for (int i = 3 * size; i < 15 * size; i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
+      for (int j = 6 * size; j < ((18 * size) - ((input.size() * size))); j+= size) {//xdimension
         for (int x = 0; x < input.size(); x++) {
           input.get(x).xpos = j + x * size;
           input.get(x).ypos = i;
@@ -184,8 +184,8 @@ public class AI extends GameScreen {
         g1.grayAI();
       }
     }
-    for (int i = 3 * size; i < ((16 * size) - ((input.size() * size))); i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
-      for (int j = 6 * size; j < 19 * size; j+= size) {//xdimension
+    for (int i = 3 * size; i < ((15 * size) - ((input.size() * size))); i+= size) {//first weird for loops I ever wrote//ydimension//horizontal
+      for (int j = 6 * size; j < 18 * size; j+= size) {//xdimension
         for (int x = 0; x < input.size(); x++) {
           input.get(x).xpos = j;
           input.get(x).ypos = i + x * size;
@@ -328,7 +328,16 @@ public class AI extends GameScreen {
       min -= 2;
     }
     if (!madeWord) {
-      System.out.println("AI couldn't make word due to bad tiles");
+      ArrayList<Tile> tiles = grabTiles();
+      for (int g = 0; g < tiles.size(); g++) {
+        System.out.println(tiles.get(g).letter);
+      }
+      g1.swapselect();
+      for (int f = 0; f < tiles.size(); f++) {
+        tiles.get(f).bodyColor = color(204, 159, 102);
+      }
+      g1.swapselect();
+      System.out.println("AI has swapped its tiles because it could not make a word.");
     }
   }
 
