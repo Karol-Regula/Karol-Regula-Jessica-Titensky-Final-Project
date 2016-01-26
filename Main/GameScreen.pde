@@ -172,7 +172,7 @@ class GameScreen {
         if (mouseY - yd>16 * size) {
           t=tileDescription.get(x);
           //handle blank tiles
-          if (t.letter == '*') {
+          if (t.letter == '*' && swap==false) {
             PFont f = createFont("Arial", 16, true);
             textFont(f, 12);
             fill(#2E49F0);
